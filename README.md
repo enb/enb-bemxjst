@@ -1,4 +1,4 @@
-enb-bemxjst
+enb-bemxjst [![Build Status](https://travis-ci.org/enb-make/enb-bemxjst.png?branch=master)](https://travis-ci.org/enb-make/enb-bemxjst)
 ===========
 
 Поддержка технологий, базирующихся на основе [`bem-xjst`](https://github.com/bem/bem-xjst), для ENB.
