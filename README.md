@@ -50,8 +50,3 @@ bemhtml
 ```javascript
 nodeConfig.addTech(require('enb-bemxjst/techs/bemhtml'));
 ```
-
-Configuration
--------------
-
-Detailed information about your package configuration.
