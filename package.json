@@ -12,6 +12,9 @@
     "engines" : {
         "node": ">= 0.8.0"
     },
+    "peerDependencies": {
+        "enb": ">= 0.7.15"
+    },
     "dependencies" : {
         "bem-core": "git://github.com/bem/bem-core.git#v1"
     },
