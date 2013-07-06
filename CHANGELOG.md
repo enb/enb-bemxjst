@@ -1,2 +1,2 @@
-Version 0.0.1:
- * Initial release.
+Версия 0.0.1:
+ * Добавлена технология `bemhtml`.
