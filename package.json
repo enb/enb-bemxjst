@@ -22,6 +22,7 @@
     "scripts": {
         "test" : "make validate",
         "lint": "make lint",
-        "func-test": "./node_modules/.bin/mocha -u bdd -R spec --recursive test/func"
+        "func-test": "npm run-script build-bemhtml && ./node_modules/.bin/mocha -u bdd -R spec --recursive test/func",
+        "build-bemhtml": "cd test/fixtures/bemhtml && ../../../node_modules/.bin/enb make -n"
     }
 }
