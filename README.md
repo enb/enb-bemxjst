@@ -3,10 +3,10 @@ enb-bemxjst
 
 Поддержка технологий, базирующихся на основе [`bem-xjst`](https://github.com/bem/bem-xjst), для ENB.
 
-Installation
-------------
+Установка
+---------
 
-`enb-bemxjst` can be installed using `npm`:
+Вы можете установить `enb-bemxjst` с помощью `npm`:
 
 ```
 npm install enb-bemxjst
