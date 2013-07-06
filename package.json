@@ -16,6 +16,9 @@
         "enb": ">= 0.7.15"
     },
     "dependencies" : {
+        "vow": "*",
+        "vow-fs": "*",
+        "sibling": "*",
         "bem-core": "git://github.com/bem/bem-core.git#v1"
     },
     "devDependencies" : {
