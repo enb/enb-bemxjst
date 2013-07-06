@@ -1,11 +1,7 @@
 enb-bemxjst
-===============
+===========
 
-Short info about your package.
-
-What does your package.
-
-Which limits has your package.
+Поддержка технологий, базирующихся на основе [`bem-xjst`](https://github.com/bem/bem-xjst), для ENB.
 
 Installation
 ------------
