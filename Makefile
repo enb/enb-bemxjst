@@ -6,7 +6,7 @@ JSCS = $(BIN)/jscs
 
 .PHONY: test
 test:
-	npm run-script build-bemhtml && $(MOCHA) -u bdd -R spec --recursive
+	npm run-script build-bemhtml && npm run-script build-bemhtml-old &&  $(MOCHA) -u bdd -R spec --recursive
 
 .PHONY: validate
 validate: lint test

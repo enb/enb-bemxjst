@@ -1,0 +1,9 @@
+{
+    "block": "b-page",
+    "title": "Title",
+    "head": [
+        { "elem": "css", "url": "style" },
+        { "elem": "js", "url": "script.js" }
+    ],
+    "content": "Page content"
+}

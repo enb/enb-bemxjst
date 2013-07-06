@@ -1,0 +1,86 @@
+block b-page {
+
+    doctype: this.ctx.doctype || '<!DOCTYPE html>'
+
+    xUACompatible: this.ctx['x-ua-compatible'] === false ? false : {
+        tag: 'meta',
+        attrs: { 'http-equiv': 'X-UA-Compatible', content: this.ctx['x-ua-compatible'] || 'IE=edge' }
+    }
+
+    default: {
+        var ctx = this.ctx,
+            dtype = apply('doctype'),
+            xUA = apply('xUACompatible'),
+            buf = [
+                dtype,
+                {
+                    elem: 'root',
+                    content: [
+                        {
+                            elem: 'head',
+                            content: [
+                                {
+                                    tag: 'meta',
+                                    attrs: { charset: 'utf-8' }
+                                },
+                                xUA,
+                                {
+                                    tag: 'title',
+                                    content: ctx.title
+                                },
+                                ctx.favicon ? {
+                                    elem: 'favicon',
+                                    url: ctx.favicon
+                                } : '',
+                                ctx.meta,
+                                {
+                                    block: 'i-ua'
+                                },
+                                ctx.head
+                            ]
+                        },
+                        ctx
+                    ]
+                }
+            ];
+
+        applyCtx(buf);
+    }
+
+    tag: 'body'
+
+    mix: [{ elem: 'body' }]
+
+    elem root {
+
+        bem: false
+        tag: 'html'
+        cls: 'i-ua_js_no i-ua_css_standard'
+
+    }
+
+    elem head {
+
+        bem: false
+        tag: 'head'
+
+    }
+
+    elem meta {
+
+        bem: false
+        tag: 'meta'
+        attrs: this.ctx.attrs
+
+    }
+
+    elem favicon {
+
+        bem: false
+        tag: 'link'
+        attrs: { rel: 'shortcut icon', href: this.ctx.url }
+
+    }
+
+}
+
