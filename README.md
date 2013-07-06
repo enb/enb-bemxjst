@@ -12,23 +12,6 @@ enb-bemxjst
 npm install enb-bemxjst
 ```
 
-Usage
------
-
-To run `enb-bemxjst`, you can use the following command from the project root:
-
-```
-./node_modules/.bin/enb-bemxjst path[ path[...]]
-```
-
-Example:
-
-```
-var HelloWorld = require('enb-bemxjst').HelloWorld;
-var helloWorld = new HelloWorld();
-console.log(helloWorld.calculate());
-```
-
 bemhtml
 -------
 
