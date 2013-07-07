@@ -19,7 +19,8 @@
         "vow": "*",
         "vow-fs": "*",
         "sibling": "*",
-        "bem-core": "git://github.com/bem/bem-core.git#v1"
+        "bem-core": "git://github.com/bem/bem-core.git#v1",
+        "bemhtml-compat": "0.0.8"
     },
     "devDependencies" : {
         "enb": ">= 0.7.15",
