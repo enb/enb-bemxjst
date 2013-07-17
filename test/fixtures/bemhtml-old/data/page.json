@@ -5,5 +5,11 @@
         { "elem": "css", "url": "style" },
         { "elem": "js", "url": "script.js" }
     ],
-    "content": "Page content"
+    "content": [
+        {
+            "block": "b-title",
+            "content": "Page Title"
+        },
+        "Page content"
+    ]
 }
