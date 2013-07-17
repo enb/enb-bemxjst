@@ -33,22 +33,29 @@ module.exports = require('enb/lib/build-flow').create()
                 });
         },
         _jsFilesPreprocess: function(sourceFiles) {
+            var _this = this;
+
             return sourceFiles.map(function(file) {
                 return VowFs.read(file.fullname, 'utf8')
                     .then(function(source) {
-                        return '/* begin: ' + file.fullname + ' *' + '/\n' +
-                            source +
-                            '\n/* end: ' + file.fullname + ' *' + '/';
+                        return _this._commentsWrap(source, file.fullname);
                     });
             });
         },
         _oldFilesPreprocess: function(sourceFiles){
+            var _this = this;
+
             return sourceFiles.map(function(file) {
                 return VowFs.read(file.fullname, 'utf8')
                     .then(function(source) {
-                        return bemcompat.transpile(source);
+                        return _this._commentsWrap(bemcompat.transpile(source), file.fullname);
                     });
             });
+        },
+        _commentsWrap: function(source, filename) {
+            return '/* begin: ' + filename + ' *' + '/\n' +
+                source +
+                '\n/* end: ' + filename + ' *' + '/';
         },
         _bemxjstProcess: function(source, devMode, cache, exportName) {
             this.node.getLogger().log('Calm down, OmetaJS is running...');
