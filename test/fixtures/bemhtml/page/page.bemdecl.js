@@ -1,5 +1,5 @@
 exports.blocks = [
     {
-        "block": "page"
+        "name": "page"
     }
 ];
