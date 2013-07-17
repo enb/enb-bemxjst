@@ -25,8 +25,8 @@ module.exports = require('enb/lib/build-flow').create()
                 });
 
             return Vow.all(Array.prototype.concat(
-                    _this._jsFilesPreprocess(jsFiles),
-                    _this._oldFilesPreprocess(oldFiles)
+                    _this._oldFilesPreprocess(oldFiles),
+                    _this._jsFilesPreprocess(jsFiles)
                 ))
                 .then(function(sources) {
                     return _this._bemxjstProcess(sources.join('\n'), devMode, cache, exportName);
@@ -43,12 +43,12 @@ module.exports = require('enb/lib/build-flow').create()
             });
         },
         _oldFilesPreprocess: function(sourceFiles){
-            return Vow.all(sourceFiles.map(function(file) {
-                    return VowFs.read(file.fullname, 'utf8');
-                }))
-                .then(function(sources) {
-                    return bemcompat.transpile(sources.join('\n'));
-                });
+            return sourceFiles.map(function(file) {
+                return VowFs.read(file.fullname, 'utf8')
+                    .then(function(source) {
+                        return bemcompat.transpile(source);
+                    });
+            });
         },
         _bemxjstProcess: function(source, devMode, cache, exportName) {
             this.node.getLogger().log('Calm down, OmetaJS is running...');
