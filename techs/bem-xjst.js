@@ -1,5 +1,5 @@
 var Vow = require('vow'),
-    VowFs = require('vow-fs'),
+    VowFs = require('enb/lib/fs/async-fs'),
     BEMHTML = require('bem-core/.bem/lib/bemhtml'),
     bemcompat = require('bemhtml-compat');
 
