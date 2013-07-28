@@ -1,29 +1,29 @@
 {
-    "author" : "Andrew Abramov <andrewblond@yandex.com>",
-    "description" : "BEMXJST support for ENB.",
-    "name" : "enb-bemxjst",
-    "version" : "0.0.6",
-    "repository" : "https://github.com/enb-make/enb-bemxjst",
-    "contributors" : [
+    "author": "Andrew Abramov <andrewblond@yandex.com>",
+    "description": "BEMXJST support for ENB.",
+    "name": "enb-bemxjst",
+    "version": "0.0.6",
+    "repository": "https://github.com/enb-make/enb-bemxjst",
+    "contributors": [
         {
             "name": "Andrew Abramov",
             "email": "andrewblond@yandex.com"
         }
     ],
-    "engines" : {
+    "engines": {
         "node": ">= 0.8.0"
     },
     "peerDependencies": {
         "enb": ">= 0.8.22"
     },
-    "dependencies" : {
+    "dependencies": {
         "vow": "*",
         "vow-fs": "*",
         "sibling": "*",
         "bem-core": "git://github.com/bem/bem-core.git#v1",
         "bemhtml-compat": "0.0.9"
     },
-    "devDependencies" : {
+    "devDependencies": {
         "enb": ">= 0.8.22",
         "jshint": "2.1.3",
         "mocha": "1.11.0",
@@ -31,7 +31,7 @@
         "chai": "1.7.2"
     },
     "scripts": {
-        "test" : "make validate",
+        "test": "make validate",
         "lint": "make lint",
         "func-test": "npm run-script build-bemhtml && npm run-script build-bemhtml-old && ./node_modules/.bin/mocha -u bdd -R spec --recursive test/func",
         "build-bemhtml": "cd test/fixtures/bemhtml && YENV=development ../../../node_modules/.bin/enb make -n",
