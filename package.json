@@ -3,6 +3,7 @@
     "description" : "BEMXJST support for ENB.",
     "name" : "enb-bemxjst",
     "version" : "0.0.5",
+    "repository" : "https://github.com/enb-make/enb-bemxjst",
     "contributors" : [
         {
             "name": "Andrew Abramov",
