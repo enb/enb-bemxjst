@@ -7,15 +7,15 @@ module.exports = require('enb/lib/build-flow').create()
     .name('bem-xjst')
     .target('target', '?.bemxjst.js')
     .methods({
-        _jsFilesProcess: function(sourceFiles, devMode, cache, exportName) {
+        _jsFilesProcess: function(sourceFiles, options) {
             var _this = this;
 
             return Vow.all(_this._jsFilesPreprocess(sourceFiles))
                 .then(function(sources) {
-                    return _this._bemxjstProcess(sources.join('\n'), devMode, cache, exportName);
+                    return _this._bemxjstProcess(sources.join('\n'), options);
                 });
         },
-        _oldFilesProcess: function(sourceFiles, devMode, cache, exportName) {
+        _oldFilesProcess: function(sourceFiles, options) {
             var _this = this,
                 jsFiles = sourceFiles.filter(function(file) {
                     return 'bemhtml.xjst' === file.suffix;
@@ -29,7 +29,7 @@ module.exports = require('enb/lib/build-flow').create()
                     _this._jsFilesPreprocess(jsFiles)
                 ))
                 .then(function(sources) {
-                    return _this._bemxjstProcess(sources.join('\n'), devMode, cache, exportName);
+                    return _this._bemxjstProcess(sources.join('\n'), options);
                 });
         },
         _jsFilesPreprocess: function(sourceFiles) {
@@ -57,11 +57,12 @@ module.exports = require('enb/lib/build-flow').create()
                 source +
                 '\n/* end: ' + filename + ' *' + '/';
         },
-        _bemxjstProcess: function(source, devMode, cache, exportName) {
+        _bemxjstProcess: function(source, options) {
             this.node.getLogger().log('Calm down, OmetaJS is running...');
 
             var bemxjstProcessor = BemxjstProcessor.fork();
-            return bemxjstProcessor.process(source, devMode, cache, exportName).then(function(res) {
+
+            return bemxjstProcessor.process(source, options).then(function(res) {
                 bemxjstProcessor.dispose();
                 return res;
             });
@@ -70,11 +71,7 @@ module.exports = require('enb/lib/build-flow').create()
     .createTech();
 
 var BemxjstProcessor = require('sibling').declare({
-    process: function(source, devMode, cache, exportName) {
-        return BEMHTML.translate(source, {
-            devMode: devMode,
-            cache: cache,
-            exportName: exportName
-        });
+    process: function(source, options) {
+        return BEMHTML.translate(source, options);
     }
 });
