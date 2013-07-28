@@ -30,7 +30,7 @@ module.exports = require('./bem-xjst').buildFlow()
     .defineOption('cache', true)
     .useFileList(['bemhtml', 'bemhtml.xjst'])
     .builder(function(sourceFiles) {
-        return this._jsFilesProcess(sourceFiles, {
+        return this._sourceFilesProcess(sourceFiles, {
             devMode: this._devMode,
             cache: this._cache,
             exportName: this._exportName
