@@ -6,7 +6,7 @@ enb-bemxjst [![Build Status](https://travis-ci.org/enb-make/enb-bemxjst.png?bran
 Установка
 ---------
 
-Вы можете установить `enb-bemxjst` с помощью `npm`:
+`enb-bemxjst` можно установить с помощью `npm`:
 
 ```
 npm install enb-bemxjst
