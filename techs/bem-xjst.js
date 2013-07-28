@@ -38,8 +38,6 @@ module.exports = require('enb/lib/build-flow').create()
             });
         },
         _bemxjstProcess: function(source, options) {
-            this.node.getLogger().log('Calm down, OmetaJS is running...');
-
             var bemxjstProcessor = BemxjstProcessor.fork();
 
             return bemxjstProcessor.process(source, options).then(function(res) {
