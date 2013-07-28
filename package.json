@@ -33,8 +33,12 @@
     "scripts": {
         "test": "make validate",
         "lint": "make lint",
+        "clean": "make clean",
         "func-test": "npm run-script build-bemhtml && npm run-script build-bemhtml-old && ./node_modules/.bin/mocha -u bdd -R spec --recursive test/func",
         "build-bemhtml": "cd test/fixtures/bemhtml && YENV=development ../../../node_modules/.bin/enb make -n",
-        "build-bemhtml-old": "cd test/fixtures/bemhtml-old && YENV=development ../../../node_modules/.bin/enb make -n"
+        "build-bemhtml-old": "cd test/fixtures/bemhtml-old && YENV=development ../../../node_modules/.bin/enb make -n",
+        "clean-build": "npm run-script clean-build-bemhtml && npm run-script clean-build-bemhtml-old",
+        "clean-build-bemhtml": "cd test/fixtures/bemhtml && rm -rf .bem/tmp && cd page && rm -f page.bemhtml.js && rm -f page.deps.js",
+        "clean-build-bemhtml-old": "cd test/fixtures/bemhtml-old && rm -rf .bem/tmp && cd page && rm -f page.bemhtml.js && rm -f page.deps.js"
     }
 }
