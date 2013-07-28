@@ -7,7 +7,7 @@ NPM = npm
 
 .PHONY: test
 test: node_modules
-	npm run-script build-bemhtml && npm run-script build-bemhtml-old &&  $(MOCHA) -u bdd -R spec --recursive
+	npm run-script func-test
 
 .PHONY: validate
 validate: lint test
