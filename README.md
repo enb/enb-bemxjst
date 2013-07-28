@@ -12,8 +12,10 @@ enb-bemxjst [![Build Status](https://travis-ci.org/enb-make/enb-bemxjst.png?bran
 npm install enb-bemxjst
 ```
 
-bemhtml
--------
+Технологии
+----------
+
+### bemhtml
 
 Склеивает `bemhtml.xjst` и `bemhtml`-файлы по deps'ам, обрабатывает BEMXJST-транслятором, сохраняет (по умолчанию) в виде `?.bemhtml.js`.
 Использует компилятор, входящий в состав библиотеки [`bem-core`](https://github.com/bem/bem-core).
@@ -34,8 +36,7 @@ bemhtml
 nodeConfig.addTech(new (require('enb-bemxjst/techs/bemhtml'))({ devMode: false }));
 ```
 
-bemhtml-old
------------
+### bemhtml-old
 
 Склеивает `bemhtml.xjst` и `bemhtml`-файлы по deps'ам, обрабатывает BEMXJST-транслятором, сохраняет (по умолчанию) в виде`?.bemhtml.js`.
 Использует компилятор, входящий в состав библиотеки [`bem-core`](https://github.com/bem/bem-core).
