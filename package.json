@@ -5,6 +5,7 @@
     "version": "0.0.6",
     "repository": "git://github.com/enb-make/enb-bemxjst",
     "homepage": "https://github.com/enb-make/enb-bemxjst",
+    "bugs": "https://github.com/enb-make/enb-bemxjst/issues",
     "contributors": [
         {
             "name": "Andrew Abramov",
