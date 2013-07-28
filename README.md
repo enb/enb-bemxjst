@@ -31,7 +31,7 @@ bemhtml
 **Пример**
 
 ```javascript
-nodeConfig.addTech(require('enb-bemxjst/techs/bemhtml'));
+nodeConfig.addTech(new (require('enb-bemxjst/techs/bemhtml'))({ devMode: false }));
 ```
 
 bemhtml-old
@@ -56,5 +56,5 @@ bemhtml-old
 **Пример**
 
 ```javascript
-nodeConfig.addTech(require('enb-bemxjst/techs/bemhtml-old'));
+nodeConfig.addTech(new (require('enb-bemxjst/techs/bemhtml-old'))({ devMode: false }));
 ```
