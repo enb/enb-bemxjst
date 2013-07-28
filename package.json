@@ -6,16 +6,18 @@
     "repository": "git://github.com/enb-make/enb-bemxjst",
     "homepage": "https://github.com/enb-make/enb-bemxjst",
     "bugs": "https://github.com/enb-make/enb-bemxjst/issues",
-    "licenses": [
-        {
-            "type": "MIT",
-            "url": "https://github.com/enb-make/enb-bemxjst/blob/master/LICENSE"
-        }
-    ],
+    "licenses": [{
+        "type": "MIT",
+        "url": "https://github.com/enb-make/enb-bemxjst/blob/master/LICENSE"
+    }],
     "contributors": [
         {
             "name": "Andrew Abramov",
             "email": "andrewblond@yandex.com"
+        },
+        {
+            "name": "Marat Dulin",
+            "email": "mdevils@yandex.ru"
         }
     ],
     "engines": {
