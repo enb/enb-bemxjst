@@ -6,10 +6,10 @@ module.exports = require('enb/lib/build-flow').create()
     .name('bem-xjst')
     .target('target', '?.bemxjst.js')
     .methods({
-        _sourceFilesProcess: function(sourceFiles, callback) {
+        _sourceFilesProcess: function(sourceFiles, preprocess) {
             var _this = this;
 
-            return Vow.all(_this._sourceFilesPreprocess(sourceFiles, callback))
+            return Vow.all(_this._sourceFilesPreprocess(sourceFiles, preprocess))
                 .then(function(sources) {
                     return _this._bemxjstProcess(sources.join('\n'));
                 });
