@@ -21,7 +21,6 @@ module.exports = require('enb/lib/build-flow').create()
                 if ('bemhtml.xjst' !== suffix) {
                     source = bemcompat.transpile(source);
                 }
-
                 return source;
             });
         },
@@ -52,7 +51,6 @@ module.exports = require('enb/lib/build-flow').create()
             for (var optName in fieldNames) {
                 options[optName] = this[fieldNames[optName]];
             }
-
             return options;
         }
     })
