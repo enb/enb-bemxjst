@@ -49,7 +49,9 @@ module.exports = require('enb/lib/build-flow').create()
                 options = {};
 
             for (var optName in fieldNames) {
-                options[optName] = this[fieldNames[optName]];
+                if (fieldNames.hasOwnProperty(optName)) {
+                    options[optName] = this[fieldNames[optName]];
+                }
             }
             return options;
         }
