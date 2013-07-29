@@ -5,12 +5,12 @@ JSHINT = $(BIN)/jshint
 JSCS = $(BIN)/jscs
 NPM = npm
 
+.PHONY: validate
+validate: node_modules lint test
+
 .PHONY: test
 test: clean node_modules
 	npm run-script func-test
-
-.PHONY: validate
-validate: lint test
 
 .PHONY: lint
 lint:
