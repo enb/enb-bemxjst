@@ -28,10 +28,6 @@
 module.exports = require('./bemhtml').buildFlow()
     .name('bemhtml-old')
     .builder(function(sourceFiles) {
-        return this._oldFilesProcess(sourceFiles, {
-            devMode: this._devMode,
-            cache: this._cache,
-            exportName: this._exportName
-        });
+        return this._oldFilesProcess(sourceFiles);
     })
     .createTech();

@@ -6,18 +6,18 @@ module.exports = require('enb/lib/build-flow').create()
     .name('bem-xjst')
     .target('target', '?.bemxjst.js')
     .methods({
-        _sourceFilesProcess: function(sourceFiles, options, callback) {
+        _sourceFilesProcess: function(sourceFiles, callback) {
             var _this = this;
 
             return Vow.all(_this._sourceFilesPreprocess(sourceFiles, callback))
                 .then(function(sources) {
-                    return _this._bemxjstProcess(sources.join('\n'), options);
+                    return _this._bemxjstProcess(sources.join('\n'));
                 });
         },
-        _oldFilesProcess: function(sourceFiles, options) {
+        _oldFilesProcess: function(sourceFiles) {
             var bemcompat = require('bemhtml-compat');
 
-            return this._sourceFilesProcess(sourceFiles, options, function(source, suffix) {
+            return this._sourceFilesProcess(sourceFiles, function(source, suffix) {
                 if ('bemhtml.xjst' !== suffix) {
                     source = bemcompat.transpile(source);
                 }
@@ -37,13 +37,23 @@ module.exports = require('enb/lib/build-flow').create()
                     });
             });
         },
-        _bemxjstProcess: function(source, options) {
+        _bemxjstProcess: function(source) {
             var bemxjstProcessor = BemxjstProcessor.fork();
 
-            return bemxjstProcessor.process(source, options).then(function(res) {
+            return bemxjstProcessor.process(source, this._getOptions()).then(function(res) {
                 bemxjstProcessor.dispose();
                 return res;
             });
+        },
+        _getOptions: function () {
+            var fieldNames = this._optionFieldNames,
+                options = {};
+
+            for (var optName in fieldNames) {
+                options[optName] = this[fieldNames[optName]];
+            }
+
+            return options;
         }
     })
     .createTech();
