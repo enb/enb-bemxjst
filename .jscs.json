@@ -1,6 +1,9 @@
 {
     "requireCurlyBraces": ["if", "else", "for", "while", "do"],
     "requireSpaceAfterKeywords": ["if", "else", "for", "while", "do", "switch", "return"],
+    "requireMultipleVarDecl": true,
+    "requireSpacesInsideObjectBrackets": "all",
+    "disallowSpaceAfterObjectKeys": true,
     "disallowLeftStickedOperators": ["?", "+", "-", "/", "*", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<="],
     "disallowRightStickedOperators": ["?", "+", "/", "*", ":", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<="],
     "requireRightStickedOperators": ["!"],
