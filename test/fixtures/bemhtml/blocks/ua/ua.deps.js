@@ -1,4 +1,3 @@
 ({
-    tech: 'bemhtml',
-    mustDeps: { block: 'i-bem' }
+    mustDeps: [{ block: 'i-bem' }]
 })

@@ -1,8 +1,8 @@
 {
     "block": "page",
-    "title": "Title",
+    "title": "Page Title",
     "head": [
-        { "elem": "css", "url": "style" },
+        { "elem": "css", "url": "style.css" },
         { "elem": "js", "url": "script.js" }
     ],
     "content": [

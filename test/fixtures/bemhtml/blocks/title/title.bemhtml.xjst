@@ -1,5 +1,1 @@
-block('title')(
-
-    tag()('h1')
-
-)
+block('title').tag()('h1')
