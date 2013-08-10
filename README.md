@@ -61,3 +61,23 @@ nodeConfig.addTech([ require('enb-bemxjst/techs/bemhtml'), { devMode: false } ])
 ```javascript
 nodeConfig.addTech([ require('enb-bemxjst/techs/bemhtml-old'), { devMode: false } ]);
 ```
+
+### bemtree
+
+Склеивает `bemtree`-файлы по&nbsp;deps'ам, обрабатывает BEMXJST-транслятором, сохраняет (по&nbsp;умолчанию) в&nbsp;виде `?.bemtree.js`.
+Использует компилятор, входящий в&nbsp;состав библиотеки [`bem-core`](https://github.com/bem/bem-core).
+
+**Внимание:** поддерживает только новый js-совместимый синтаксис.
+
+**Опции**
+
+* *String* **target**&nbsp;— Результирующий таргет. По&nbsp;умолчанию&nbsp;— `?.bemtree.js`.
+* *String* **filesTarget**&nbsp;— files-таргет, на&nbsp;основе которого получается список исходных файлов (его предоставляет технология `files`). По&nbsp;умолчанию&nbsp;— `?.files`.
+* *String* **exportName**&nbsp;— Имя переменной-обработчика BEMTREE. По&nbsp;умолчанию&nbsp;— `'BEMTREE'`.
+* *Boolean* **devMode**&nbsp;— Development-режим. По&nbsp;умолчанию зависит от&nbsp;`YENV` (`true`, если `YENV=development`).
+
+**Пример**
+
+```javascript
+nodeConfig.addTech([ require('enb-bemxjst/techs/bemtree'), { devMode: false } ]);
+```
