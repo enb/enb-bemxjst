@@ -34,10 +34,10 @@
     },
     "devDependencies": {
         "enb": ">= 0.8.22",
-        "jshint": "2.1.7",
         "mocha": "1.12.0",
-        "jscs": "1.0.2",
-        "chai": "1.7.2"
+        "chai": "1.7.2",
+        "jshint": "2.1.9",
+        "jscs": "1.0.3"
     },
     "scripts": {
         "test": "make validate",
