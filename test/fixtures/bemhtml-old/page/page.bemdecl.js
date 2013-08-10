@@ -1,8 +1,4 @@
 exports.blocks = [
-    {
-        "block": "b-page"
-    },
-    {
-        "block": "b-title"
-    }
+    { "block": "b-page" },
+    { "block": "b-title" }
 ];
