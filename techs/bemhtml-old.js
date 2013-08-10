@@ -22,7 +22,7 @@
  * **Пример**
  *
  * ```javascript
- * nodeConfig.addTech(new (require('enb-bemxjst/techs/bemhtml-old'))({ devMode: false }));
+ * nodeConfig.addTech([ require('enb-bemxjst/techs/bemhtml-old'), { devMode: false } ]);
  * ```
  */
 module.exports = require('./bemhtml').buildFlow()

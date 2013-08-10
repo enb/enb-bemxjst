@@ -35,7 +35,7 @@ npm install enb-bemxjst
 **Пример**
 
 ```javascript
-nodeConfig.addTech(new (require('enb-bemxjst/techs/bemhtml'))({ devMode: false }));
+nodeConfig.addTech([ require('enb-bemxjst/techs/bemhtml'), { devMode: false } ]);
 ```
 
 ### bemhtml-old
@@ -59,5 +59,5 @@ nodeConfig.addTech(new (require('enb-bemxjst/techs/bemhtml'))({ devMode: false }
 **Пример**
 
 ```javascript
-nodeConfig.addTech(new (require('enb-bemxjst/techs/bemhtml-old'))({ devMode: false }));
+nodeConfig.addTech([ require('enb-bemxjst/techs/bemhtml-old'), { devMode: false } ]);
 ```
