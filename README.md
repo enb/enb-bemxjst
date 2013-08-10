@@ -3,7 +3,7 @@ enb-bemxjst [![Build Status](https://travis-ci.org/enb-make/enb-bemxjst.png?bran
 
 Поддержка технологий, базирующихся на&nbsp;основе [`bem-xjst`](https://github.com/bem/bem-xjst), для [`enb`](https://github.com/enb-make/enb.git).
 
-Если вы&nbsp;хотите использовать только `bemhtml` технологию без поддержки нового синтаксиса или библиотеки (например, [`bem-bl`](https://github.com/bem/bem-bl.git)) с&nbsp;подобным подходом, то, возможно, вам лучше подойдёт [`enb-bemhtml`](https://github.com/enb-make/enb-bemhtml.git).
+**Внимание:** eсли хотите использовать только `bemhtml` технологию без поддержки нового синтаксиса или библиотеки с&nbsp;подобным подходом (такие как [`bem-bl`](https://github.com/bem/bem-bl.git)), то, возможно, лучше подойдет [`enb-bemhtml`](https://github.com/enb-make/enb-bemhtml.git).
 
 Установка
 ---------
