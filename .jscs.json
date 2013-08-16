@@ -10,7 +10,7 @@
     "requireLeftStickedOperators": [","],
     "disallowImplicitTypeConversion": ["boolean", "string", "numeric", "binary"],
     "disallowKeywords": ["with"],
-    "disallowMulipleLineBreaks": true,
+    "disallowMultipleLineBreaks": true,
     "disallowKeywordsOnNewLine": ["else"],
     "requireLineFeedAtFileEnd": true,
     "validateJSDoc": {
