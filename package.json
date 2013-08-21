@@ -2,7 +2,7 @@
     "author": "Andrew Abramov <andrewblond@yandex.com>",
     "description": "BEMXJST support for ENB.",
     "name": "enb-bemxjst",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "repository": "git://github.com/enb-make/enb-bemxjst",
     "homepage": "https://github.com/enb-make/enb-bemxjst",
     "bugs": "https://github.com/enb-make/enb-bemxjst/issues",
