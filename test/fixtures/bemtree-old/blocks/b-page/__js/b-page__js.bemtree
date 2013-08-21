@@ -1,0 +1,9 @@
+block b-page, elem js {
+
+    default: {
+        this.ctx.url = '_' + this.data.bundleName + '.js';
+
+        return applyCtx(this.ctx);
+    }
+
+}

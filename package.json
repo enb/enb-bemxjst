@@ -43,13 +43,15 @@
         "test": "make validate",
         "lint": "make lint",
         "clean": "make clean",
-        "func-test": "npm run-script build-bemhtml && npm run-script build-bemhtml-old && npm run-script build-bemtree && ./node_modules/.bin/mocha -u bdd -R spec --recursive test/func",
+        "func-test": "npm run-script build-bemhtml && npm run-script build-bemhtml-old && npm run-script build-bemtree && npm run-script build-bemtree-old && ./node_modules/.bin/mocha -u bdd -R spec --recursive test/func",
         "build-bemhtml": "cd test/fixtures/bemhtml && YENV=development ../../../node_modules/.bin/enb make -n",
         "build-bemhtml-old": "cd test/fixtures/bemhtml-old && YENV=development ../../../node_modules/.bin/enb make -n",
         "build-bemtree": "cd test/fixtures/bemtree && YENV=development ../../../node_modules/.bin/enb make -n",
-        "clean-build": "npm run-script clean-build-bemhtml && npm run-script clean-build-bemhtml-old && npm run-script clean-build-bemtree",
+        "build-bemtree-old": "cd test/fixtures/bemtree-old && YENV=development ../../../node_modules/.bin/enb make -n",
+        "clean-build": "npm run-script clean-build-bemhtml && npm run-script clean-build-bemhtml-old && npm run-script clean-build-bemtree && npm run-script clean-build-bemtree-old",
         "clean-build-bemhtml": "cd test/fixtures/bemhtml && rm -rf .bem/tmp && cd page && rm -f page.bemhtml.js && rm -f page.deps.js",
         "clean-build-bemhtml-old": "cd test/fixtures/bemhtml-old && rm -rf .bem/tmp && cd page && rm -f page.bemhtml.js && rm -f page.deps.js",
-        "clean-build-bemtree": "cd test/fixtures/bemtree && rm -rf .bem/tmp && cd page && rm -f page.bemtree.js && rm -f page.deps.js"
+        "clean-build-bemtree": "cd test/fixtures/bemtree && rm -rf .bem/tmp && cd page && rm -f page.bemtree.js && rm -f page.deps.js",
+        "clean-build-bemtree-old": "cd test/fixtures/bemtree-old && rm -rf .bem/tmp && cd page && rm -f page.bemtree.js && rm -f page.deps.js"
     }
 }
