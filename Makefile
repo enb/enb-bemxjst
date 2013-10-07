@@ -1,6 +1,5 @@
 BIN = ./node_modules/.bin
 MOCHA = $(BIN)/mocha
-ISTANBUL = $(BIN)/istanbul
 JSHINT = $(BIN)/jshint
 JSCS = $(BIN)/jscs
 NPM = npm
