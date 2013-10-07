@@ -1,6 +1,6 @@
-block('page')(
+block('page').match(this.data && this.data.title && this.data.text)(
 
-    def()(function () {
+    def().match(!this.ctx.title && !this.ctx.head)(function () {
         var ctx = this.ctx;
 
         ctx.title = this.data.title;
@@ -19,11 +19,11 @@ block('page')(
     content()(function () {
         return [
             {
-                "block": "title",
-                "content": this.data.title
+                block: 'title',
+                content: this.data.title
             },
             this.data.text
-        ]
+        ];
     })
 
 )
