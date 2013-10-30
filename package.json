@@ -42,13 +42,8 @@
     "scripts": {
         "test": "make validate",
         "lint": "make lint",
-        "clean": "make clean",
         "func-test": "npm run-script build-fixtures && ./node_modules/.bin/mocha -u bdd -R spec --recursive test/func",
         "build-fixtures": "make build_fixtures",
-        "clean-build": "npm run-script clean-build-bemhtml && npm run-script clean-build-bemhtml-old && npm run-script clean-build-bemtree && npm run-script clean-build-bemtree-old",
-        "clean-build-bemhtml": "cd test/fixtures/bemhtml && ../../../node_modules/.bin/enb make clean",
-        "clean-build-bemhtml-old": "cd test/fixtures/bemhtml-old && ../../../node_modules/.bin/enb make clean",
-        "clean-build-bemtree": "cd test/fixtures/bemtree && ../../../node_modules/.bin/enb make clean",
-        "clean-build-bemtree-old": "cd test/fixtures/bemtree-old && ../../../node_modules/.bin/enb make clean"
+        "clean-fixtures": "make clean_fixtures"
     }
 }
