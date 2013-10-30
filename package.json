@@ -35,7 +35,7 @@
     "devDependencies": {
         "enb": ">= 0.8.22",
         "mocha": "1.13.0",
-        "chai": "1.7.2",
+        "chai": "1.8.1",
         "jshint": "2.1.10",
         "jscs": "1.0.4"
     },
