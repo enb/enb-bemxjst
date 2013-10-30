@@ -44,7 +44,7 @@ module.exports = require('enb/lib/build-flow').create()
                 return res;
             });
         },
-        _getOptions: function () {
+        _getOptions: function() {
             var fieldNames = this._optionFieldNames,
                 options = {};
 

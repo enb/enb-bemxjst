@@ -1,8 +1,11 @@
 {
     "requireCurlyBraces": ["if", "else", "for", "while", "do"],
     "requireSpaceAfterKeywords": ["if", "else", "for", "while", "do", "switch", "return"],
+    "requireSpacesInFunctionExpression": { "beforeOpeningCurlyBrace": true },
+    "disallowSpacesInFunctionExpression": { "beforeOpeningRoundBrace": true },
     "requireMultipleVarDecl": true,
     "requireSpacesInsideObjectBrackets": "all",
+    "disallowQuotedKeysInObjects": true,
     "disallowSpaceAfterObjectKeys": true,
     "disallowLeftStickedOperators": ["?", "+", "-", "/", "*", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<="],
     "disallowRightStickedOperators": ["?", "+", "/", "*", ":", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<="],
@@ -13,8 +16,10 @@
     "disallowMultipleLineBreaks": true,
     "disallowKeywordsOnNewLine": ["else"],
     "requireLineFeedAtFileEnd": true,
+    "safeContextKeyword": "_this",
     "validateJSDoc": {
         "checkParamNames": true,
+        "checkRedundantParams": true,
         "requireParamTypes": true
     },
     "excludeFiles": [
