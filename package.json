@@ -27,7 +27,7 @@
         "enb": ">= 0.8.22"
     },
     "dependencies": {
-        "vow": ">= 0.3.10",
+        "vow": "0.3.11",
         "sibling": ">= 0.1.1",
         "bem-core": "git://github.com/bem/bem-core.git#v1",
         "bemhtml-compat": ">= 0.0.10"
