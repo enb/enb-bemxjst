@@ -42,8 +42,7 @@
     "scripts": {
         "test": "make validate",
         "lint": "make lint",
-        "func-test": "npm run-script build-fixtures && ./node_modules/.bin/mocha -u bdd -R spec --recursive test/func",
-        "build-fixtures": "make build_fixtures",
-        "clean-fixtures": "make clean_fixtures"
+        "build": "make build",
+        "clean": "make clean"
     }
 }
