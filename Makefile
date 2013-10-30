@@ -16,6 +16,13 @@ lint:
 	$(JSHINT) .
 	$(JSCS) .
 
+.PHONY: build_fixtures
+build_fixtures: node_modules
+	cd test/fixtures/bemhtml && YENV=development ../../../node_modules/.bin/enb make --no-cache
+	cd test/fixtures/bemhtml-old && YENV=development ../../../node_modules/.bin/enb make --no-cache
+	cd test/fixtures/bemtree && YENV=development ../../../node_modules/.bin/enb make --no-cache
+	cd test/fixtures/bemtree-old && YENV=development ../../../node_modules/.bin/enb make --no-cache
+
 .PHONY: clean
 clean:
 	npm run-script clean-build
