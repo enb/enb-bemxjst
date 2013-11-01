@@ -1,6 +1,6 @@
 {
     "author": "Andrew Abramov <andrewblond@yandex.com>",
-    "description": "BEMXJST support for ENB.",
+    "description": "bem-xjst support for enb",
     "name": "enb-bemxjst",
     "version": "0.1.1",
     "repository": "git://github.com/enb-make/enb-bemxjst",
