@@ -1,40 +1,28 @@
 var Vow = require('vow'),
     VowFs = require('enb/lib/fs/async-fs'),
-    BEMHTML = require('bem-core/.bem/lib/bemhtml');
+    BEMXJST = require('bem-core/.bem/lib/bemhtml'),
+    bemcompat = require('bemhtml-compat');
 
 module.exports = require('enb/lib/build-flow').create()
     .name('bem-xjst')
-    .target('target', '?.bemxjst.js')
+    .target('target', '?.bem-xjst.js')
     .methods({
-        _sourceFilesProcess: function(sourceFiles, preprocess) {
-            var _this = this;
+        _sourceFilesProcess: function(sourceFiles, oldSyntax) {
+            return Vow.all(sourceFiles.map(function(file) {
+                    return VowFs.read(file.fullname, 'utf8')
+                        .then(function(source) {
+                            if (oldSyntax && 'bemhtml.xjst' !== file.suffix) {
+                                source = bemcompat.transpile(source);
+                            }
 
-            return Vow.all(_this._sourceFilesPreprocess(sourceFiles, preprocess))
+                            return '/* begin: ' + file.fullname + ' *' + '/\n' +
+                                source +
+                                '\n/* end: ' + file.fullname + ' *' + '/';
+                        });
+                }))
                 .then(function(sources) {
-                    return _this._bemxjstProcess(sources.join('\n'));
-                });
-        },
-        _oldFilesProcess: function(sourceFiles) {
-            var bemcompat = require('bemhtml-compat');
-
-            return this._sourceFilesProcess(sourceFiles, function(source, suffix) {
-                if ('bemhtml.xjst' !== suffix) {
-                    source = bemcompat.transpile(source);
-                }
-                return source;
-            });
-        },
-        _sourceFilesPreprocess: function(sourceFiles, callback) {
-            return sourceFiles.map(function(file) {
-                return VowFs.read(file.fullname, 'utf8')
-                    .then(function(source) {
-                        source = '/* begin: ' + file.fullname + ' *' + '/\n' +
-                            source +
-                            '\n/* end: ' + file.fullname + ' *' + '/';
-
-                        return callback ? callback(source, file.suffix) : source;
-                    });
-            });
+                    return this._bemxjstProcess(sources.join('\n'));
+                }, this);
         },
         _bemxjstProcess: function(source) {
             var bemxjstProcessor = BemxjstProcessor.fork();
@@ -60,6 +48,6 @@ module.exports = require('enb/lib/build-flow').create()
 
 var BemxjstProcessor = require('sibling').declare({
     process: function(source, options) {
-        return BEMHTML.translate(source, options);
+        return BEMXJST.translate(source, options);
     }
 });
