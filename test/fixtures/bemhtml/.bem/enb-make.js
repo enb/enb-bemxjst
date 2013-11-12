@@ -7,10 +7,11 @@ module.exports = function(config) {
             [ require('enb/techs/file-provider'), { target: '?.bemdecl.js' } ],
             require('enb/techs/files'),
             require('enb/techs/deps'),
-            [ require(ENB_BEMXJST + 'techs/bemhtml'), { devMode: true } ]
+            [ require(ENB_BEMXJST + 'techs/bemhtml'), { devMode: true, target: '?.dev.bemhtml.js' } ],
+            [ require(ENB_BEMXJST + 'techs/bemhtml'), { devMode: false, target: '?.prod.bemhtml.js' } ]
         ]);
         nodeConfig.addTargets([
-            '?.bemhtml.js'
+            '?.dev.bemhtml.js', '?.prod.bemhtml.js'
         ]);
     });
 
