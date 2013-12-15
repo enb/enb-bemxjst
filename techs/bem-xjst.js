@@ -1,7 +1,8 @@
 var vow = require('vow'),
     fs = require('enb/lib/fs/async-fs'),
     bemxjst = require('bem-xjst/lib/bemhtml'),
-    bemcompat = require('bemhtml-compat');
+    bemcompat = require('bemhtml-compat'),
+    XJST_SUFFIX = 'xjst';
 
 module.exports = require('enb/lib/build-flow').create()
     .name('bem-xjst')
@@ -11,7 +12,7 @@ module.exports = require('enb/lib/build-flow').create()
             return vow.all(sourceFiles.map(function(file) {
                     return fs.read(file.fullname, 'utf8')
                         .then(function(source) {
-                            if (oldSyntax && 'bemhtml.xjst' !== file.suffix) {
+                            if (oldSyntax && XJST_SUFFIX !== file.suffix.split('.').pop()) {
                                 source = bemcompat.transpile(source);
                             }
 
