@@ -27,7 +27,7 @@
         "enb": ">= 0.8.22"
     },
     "dependencies": {
-        "vow": "0.3.11",
+        "vow": "0.3.12",
         "sibling": "0.1.1",
         "bem-xjst": "0.3.6",
         "bemhtml-compat": "0.0.11"
@@ -35,10 +35,10 @@
     "devDependencies": {
         "enb": ">= 0.8.22",
         "bem-core": "git://github.com/bem/bem-core.git#v1.0.0",
-        "mocha": "1.13.0",
+        "mocha": "1.15.1",
         "chai": "1.8.1",
         "jshint": "2.3.0",
-        "jscs": "1.0.8"
+        "jscs": "1.0.15"
     },
     "scripts": {
         "test": "make validate",
