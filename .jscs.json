@@ -14,6 +14,7 @@
     "disallowImplicitTypeConversion": ["boolean", "string", "numeric", "binary"],
     "disallowKeywords": ["with"],
     "disallowMultipleLineBreaks": true,
+    "validateLineBreaks": "LF",
     "disallowKeywordsOnNewLine": ["else"],
     "requireLineFeedAtFileEnd": true,
     "safeContextKeyword": "_this",

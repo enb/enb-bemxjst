@@ -1,6 +1,6 @@
-var Vow = require('vow'),
-    VowFs = require('enb/lib/fs/async-fs'),
-    BEMXJST = require('bem-xjst/lib/bemhtml'),
+var vow = require('vow'),
+    fs = require('enb/lib/fs/async-fs'),
+    bemxjst = require('bem-xjst/lib/bemhtml'),
     bemcompat = require('bemhtml-compat');
 
 module.exports = require('enb/lib/build-flow').create()
@@ -8,8 +8,8 @@ module.exports = require('enb/lib/build-flow').create()
     .target('target', '?.bem-xjst.js')
     .methods({
         _sourceFilesProcess: function(sourceFiles, oldSyntax) {
-            return Vow.all(sourceFiles.map(function(file) {
-                    return VowFs.read(file.fullname, 'utf8')
+            return vow.all(sourceFiles.map(function(file) {
+                    return fs.read(file.fullname, 'utf8')
                         .then(function(source) {
                             if (oldSyntax && 'bemhtml.xjst' !== file.suffix) {
                                 source = bemcompat.transpile(source);
@@ -48,7 +48,7 @@ module.exports = require('enb/lib/build-flow').create()
 
 var BemxjstProcessor = require('sibling').declare({
     process: function(source, options) {
-        var xjstJS = BEMXJST.generate(source, options),
+        var xjstJS = bemxjst.generate(source, options),
             exportName = options.exportName;
 
         return [
