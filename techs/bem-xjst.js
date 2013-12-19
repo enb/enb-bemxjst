@@ -1,6 +1,6 @@
 var vow = require('vow'),
     fs = require('enb/lib/fs/async-fs'),
-    bemxjst = require('bem-xjst/lib/bemhtml'),
+    bemxjst = require('bem-xjst'),
     bemcompat = require('bemhtml-compat'),
     XJST_SUFFIX = 'xjst';
 
