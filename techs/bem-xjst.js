@@ -50,7 +50,8 @@ module.exports = require('enb/lib/build-flow').create()
 var BemxjstProcessor = require('sibling').declare({
     process: function(source, options) {
         var xjstJS = bemxjst.generate(source, {
-                optimize: !options.devMode
+                optimize: !options.devMode,
+                cache: !options.devMode && options.cache
             }),
             exportName = options.exportName;
 
