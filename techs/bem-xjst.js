@@ -49,29 +49,11 @@ module.exports = require('enb/lib/build-flow').create()
 
 var BemxjstProcessor = require('sibling').declare({
     process: function(source, options) {
-        var xjstJS = bemxjst.generate(source, {
-                optimize: !options.devMode,
-                cache: !options.devMode && options.cache
-            }),
-            exportName = options.exportName;
-
-        return [
-            '(function(g) {\n',
-            '  var __xjst = (function(exports) {\n',
-            '     ' + xjstJS + ';',
-            '     return exports;',
-            '  })({});',
-            '  var defineAsGlobal = true;',
-            '  if(typeof exports === "object") {',
-            '    exports["' + exportName + '"] = __xjst;',
-            '    defineAsGlobal = false;',
-            '  }',
-            '  if(typeof modules === "object") {',
-            '    modules.define("' + exportName + '", function(provide) { provide(__xjst) });',
-            '    defineAsGlobal = false;',
-            '  }',
-            '  defineAsGlobal && (g["' + exportName + '"] = __xjst);',
-            '})(this);'
-        ].join('\n');
+        return bemxjst.generate(source, {
+            wrap: true,
+            exportName: options.exportName,
+            optimize: !options.devMode,
+            cache: !options.devMode && options.cache
+        });
     }
 });
