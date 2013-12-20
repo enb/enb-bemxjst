@@ -19,5 +19,12 @@ describe('functional', function() {
 
             bemhtml.apply(view).should.equal(html);
         });
+
+        it('should build different code by mode', function() {
+            var devStat = fs.statSync('./test/fixtures/bemhtml-old/page/page.dev.bemhtml.js'),
+                prodStat = fs.statSync('./test/fixtures/bemhtml-old/page/page.prod.bemhtml.js');
+
+            devStat.size.should.be.above(prodStat.size);
+        });
     });
 });
