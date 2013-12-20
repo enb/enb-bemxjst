@@ -35,7 +35,7 @@
     "devDependencies": {
         "enb": ">= 0.8.22",
         "bem-core": "git://github.com/bem/bem-core.git#v1.0.0",
-        "mocha": "1.15.1",
+        "mocha": "1.16.1",
         "chai": "1.8.1",
         "jshint": "2.3.0",
         "jscs": "1.0.15"
