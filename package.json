@@ -38,7 +38,7 @@
         "mocha": "1.16.1",
         "chai": "1.8.1",
         "jshint": "2.3.0",
-        "jscs": "1.0.15"
+        "jscs": "1.1.0"
     },
     "scripts": {
         "test": "make validate",
