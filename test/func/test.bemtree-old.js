@@ -6,33 +6,33 @@ var fs = require('fs'),
     data = require(path.join(fixturesPath, 'data', 'data.json')),
     view = require(path.join(fixturesPath, 'result', 'view.json'));
 
-require('chai').should();
+require('must');
 
 describe('functional', function() {
     describe('bemtree-old', function() {
-        it('should build simple view of page in dev mode', function(done) {
+        it('must build simple view of page in dev mode', function(done) {
             var bemtree = require(devBemtreePath).BEMTREE;
 
             bemtree.apply(data).then(function(res) {
-                res.should.eql(view);
+                res.must.eql(view);
                 done();
             });
         });
 
-        it('should build simple view of page in production mode', function(done) {
+        it('must build simple view of page in production mode', function(done) {
             var bemtree = require(prodBemtreePath).BEMTREE;
 
             bemtree.apply(data).then(function(res) {
-                res.should.eql(view);
+                res.must.eql(view);
                 done();
             });
         });
 
-        it('should build different code by mode', function() {
+        it('must build different code by mode', function() {
             var devStat = fs.statSync(devBemtreePath),
                 prodStat = fs.statSync(prodBemtreePath);
 
-            devStat.size.should.be.above(prodStat.size);
+            devStat.size.must.be.above(prodStat.size);
         });
     });
 });

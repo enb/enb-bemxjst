@@ -6,27 +6,27 @@ var fs = require('fs'),
     view = require(path.join(fixturesPath, 'data', 'view.json')),
     html = fs.readFileSync(path.join(fixturesPath, 'result', 'page.html'), 'utf8');
 
-require('chai').should();
+require('must');
 
 describe('functional', function() {
     describe('bemhtml-old', function() {
-        it('should build simple page in dev mode', function() {
+        it('must build simple page in dev mode', function() {
             var bemhtml = require(devBemhtmlPath).BEMHTML;
 
-            bemhtml.apply(view).should.equal(html);
+            bemhtml.apply(view).must.equal(html);
         });
 
-        it('should build simple page in production mode', function() {
+        it('must build simple page in production mode', function() {
             var bemhtml = require(prodBemhtmlPath).BEMHTML;
 
-            bemhtml.apply(view).should.equal(html);
+            bemhtml.apply(view).must.equal(html);
         });
 
-        it('should build different code by mode', function() {
+        it('must build different code by mode', function() {
             var devStat = fs.statSync(devBemhtmlPath),
                 prodStat = fs.statSync(prodBemhtmlPath);
 
-            devStat.size.should.be.above(prodStat.size);
+            devStat.size.must.be.above(prodStat.size);
         });
     });
 });
