@@ -9,7 +9,22 @@ enb-bemxjst [![NPM version](https://badge.fury.io/js/enb-bemxjst.png)](http://ba
 Установка
 ---------
 ```
-npm install enb-bemxjst
+$ npm install enb-bemxjst
+```
+
+История изменений
+-----------------
+
+История изменений на [отдельной странице](/CHANGELOG.md).
+
+Разработка
+----------
+Руководство на [отдельной странице](/CONTRIBUTION.md).
+
+Запуск тестов
+-------------
+```
+$ make validate
 ```
 
 Технологии
