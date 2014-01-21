@@ -14,7 +14,7 @@ lint:
 
 .PHONY: test
 test: npm_deps clean build
-	$(MOCHA) -u bdd -R spec --recursive test/func
+	$(MOCHA) --recursive test/smoke
 
 .PHONY: build
 build: npm_deps

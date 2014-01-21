@@ -6,8 +6,6 @@ var prodBemtreePath = path.join(fixturesPath, 'page', 'page.prod.bemtree.js');
 var data = require(path.join(fixturesPath, 'data', 'data.json'));
 var view = require(path.join(fixturesPath, 'result', 'view.json'));
 
-require('must');
-
 describe('functional', function () {
     describe('bemtree', function () {
         it('must build simple view of page in dev mode', function (done) {

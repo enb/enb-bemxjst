@@ -6,8 +6,6 @@ var prodBemhtmlPath = path.join(fixturesPath, 'page', 'page.prod.bemhtml.js');
 var view = require(path.join(fixturesPath, 'data', 'view.json'));
 var html = fs.readFileSync(path.join(fixturesPath, 'result', 'page.html'), 'utf8');
 
-require('must');
-
 describe('functional', function () {
     describe('bemhtml-old', function () {
         it('must build simple page in dev mode', function () {
