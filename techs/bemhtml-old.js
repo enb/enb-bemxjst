@@ -24,7 +24,7 @@
  */
 module.exports = require('./bemhtml').buildFlow()
     .name('bemhtml-old')
-    .builder(function(sourceFiles) {
+    .builder(function (sourceFiles) {
         return this._sourceFilesProcess(sourceFiles, true);
     })
     .createTech();

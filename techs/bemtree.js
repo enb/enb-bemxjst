@@ -26,7 +26,7 @@ module.exports = require('./bem-xjst').buildFlow()
     .defineOption('exportName', 'BEMTREE')
     .defineOption('devMode', 'development' === process.env.YENV)
     .useFileList(['bemtree'])
-    .builder(function(sourceFiles) {
+    .builder(function (sourceFiles) {
         return this._sourceFilesProcess(sourceFiles);
     })
     .createTech();

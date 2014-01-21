@@ -21,7 +21,7 @@
  */
 module.exports = require('./bemtree').buildFlow()
     .name('bemtree-old')
-    .builder(function(sourceFiles) {
+    .builder(function (sourceFiles) {
         return this._sourceFilesProcess(sourceFiles, true);
     })
     .createTech();
