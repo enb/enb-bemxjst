@@ -1,3 +1,3 @@
 exports.blocks = [
-    { block : 'i-start' }
+    { name : 'i-start' }
 ];

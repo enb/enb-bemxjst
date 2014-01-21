@@ -6,7 +6,7 @@ module.exports = function(config) {
             [ require('enb/techs/levels'), { levels: getLevels(config) } ],
             [ require('enb/techs/file-provider'), { target: '?.bemdecl.js' } ],
             require('enb/techs/files'),
-            require('enb/techs/deps-old'),
+            require('enb/techs/deps'),
             [ require(ENB_BEMXJST + 'techs/bemhtml-old'), { devMode: true, target: '?.dev.bemhtml.js' } ],
             [ require(ENB_BEMXJST + 'techs/bemhtml-old'), { devMode: false, target: '?.prod.bemhtml.js' } ]
         ]);
