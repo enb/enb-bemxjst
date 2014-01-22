@@ -38,7 +38,8 @@
         "mocha": "1.16.1",
         "must": "0.10.0",
         "jshint": "2.3.0",
-        "jscs": "1.2.4"
+        "jscs": "1.2.4",
+        "enb-validate-code": "0.0.1"
     },
     "scripts": {
         "test": "make validate",
