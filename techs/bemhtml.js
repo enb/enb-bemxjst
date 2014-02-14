@@ -26,7 +26,7 @@ module.exports = require('./bem-xjst').buildFlow()
     .target('target', '?.bemhtml.js')
     .defineOption('exportName', 'BEMHTML')
     .defineOption('devMode', 'development' === process.env.YENV)
-    .defineOption('cache', true)
+    .defineOption('cache', false)
     .useFileList(['bemhtml', 'bemhtml.xjst'])
     .builder(function (sourceFiles) {
         return this._sourceFilesProcess(sourceFiles);
