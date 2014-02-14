@@ -34,10 +34,10 @@
     },
     "devDependencies": {
         "enb": ">= 0.8.22",
-        "bem-core": "git://github.com/bem/bem-core.git#v1.0.0",
-        "mocha": "1.16.1",
-        "must": "0.10.0",
-        "jshint": "2.3.0",
+        "bem-core": "git://github.com/bem/bem-core.git#v1.1.0",
+        "mocha": "1.17.1",
+        "must": "0.11.0",
+        "jshint": "2.4.3",
         "jscs": "1.2.4",
         "enb-validate-code": "0.0.1"
     },
