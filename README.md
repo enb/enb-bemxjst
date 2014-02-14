@@ -55,7 +55,7 @@ bemhtml & bemhtml-old
 * *String* **filesTarget**&nbsp;— files-таргет, на&nbsp;основе которого получается список исходных файлов (его предоставляет технология `files`). По&nbsp;умолчанию&nbsp;— `?.files`.
 * *String* **exportName**&nbsp;— Имя переменной-обработчика BEMHTML. По&nbsp;умолчанию&nbsp;— `'BEMHTML'`.
 * *Boolean* **devMode**&nbsp;— Development-режим. По&nbsp;умолчанию зависит от&nbsp;`YENV` (`true`, если `YENV=development`).
-* *Boolean* **cache**&nbsp;— Кэширование. Возможно только в&nbsp;dev-режиме. По&nbsp;умолчанию&nbsp;— `false`.
+* *Boolean* **cache**&nbsp;— Кэширование. Возможно только в&nbsp;production-режиме. По&nbsp;умолчанию&nbsp;— `false`.
 
 **Пример**
 

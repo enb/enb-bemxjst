@@ -13,7 +13,7 @@
  *   (его предоставляет технология `files`). По умолчанию — `?.files`.
  * * *String* **exportName** — Имя переменной-обработчика BEMHTML. По умолчанию — `'BEMHTML'`.
  * * *Boolean* **devMode** — Development-режим. По умолчанию зависит от `YENV` (`true`, если `YENV=development`).
- * * *Boolean* **cache** — Кэширование. Возможно только в dev-режиме. По умолчанию — `false`.
+ * * *Boolean* **cache** — Кэширование. Возможно только в production-режиме. По умолчанию — `false`.
  *
  * **Пример**
  *
