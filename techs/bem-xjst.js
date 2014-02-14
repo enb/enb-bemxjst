@@ -28,32 +28,21 @@ module.exports = require('enb/lib/build-flow').create()
         _bemxjstProcess: function (source) {
             var bemxjstProcessor = BemxjstProcessor.fork();
 
-            return bemxjstProcessor.process(source, this._getOptions()).then(function (res) {
+            return bemxjstProcessor.process(source, {
+                wrap: true,
+                exportName: this._exportName,
+                optimize: !this._devMode,
+                cache: !this._devMode && this._cache
+            }).then(function (res) {
                 bemxjstProcessor.dispose();
                 return res;
             });
-        },
-        _getOptions: function () {
-            var fieldNames = this._optionFieldNames;
-            var options = {};
-
-            for (var optName in fieldNames) {
-                if (fieldNames.hasOwnProperty(optName)) {
-                    options[optName] = this[fieldNames[optName]];
-                }
-            }
-            return options;
         }
     })
     .createTech();
 
 var BemxjstProcessor = require('sibling').declare({
     process: function (source, options) {
-        return bemxjst.generate(source, {
-            wrap: true,
-            exportName: options.exportName,
-            optimize: !options.devMode,
-            cache: !options.devMode && options.cache
-        });
+        return bemxjst.generate(source, options);
     }
 });
