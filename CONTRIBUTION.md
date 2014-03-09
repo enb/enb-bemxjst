@@ -1,29 +1,27 @@
 Contribution Guide
 ==================
 
-This document describes some points about contribution process for enb-bemxjst package.
+Этот документ описывает некоторые положения о совместной работе над проектом enb-bemxjst.
 
-The maintainer of the project is Andrew Abramov (andrewblond@yandex.com).
+Мейнтейнер проекта — Андрей Абрамов (@andrewblond).
 
-The project is being developed within community. Maintainer merges pull-requests, fixes critical bugs.
+Проект развивается с помощью сообщества. Мейнтейнер мерджит пулл-реквесты, исправляет особо критичные баги.
 
-Pull-requests
+Пулл-реквесты
 -------------
 
-If you fixed or added something useful to the project, you can send pull-request.
-It will be reviewed by maintainer and accepted, or commented for rework, or declined.
+Если вы что-то исправили или добавили в пакет ENB, вы можете отправить пулл-реквест. Он будет рассмотрен мейнтейнером и, либо принят, либо прокомментирован для дальнейшей доработки, либо отклонен.
 
-Bugs
+Ошибки
+------
+
+Если вы нашли ошибку, недоделку, опечатку и вообще любой дефект в ENB, пожалуйста, сообщите об этом, используя github-issues.
+И да. Чем подробнее вы опишите ошибку, тем быстрее её смогут воспроизвести и исправить, и тем больше ментейнеры будут вам признательны :)
+К сожалению, неизбежны ситуации, когда ошибка будет воспроизводиться только на вашем проекте или в вашем серверном окружении, и ментейнер не сможет не только исправить, а даже воспроизвести её. В таких случаях, мы будем верить, вы сами сможете найти нужное исправление и со временем предложить ментейнеру фикс.
+
+Фичи
 ----
 
-If you found an error, mistype or any other flawback in the project, please report about it using github-issues.
-The more details you provide, the easier it can be reproduced and the faster can be fixed.
-Unfortunately, sometimes the bug can be only reproduced in your project or in your environment,
-so maintainers cannot reproduce it. In this case we believe you can fix the bug and send us the fix.
-
-Features
---------
-
-It you've got an idea about a new feature, it's most likely that you have do implement it on your own.
-If you cannot implement the feature, but it is very important, you can add a task in github-issues,
-but expect it be declined by the maintainer.
+Если вы придумали новую фичу, весьма вероятно, что её реализацию вам придётся писать самому. Но вы не постесняйтесь, спросите у ментейнеров имена разработчиков, которые хорошо разбираются в ENB — с ними можно скооперироваться, чтобы реализовать вашу задумку.
+Если вы не можете её реализовать сами и не смогли заинтересовать других крутых разработчиков, но фича невероятно крутая — заведите таск в Issues, что-нибудь придумаем.
+В крайнем случае объясним вам, что хотеть эту фичу вам не нужно. Или что с ней нужно повременить. Но это в крайнем случае :)
