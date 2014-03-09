@@ -12,7 +12,7 @@
  * * *String* **filesTarget** — files-таргет, на основе которого получается список исходных файлов
  *   (его предоставляет технология `files`). По умолчанию — `?.files`.
  * * *String* **exportName** — Имя переменной-обработчика BEMHTML. По умолчанию — `'BEMHTML'`.
- * * *Boolean* **devMode** — Development-режим. По умолчанию зависит от `YENV` (`true`, если `YENV=development`).
+ * * *Boolean* **devMode** — Development-режим. По умолчанию — true.
  * * *Boolean* **cache** — Кэширование. Возможно только в production-режиме. По умолчанию — `false`.
  *
  * **Пример**
@@ -25,7 +25,7 @@ module.exports = require('./bem-xjst').buildFlow()
     .name('bemhtml')
     .target('target', '?.bemhtml.js')
     .defineOption('exportName', 'BEMHTML')
-    .defineOption('devMode', 'development' === process.env.YENV)
+    .defineOption('devMode', true)
     .defineOption('cache', false)
     .useFileList(['bemhtml', 'bemhtml.xjst'])
     .builder(function (sourceFiles) {

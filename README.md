@@ -41,7 +41,7 @@ bemhtml & bemhtml-old
 * *String* **target**&nbsp;— Результирующий таргет. По&nbsp;умолчанию&nbsp;— `?.bemhtml.js`.
 * *String* **filesTarget**&nbsp;— files-таргет, на&nbsp;основе которого получается список исходных файлов (его предоставляет технология `files`). По&nbsp;умолчанию&nbsp;— `?.files`.
 * *String* **exportName**&nbsp;— Имя переменной-обработчика BEMHTML. По&nbsp;умолчанию&nbsp;— `'BEMHTML'`.
-* *Boolean* **devMode**&nbsp;— Development-режим. По&nbsp;умолчанию зависит от&nbsp;`YENV` (`true`, если `YENV=development`).
+* *Boolean* **devMode**&nbsp;— Development-режим. По&nbsp;умолчанию&nbsp;— true.
 * *Boolean* **cache**&nbsp;— Кэширование. Возможно только в&nbsp;production-режиме. По&nbsp;умолчанию&nbsp;— `false`.
 
 **Пример**
@@ -60,7 +60,7 @@ bemtree & bemtree-old
 * *String* **target**&nbsp;— Результирующий таргет. По&nbsp;умолчанию&nbsp;— `?.bemtree.js`.
 * *String* **filesTarget**&nbsp;— files-таргет, на&nbsp;основе которого получается список исходных файлов (его предоставляет технология `files`). По&nbsp;умолчанию&nbsp;— `?.files`.
 * *String* **exportName**&nbsp;— Имя переменной-обработчика BEMTREE. По&nbsp;умолчанию&nbsp;— `'BEMTREE'`.
-* *Boolean* **devMode**&nbsp;— Development-режим. По&nbsp;умолчанию зависит от&nbsp;`YENV` (`true`, если `YENV=development`).
+* *Boolean* **devMode**&nbsp;— Development-режим. По&nbsp;умолчанию&nbsp;— true.
 
 **Пример**
 

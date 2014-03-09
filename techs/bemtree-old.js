@@ -11,7 +11,7 @@
  * * *String* **filesTarget** — files-таргет, на основе которого получается список исходных файлов
  *   (его предоставляет технология `files`). По умолчанию — `?.files`.
  * * *String* **exportName** — Имя переменной-обработчика BEMTREE. По умолчанию — `'BEMTREE'`.
- * * *Boolean* **devMode** — Development-режим. По умолчанию зависит от `YENV` (`true`, если `YENV=development`).
+ * * *Boolean* **devMode** — Development-режим. По умолчанию — true.
  *
  * **Пример**
  *
