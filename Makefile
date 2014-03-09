@@ -13,22 +13,22 @@ lint: npm_deps
 	$(JSCS) -c .jscs.js .
 
 .PHONY: test
-test: npm_deps clean build
+test: npm_deps clean examples
 	$(MOCHA) test/func
 
-.PHONY: build
-build: npm_deps
-	cd test/fixtures/bemhtml && YENV=development ../../../$(ENB) make --no-cache
-	cd test/fixtures/bemhtml-old && YENV=development ../../../$(ENB) make --no-cache
-	cd test/fixtures/bemtree && YENV=development ../../../$(ENB) make --no-cache
-	cd test/fixtures/bemtree-old && YENV=development ../../../$(ENB) make --no-cache
+.PHONY: examples
+examples: npm_deps
+	cd examples/bemhtml && YENV=development ../../$(ENB) make --no-cache
+	cd examples/bemhtml-old && YENV=development ../../$(ENB) make --no-cache
+	cd examples/bemtree && YENV=development ../../$(ENB) make --no-cache
+	cd examples/bemtree-old && YENV=development ../../$(ENB) make --no-cache
 
 .PHONY: clean
 clean: npm_deps
-	cd test/fixtures/bemhtml && ../../../$(ENB) make clean
-	cd test/fixtures/bemhtml-old && ../../../$(ENB) make clean
-	cd test/fixtures/bemtree && ../../../$(ENB) make clean
-	cd test/fixtures/bemtree-old && ../../../$(ENB) make clean
+	cd examples/bemhtml && ../../$(ENB) make clean
+	cd examples/bemhtml-old && ../../$(ENB) make clean
+	cd examples/bemtree && ../../$(ENB) make clean
+	cd examples/bemtree-old && ../../$(ENB) make clean
 
 .PHONY: npm_deps
 npm_deps:

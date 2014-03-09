@@ -1,26 +1,37 @@
-var fs = require('fs');
 var path = require('path');
-var fixturesPath = path.join(__dirname, '..', 'fixtures', 'bemtree');
-var devBemtreePath = path.join(fixturesPath, 'page', 'page.dev.bemtree.js');
-var prodBemtreePath = path.join(fixturesPath, 'page', 'page.prod.bemtree.js');
-var data = require(path.join(fixturesPath, 'data', 'data.json'));
-var view = require(path.join(fixturesPath, 'result', 'view.json'));
+var fs = require('fs');
+var TestTargets = require('../lib/test-targets').TestTargets;
+var targets = new TestTargets('bemtree', [
+    'page/page.dev.bemtree.js',
+    'page/page.prod.bemtree.js'
+]);
+var devBemtreePath = path.resolve(__dirname, '../../examples/bemtree/page/page.dev.bemtree.js');
+var prodBemtreePath = path.resolve(__dirname, '../../examples/bemtree/page/page.prod.bemtree.js');
+var data = require('../../examples/bemtree/data/data.json');
+var view = require('../../examples/bemtree/result/view.json');
 
-describe('functional', function () {
-    describe('bemtree', function () {
+describe('bemtree', function () {
+    beforeEach(function (done) {
+        return targets.build()
+            .then(function () {
+                done();
+            });
+    });
+
+    describe('page', function () {
         it('must build simple view of page in dev mode', function (done) {
-            var bemtree = require(devBemtreePath).BEMTREE;
+            var BEMTREE = require(devBemtreePath).BEMTREE;
 
-            bemtree.apply(data).then(function (res) {
+            BEMTREE.apply(data).then(function (res) {
                 res.must.eql(view);
                 done();
             });
         });
 
         it('must build simple view of page in production mode', function (done) {
-            var bemtree = require(prodBemtreePath).BEMTREE;
+            var BEMTREE = require(prodBemtreePath).BEMTREE;
 
-            bemtree.apply(data).then(function (res) {
+            BEMTREE.apply(data).then(function (res) {
                 res.must.eql(view);
                 done();
             });
