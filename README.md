@@ -4,28 +4,15 @@ enb-bemxjst [![NPM version](https://badge.fury.io/js/enb-bemxjst.png)](http://ba
 Поддержка технологий, базирующихся на&nbsp;основе [`bem-xjst`](https://github.com/bem/bem-xjst), для [`ENB`](https://github.com/enb-make/enb.git).
 Базовые шаблоны для `bemhtml` и&nbsp;`bemtree` находятся в&nbsp;библиотеке [`bem-core`](https://github.com/bem/bem-core.git).
 
-**Внимание**: для технологий, базовые шаблоны которых находятся в&nbsp;библиотеке [`bem-bl`](https://github.com/bem/bem-bl.git) следует использовать [`enb-bemhtml`](https://github.com/enb-make/enb-bemhtml) пакет.
+**Внимание**: для технологий, базовые шаблоны которых находятся в&nbsp;библиотеке [`bem-bl`](https://github.com/bem/bem-bl.git) следует использовать [`enb-xjst`](https://github.com/enb-make/enb-xjst) пакет.
 
 Установка
 ---------
 ```
-$ npm install enb-bemxjst
+$ npm install --save-dev enb-bemxjst
 ```
 
-История изменений
------------------
-
-История изменений на [отдельной странице](/CHANGELOG.md).
-
-Разработка
-----------
-Руководство на [отдельной странице](/CONTRIBUTION.md).
-
-Запуск тестов
--------------
-```
-$ make validate
-```
+Для работы модуля требуется зависимость от пакета enb версии 0.8.22 или выше.
 
 Технологии
 ----------
@@ -79,4 +66,19 @@ bemtree & bemtree-old
 
 ```javascript
 nodeConfig.addTech([ require('enb-bemxjst/techs/bemtree'), { devMode: false } ]);
+```
+
+История изменений
+-----------------
+
+История изменений на [отдельной странице](/CHANGELOG.md).
+
+Разработка
+----------
+Руководство на [отдельной странице](/CONTRIBUTION.md).
+
+Запуск тестов
+-------------
+```
+$ npm test
 ```
