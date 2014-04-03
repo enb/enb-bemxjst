@@ -10,6 +10,7 @@
  * * *String* **target** — Результирующий таргет. По умолчанию — `?.bemtree.js`.
  * * *String* **filesTarget** — files-таргет, на основе которого получается список исходных файлов
  *   (его предоставляет технология `files`). По умолчанию — `?.files`.
+ * * * *String* **sourceSuffixes** — суффиксы файлов, по которым строится `files`-таргет. По умолчанию — `['bemtree']`.
  * * *String* **exportName** — Имя переменной-обработчика BEMTREE. По умолчанию — `'BEMTREE'`.
  * * *Boolean* **devMode** — Development-режим. По умолчанию — true.
  *

@@ -12,6 +12,8 @@
  * * *String* **target** — Результирующий таргет. По умолчанию — `?.bemhtml.js`.
  * * *String* **filesTarget** — files-таргет, на основе которого получается список исходных файлов
  *   (его предоставляет технология `files`). По умолчанию — `?.files`.
+ * * *String* **sourceSuffixes** — суффиксы файлов, по которым строится `files`-таргет.
+ *   По умолчанию — `['bemhtml', 'bemhtml.xjst']`.
  * * *String* **exportName** — Имя переменной-обработчика BEMHTML. По умолчанию — `'BEMHTML'`.
  * * *Boolean* **devMode** — Development-режим. По умолчанию — true.
  * * *Boolean* **cache** — Кэширование. Возможно только в dev-режиме. По умолчанию — `true`.
