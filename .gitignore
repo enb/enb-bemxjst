@@ -1,4 +1,5 @@
 node_modules
+examples/bower_components
 examples/*/.enb/tmp
 examples/*/page/*
 !examples/*/page/page.bemdecl.js
