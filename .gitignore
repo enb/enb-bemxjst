@@ -1,3 +1,4 @@
-.idea
 node_modules
-.DS_Store
+examples/*/.enb/tmp
+examples/*/page/*
+!examples/*/page/page.bemdecl.js
