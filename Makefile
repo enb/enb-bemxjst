@@ -32,7 +32,7 @@ clean: npm_deps
 	cd examples/bemtree-old && ../../$(ENB) make clean
 
 .PHONY: bower_deps
-bower_deps:
+bower_deps: npm_deps
 	cd examples && ../$(BOWER) install
 
 .PHONY: npm_deps

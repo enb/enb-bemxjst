@@ -5,6 +5,7 @@
     "bem-core": "2.1.0"
   },
   "ignore": [
-    "*/.enb/tmp"
+    "*/.enb/tmp",
+    "*/page/*"
   ]
 }
