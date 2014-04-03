@@ -22,19 +22,27 @@ describe('bemtree', function () {
         it('must build simple view of page in dev mode', function (done) {
             var BEMTREE = require(devBemtreePath).BEMTREE;
 
-            BEMTREE.apply(data).then(function (res) {
-                res.must.eql(view);
-                done();
-            });
+            BEMTREE.apply(data)
+                .then(function (res) {
+                    res.must.eql(view);
+                    done();
+                })
+                .fail(function (err) {
+                    done(err);
+                });
         });
 
         it('must build simple view of page in production mode', function (done) {
             var BEMTREE = require(prodBemtreePath).BEMTREE;
 
-            BEMTREE.apply(data).then(function (res) {
-                res.must.eql(view);
-                done();
-            });
+            BEMTREE.apply(data)
+                .then(function (res) {
+                    res.must.eql(view);
+                    done();
+                })
+                .fail(function (err) {
+                    done(err);
+                });
         });
 
         it('must build different code by mode', function () {
