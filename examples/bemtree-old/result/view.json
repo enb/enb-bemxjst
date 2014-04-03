@@ -1,5 +1,6 @@
 {
     "block": "b-page",
+    "mods": {},
     "title": "Page Title",
     "head": [
         { "elem": "css", "url": "_page.css" },
@@ -8,7 +9,9 @@
     "content": [
         {
             "block": "title",
+            "mods": {},
             "content": "Page Title"
+
         },
         "Page content"
     ]
