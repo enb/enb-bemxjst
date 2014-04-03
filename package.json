@@ -27,7 +27,7 @@
     "enb": ">= 0.8.22 < 1.0.0"
   },
   "dependencies": {
-    "vow": "0.4.2",
+    "vow": "0.4.3",
     "sibling": "0.1.3",
     "bem-xjst": "0.4.0",
     "bemhtml-compat": "0.0.11"
