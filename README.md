@@ -19,6 +19,7 @@ $ npm install --save-dev enb-bemxjst
 
 * [bemhtml & bemhtml-old](#bemhtml--bemhtml-old)
 * [bemtree & bemtree-old](#bemtree--bemtree-old)
+* [html-from-bemjson](#html-from-bemjson)
 
 ### Зачем нужны `*-old` технологии?
 Технологии с&nbsp;суффиксом `old` помимо js-синтаксиса поддерживают ещё и первоначальный синтаксис.
@@ -68,6 +69,23 @@ bemtree & bemtree-old
 
 ```javascript
 nodeConfig.addTech([ require('enb-bemxjst/techs/bemtree'), { devMode: false } ]);
+```
+
+html-from-bemjson
+=================
+
+Собирает *html*-файл с помощью *bemjson* и *bemhtml*.
+
+**Опции**
+
+* *String* **bemhtmlTarget** — Исходный BEMHTML-файл. По умолчанию — `?.bemhtml.js`.
+* *String* **bemjsonTarget** — Исходный BEMJSON-файл. По умолчанию — `?.bemjson.js`.
+* *String* **destTarget** — Результирующий HTML-файл. По умолчанию — `?.html`.
+
+**Пример**
+
+```javascript
+nodeConfig.addTech(require('enb-bemxjst/techs/html-from-bemjson'));
 ```
 
 История изменений
