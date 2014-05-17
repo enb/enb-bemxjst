@@ -13,7 +13,7 @@
  * **Пример**
  *
  * ```javascript
- * nodeConfig.addTech(require('enb/techs/html-from-bemjson'));
+ * nodeConfig.addTech(require('enb-bemxjst/techs/html-from-bemjson'));
  * ```
  */
 var requireOrEval = require('../lib/fs/require-or-eval');
