@@ -1,7 +1,0 @@
-- block: i-vow
-  mods: { dummy: yes }
-  required: true
-- block: i-bem
-  required: true
-
-- b-page

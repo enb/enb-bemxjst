@@ -1,5 +1,1 @@
 node_modules
-examples/libs
-examples/*/.enb/tmp
-examples/*/page/*
-!examples/*/page/page.bemdecl.js

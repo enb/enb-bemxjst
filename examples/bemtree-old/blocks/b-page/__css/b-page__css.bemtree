@@ -1,9 +1,0 @@
-block b-page, elem css {
-
-    default: {
-        this.ctx.url = '_' + this.data.bundleName + '.css';
-
-        return applyCtx(this.ctx);
-    }
-
-}
