@@ -1,18 +1,25 @@
 {
-    "node"     : true,
-    "bitwise"  : true,
-    "undef"    : true,
-    "eqeqeq"   : true,
-    "forin"    : true,
-    "immed"    : true,
-    "noarg"    : true,
-    "unused"   : true,
-    "maxlen"   : 120,
-    "indent"   : 4,
-    "predef"   : ["describe", "it", "beforeEach"],
-    "quotmark" : "single",
-    "maxerr": 5,
-    "maxdepth": 2,
-    "maxstatements": 12,
-    "maxcomplexity": 5
+    "curly": true,
+    "eqeqeq": true,
+    "forin": true,
+    "freeze": true,
+    "immed": true,
+    "latedef": "nofucn",
+    "noarg": true,
+    "noempty": true,
+    "undef": true,
+    "unused": true,
+    "trailing": true,
+
+    "node": true,
+    "globals": {
+        "describe": false,
+        "it": false,
+        "before": false,
+        "beforeEach": false,
+        "after": false,
+        "afterEach": false
+    },
+
+    "expr": true
 }
