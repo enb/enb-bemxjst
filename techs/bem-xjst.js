@@ -3,6 +3,11 @@ var fs = require('enb/lib/fs/async-fs');
 var bemxjst = require('bem-xjst');
 var bemcompat = require('bemhtml-compat');
 var XJST_SUFFIX = 'xjst';
+var BemxjstProcessor = require('sibling').declare({
+    process: function (source, options) {
+        return bemxjst.generate(source, options);
+    }
+});
 
 module.exports = require('enb/lib/build-flow').create()
     .name('bem-xjst')
@@ -40,9 +45,3 @@ module.exports = require('enb/lib/build-flow').create()
         }
     })
     .createTech();
-
-var BemxjstProcessor = require('sibling').declare({
-    process: function (source, options) {
-        return bemxjst.generate(source, options);
-    }
-});
