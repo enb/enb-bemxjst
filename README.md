@@ -78,9 +78,9 @@ html-from-bemjson
 
 **Опции**
 
-* *String* **bemhtmlTarget** — Исходный BEMHTML-файл. По умолчанию — `?.bemhtml.js`.
-* *String* **bemjsonTarget** — Исходный BEMJSON-файл. По умолчанию — `?.bemjson.js`.
-* *String* **destTarget** — Результирующий HTML-файл. По умолчанию — `?.html`.
+* *String* **bemhtmlFile** — Исходный BEMHTML-файл. По умолчанию — `?.bemhtml.js`.
+* *String* **bemjsonFile** — Исходный BEMJSON-файл. По умолчанию — `?.bemjson.js`.
+* *String* **target** — Результирующий HTML-файл. По умолчанию — `?.html`.
 
 **Пример**
 

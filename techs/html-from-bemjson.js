@@ -6,9 +6,9 @@
  *
  * **Опции**
  *
- * * *String* **bemhtmlTarget** — Исходный BEMHTML-файл. По умолчанию — `?.bemhtml.js`.
- * * *String* **bemjsonTarget** — Исходный BEMJSON-файл. По умолчанию — `?.bemjson.js`.
- * * *String* **destTarget** — Результирующий HTML-файл. По умолчанию — `?.html`.
+ * * *String* **bemhtmlFile** — Исходный BEMHTML-файл. По умолчанию — `?.bemhtml.js`.
+ * * *String* **bemjsonFile** — Исходный BEMJSON-файл. По умолчанию — `?.bemjson.js`.
+ * * *String* **target** — Результирующий HTML-файл. По умолчанию — `?.html`.
  *
  * **Пример**
  *
@@ -16,15 +16,18 @@
  * nodeConfig.addTech(require('enb-bemxjst/techs/html-from-bemjson'));
  * ```
  */
-var requireOrEval = require('../lib/fs/require-or-eval');
-var asyncRequire = require('../lib/fs/async-require');
-var dropRequireCache = require('../lib/fs/drop-require-cache');
+var requireOrEval = require('enb/lib/fs/require-or-eval');
+var asyncRequire = require('enb/lib/fs/async-require');
+var dropRequireCache = require('enb/lib/fs/drop-require-cache');
 
-module.exports = require('../lib/build-flow').create()
+module.exports = require('enb/lib/build-flow').create()
     .name('html-from-bemjson')
-    .target('destTarget', '?.html')
-    .useSourceFilename('bemhtmlTarget', '?.bemhtml.js')
-    .useSourceFilename('bemjsonTarget', '?.bemjson.js')
+    .target('target', '?.html')
+    .useSourceFilename('bemhtmlFile', '?.bemhtml.js')
+    .useSourceFilename('bemjsonFile', '?.bemjson.js')
+    .optionAlias('bemhtmlFile', 'bemhtmlTarget')
+    .optionAlias('bemjsonFile', 'bemjsonTarget')
+    .optionAlias('target', 'destTarget')
     .builder(function (bemhtmlFilename, bemjsonFilename) {
         dropRequireCache(require, bemjsonFilename);
         return requireOrEval(bemjsonFilename).then(function (json) {
