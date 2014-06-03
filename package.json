@@ -42,6 +42,11 @@
     "enb-validate-code": "0.0.1"
   },
   "scripts": {
-    "test": "make validate"
+    "test": "npm run lint && npm run func-test",
+    "lint": "jshint . && jscs -c .jscs.js .",
+    "func-test": "npm run deps && npm run clean && npm run build && mocha test/func",
+    "deps": "cd examples && bower install",
+    "build": "cd examples/bemhtml && YENV=development enb make && cd ../bemhtml-old && YENV=development enb make && cd ../bemtree && YENV=development enb make && cd ../bemtree-old && YENV=development enb make",
+    "clean": "cd examples/bemhtml && enb make clean && cd ../bemhtml-old && enb make clean && cd ../bemtree && enb make clean && cd ../bemtree-old && enb make clean"
   }
 }
