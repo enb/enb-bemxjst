@@ -1,0 +1,13 @@
+{
+    "block": "page",
+    "title": "Page Title",
+    "mods": {},
+    "content": [
+        {
+            "block": "title",
+            "mods": {},
+            "content": "Page Title"
+        },
+        "Page content"
+    ]
+}

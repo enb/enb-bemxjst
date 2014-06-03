@@ -1,0 +1,10 @@
+mode('').match(!this.data)(function() {
+    var data = this.ctx;
+
+    return applyCtx(
+        {
+            data: data
+        },
+        { block : 'page' }
+    )
+})
