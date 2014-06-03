@@ -20,6 +20,7 @@ $ npm install --save-dev enb-bemxjst
 * [bemhtml & bemhtml-old](#bemhtml--bemhtml-old)
 * [bemtree & bemtree-old](#bemtree--bemtree-old)
 * [html-from-bemjson](#html-from-bemjson)
+* [html-from-bemjson-i18n](#html-from-bemjson-i18n)
 
 ### Зачем нужны `*-old` технологии?
 Технологии с&nbsp;суффиксом `old` помимо js-синтаксиса поддерживают ещё и первоначальный синтаксис.
@@ -86,6 +87,25 @@ html-from-bemjson
 
 ```javascript
 nodeConfig.addTech(require('enb-bemxjst/techs/html-from-bemjson'));
+```
+
+html-from-bemjson-i18n
+======================
+
+Собирает *html*-файл с помощью *bemjson*, *bemhtml*, *lang.all* и *lang.{lang}*.
+
+**Опции**
+
+* *String* **bemhtmlFile** — Исходный BEMHTML-файл. По умолчанию — `?.bemhtml.js`.
+* *String* **bemjsonFile** — Исходный BEMJSON-файл. По умолчанию — `?.bemjson.js`.
+* *String* **langAllFile** — Исходный langAll-файл. По умолчанию — `?.lang.all.js`.
+* *String* **langFile** — Исходный lang-файл. По умолчанию — `?.lang.{lang}.js`. Если параметр lang не указан, берется первый из объявленных в проекте языков
+* *String* **target** — Результирующий HTML-файл. По умолчанию — `?.{lang}.html`.
+
+**Пример**
+
+```javascript
+nodeConfig.addTech(require('enb-bemxjst/techs/html-from-bemjson-i18n'));
 ```
 
 История изменений
