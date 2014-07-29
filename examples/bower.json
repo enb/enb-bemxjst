@@ -2,7 +2,7 @@
   "name": "enb-bemxjst-examples",
   "private": true,
   "dependencies": {
-    "bem-core": "2.1.0"
+    "bem-core": "git://github.com/bem/bem-core.git#fef261715709145841f334adebc5b96526c99543"
   },
   "ignore": [
     "*/.enb/tmp",
