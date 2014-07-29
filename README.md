@@ -1,5 +1,7 @@
-enb-bemxjst [![NPM version](https://badge.fury.io/js/enb-bemxjst.svg)](http://badge.fury.io/js/enb-bemxjst) [![Build Status](https://travis-ci.org/enb-make/enb-bemxjst.svg?branch=master)](https://travis-ci.org/enb-make/enb-bemxjst)  [![Dependency Status](https://gemnasium.com/enb-make/enb-bemxjst.svg)](https://gemnasium.com/enb-make/enb-bemxjst)
+enb-bemxjst
 ===========
+
+[![NPM version](https://badge.fury.io/js/enb-bemxjst.svg)](http://badge.fury.io/js/enb-bemxjst) [![Build Status](https://travis-ci.org/enb-make/enb-bemxjst.svg?branch=master)](https://travis-ci.org/enb-make/enb-bemxjst) [![Dependency Status](https://david-dm.org/enb-make/enb-bemxjst.svg)](https://david-dm.org/enb-make/enb-bemxjst)
 
 Поддержка технологий, базирующихся на&nbsp;основе [`bem-xjst`](https://github.com/bem/bem-xjst), для [`ENB`](https://github.com/enb-make/enb.git).
 Базовые шаблоны для `bemhtml` и&nbsp;`bemtree` находятся в&nbsp;библиотеке [`bem-core`](https://github.com/bem/bem-core.git).
@@ -8,13 +10,13 @@ enb-bemxjst [![NPM version](https://badge.fury.io/js/enb-bemxjst.svg)](http://ba
 
 Установка
 ---------
-```
+```sh
 $ npm install --save-dev enb-bemxjst
 ```
 
 Для работы модуля требуется зависимость от пакета `enb` версии `0.13.0` или выше.
 
-Технологии
+ТехнологииUpda
 ----------
 
 * [bemhtml & bemhtml-old](#bemhtml--bemhtml-old)
@@ -106,19 +108,4 @@ html-from-bemjson-i18n
 
 ```javascript
 nodeConfig.addTech(require('enb-bemxjst/techs/html-from-bemjson-i18n'));
-```
-
-История изменений
------------------
-
-История изменений на [отдельной странице](/CHANGELOG.md).
-
-Разработка
-----------
-Руководство на [отдельной странице](/CONTRIBUTION.md).
-
-Запуск тестов
--------------
-```
-$ npm test
 ```
