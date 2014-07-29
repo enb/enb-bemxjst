@@ -12,7 +12,7 @@ enb-bemxjst [![NPM version](https://badge.fury.io/js/enb-bemxjst.svg)](http://ba
 $ npm install --save-dev enb-bemxjst
 ```
 
-Для работы модуля требуется зависимость от пакета enb версии 0.13.1 или выше.
+Для работы модуля требуется зависимость от пакета `enb` версии `0.13.0` или выше.
 
 Технологии
 ----------
