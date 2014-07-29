@@ -14,6 +14,8 @@
  * * *String* **sourceSuffixes** — суффиксы файлов, по которым строится `files`-таргет. По умолчанию — `['bemtree']`.
  * * *String* **exportName** — Имя переменной-обработчика BEMTREE. По умолчанию — `'BEMTREE'`.
  * * *Boolean* **devMode** — Development-режим. По умолчанию — true.
+ * * *Object* **modulesDeps** — Хэш-объект, прокидывающий в генерируемую для скомпилированных шаблонов обвязку,
+ *    необходимые YModules-модули. По умолчанию — `{ vow: 'Vow' }`.
  *
  * **Пример**
  *
@@ -26,6 +28,7 @@ module.exports = require('./bem-xjst').buildFlow()
     .target('target', '?.bemtree.js')
     .defineOption('exportName', 'BEMTREE')
     .defineOption('devMode', true)
+    .defineOption('modulesDeps', { vow: 'Vow' })
     .useFileList(['bemtree'])
     .builder(function (sourceFiles) {
         return this._sourceFilesProcess(sourceFiles);

@@ -37,7 +37,8 @@ module.exports = require('enb/lib/build-flow').create()
                 wrap: true,
                 exportName: this._exportName,
                 optimize: !this._devMode,
-                cache: !this._devMode && this._cache
+                cache: !this._devMode && this._cache,
+                modulesDeps: this._modulesDeps
             }).then(function (res) {
                 bemxjstProcessor.dispose();
                 return res;

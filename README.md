@@ -16,7 +16,7 @@ $ npm install --save-dev enb-bemxjst
 
 Для работы модуля требуется зависимость от пакета `enb` версии `0.13.0` или выше.
 
-ТехнологииUpda
+Технологии
 ----------
 
 * [bemhtml & bemhtml-old](#bemhtml--bemhtml-old)
@@ -48,6 +48,7 @@ bemhtml & bemhtml-old
 * *String* **exportName**&nbsp;— Имя переменной-обработчика BEMHTML. По&nbsp;умолчанию&nbsp;— `'BEMHTML'`.
 * *Boolean* **devMode**&nbsp;— Development-режим. По&nbsp;умолчанию&nbsp;— true.
 * *Boolean* **cache**&nbsp;— Кэширование. Возможно только в&nbsp;production-режиме. По&nbsp;умолчанию&nbsp;— `false`.
+* *Object* **modulesDeps** — Хэш-объект, прокидывающий в генерируемую для скомпилированных шаблонов обвязку, необходимые YModules-модули.
 
 **Пример**
 
@@ -67,6 +68,7 @@ bemtree & bemtree-old
 * *String* **sourceSuffixes** — суффиксы файлов, по которым строится `files`-таргет. По умолчанию — `['bemtree']`.
 * *String* **exportName**&nbsp;— Имя переменной-обработчика BEMTREE. По&nbsp;умолчанию&nbsp;— `'BEMTREE'`.
 * *Boolean* **devMode**&nbsp;— Development-режим. По&nbsp;умолчанию&nbsp;— true.
+* *Object* **modulesDeps** — Хэш-объект, прокидывающий в генерируемую для скомпилированных шаблонов обвязку, необходимые YModules-модули. По умолчанию — `{ vow: 'Vow' }`.
 
 **Пример**
 
