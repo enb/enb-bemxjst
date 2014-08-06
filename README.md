@@ -46,7 +46,7 @@ bemhtml & bemhtml-old
 * *String* **filesTarget**&nbsp;— files-таргет, на&nbsp;основе которого получается список исходных файлов (его предоставляет технология `files`). По&nbsp;умолчанию&nbsp;— `?.files`.
 * *String* **sourceSuffixes** — суффиксы файлов, по которым строится `files`-таргет. По умолчанию — `['bemhtml', 'bemhtml.xjst']`.
 * *String* **exportName**&nbsp;— Имя переменной-обработчика BEMHTML. По&nbsp;умолчанию&nbsp;— `'BEMHTML'`.
-* *Boolean* **devMode**&nbsp;— Development-режим. По&nbsp;умолчанию&nbsp;— true.
+* *Boolean* **devMode**&nbsp;— Development-режим. По&nbsp;умолчанию&nbsp;— `true`.
 * *Boolean* **cache**&nbsp;— Кэширование. Возможно только в&nbsp;production-режиме. По&nbsp;умолчанию&nbsp;— `false`.
 * *Object* **modulesDeps** — Хэш-объект, прокидывающий в генерируемую для скомпилированных шаблонов обвязку, необходимые YModules-модули.
 
@@ -67,8 +67,8 @@ bemtree & bemtree-old
 * *String* **filesTarget**&nbsp;— files-таргет, на&nbsp;основе которого получается список исходных файлов (его предоставляет технология `files`). По&nbsp;умолчанию&nbsp;— `?.files`.
 * *String* **sourceSuffixes** — суффиксы файлов, по которым строится `files`-таргет. По умолчанию — `['bemtree']`.
 * *String* **exportName**&nbsp;— Имя переменной-обработчика BEMTREE. По&nbsp;умолчанию&nbsp;— `'BEMTREE'`.
-* *Boolean* **devMode**&nbsp;— Development-режим. По&nbsp;умолчанию&nbsp;— true.
-* *Object* **modulesDeps** — Хэш-объект, прокидывающий в генерируемую для скомпилированных шаблонов обвязку, необходимые YModules-модули. По умолчанию — `{ vow: 'Vow' }`.
+* *Boolean* **devMode**&nbsp;— Development-режим. По&nbsp;умолчанию&nbsp;— `true`.
+* *Object* **modulesDeps** — Хэш-объект, прокидывающий в генерируемую для скомпилированных шаблонов обвязку, необходимые YModules-модули.
 
 **Пример**
 
