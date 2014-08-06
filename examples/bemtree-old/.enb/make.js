@@ -19,7 +19,7 @@ module.exports = function (config) {
 
 function getLevels (config) {
     return [
-        { path: '../bower_components/bem-core/common.blocks', check: false },
+        { path: '../libs/bem-core/common.blocks', check: false },
         'blocks'
     ].map(function (level) {
         return config.resolvePath(level);
