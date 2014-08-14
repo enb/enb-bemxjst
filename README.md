@@ -35,8 +35,7 @@ $ npm install --save-dev enb-bemxjst
 **Внимание:** считается, что файлы с&nbsp;расширением `*.xjst` могут быть написаны только в js-синтаксисе.
 Транслирование для таких файлов проводиться не&nbsp;будет, даже если использовать `old`-технологии.
 
-bemhtml & bemhtml-old
-=====================
+### bemhtml & bemhtml-old
 
 Склеивает `bemhtml.xjst` и&nbsp;`bemhtml`-файлы по&nbsp;deps'ам, обрабатывает [`bem-xjst`](https://github.com/bem/bem-xjst)-транслятором, сохраняет (по&nbsp;умолчанию) в&nbsp;виде `?.bemhtml.js`.
 
@@ -56,8 +55,7 @@ bemhtml & bemhtml-old
 nodeConfig.addTech([ require('enb-bemxjst/techs/bemhtml'), { devMode: false } ]);
 ```
 
-bemtree & bemtree-old
-=====================
+### bemtree & bemtree-old
 
 Склеивает `bemtree`-файлы по&nbsp;deps'ам, обрабатывает [`bem-xjst`](https://github.com/bem/bem-xjst)-транслятором, сохраняет (по&nbsp;умолчанию) в&nbsp;виде `?.bemtree.js`.
 
@@ -76,8 +74,7 @@ bemtree & bemtree-old
 nodeConfig.addTech([ require('enb-bemxjst/techs/bemtree'), { devMode: false } ]);
 ```
 
-html-from-bemjson
-=================
+### html-from-bemjson
 
 Собирает *html*-файл с помощью *bemjson* и *bemhtml*.
 
@@ -93,8 +90,7 @@ html-from-bemjson
 nodeConfig.addTech(require('enb-bemxjst/techs/html-from-bemjson'));
 ```
 
-html-from-bemjson-i18n
-======================
+### html-from-bemjson-i18n
 
 Собирает *html*-файл с помощью *bemjson*, *bemhtml*, *lang.all* и *lang.{lang}*.
 
