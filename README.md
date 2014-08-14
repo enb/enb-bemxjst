@@ -1,7 +1,7 @@
 enb-bemxjst
 ===========
 
-[![NPM version](https://badge.fury.io/js/enb-bemxjst.svg)](http://badge.fury.io/js/enb-bemxjst) [![Build Status](https://travis-ci.org/enb-bem/enb-bemxjst.svg?branch=master)](https://travis-ci.org/enb-bem/enb-bemxjst) [![Dependency Status](https://david-dm.org/enb-bem/enb-bemxjst.svg)](https://david-dm.org/enb-bem/enb-bemxjst)
+[![NPM version](http://img.shields.io/npm/v/enb-bemxjst.svg?style=flat)](http://badge.fury.io/js/enb-bemxjst) [![Build Status](http://img.shields.io/travis/enb-bem/enb-bemxjst/master.svg?style=flat)](https://travis-ci.org/enb-bem/enb-bemxjst) [![Dependency Status](http://img.shields.io/david/enb-bem/enb-bemxjst.svg?style=flat)](https://david-dm.org/enb-bem/enb-bemxjst)
 
 Поддержка технологий, базирующихся на&nbsp;основе [`bem-xjst`](https://github.com/bem/bem-xjst), для [`ENB`](https://github.com/enb-make/enb.git).
 Базовые шаблоны для `bemhtml` и&nbsp;`bemtree` находятся в&nbsp;библиотеке [`bem-core`](https://github.com/bem/bem-core.git).
