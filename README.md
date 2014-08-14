@@ -1,12 +1,12 @@
 enb-bemxjst
 ===========
 
-[![NPM version](https://badge.fury.io/js/enb-bemxjst.svg)](http://badge.fury.io/js/enb-bemxjst) [![Build Status](https://travis-ci.org/enb-make/enb-bemxjst.svg?branch=master)](https://travis-ci.org/enb-make/enb-bemxjst) [![Dependency Status](https://david-dm.org/enb-make/enb-bemxjst.svg)](https://david-dm.org/enb-make/enb-bemxjst)
+[![NPM version](https://badge.fury.io/js/enb-bemxjst.svg)](http://badge.fury.io/js/enb-bemxjst) [![Build Status](https://travis-ci.org/enb-bem/enb-bemxjst.svg?branch=master)](https://travis-ci.org/enb-bem/enb-bemxjst) [![Dependency Status](https://david-dm.org/enb-bem/enb-bemxjst.svg)](https://david-dm.org/enb-bem/enb-bemxjst)
 
 Поддержка технологий, базирующихся на&nbsp;основе [`bem-xjst`](https://github.com/bem/bem-xjst), для [`ENB`](https://github.com/enb-make/enb.git).
 Базовые шаблоны для `bemhtml` и&nbsp;`bemtree` находятся в&nbsp;библиотеке [`bem-core`](https://github.com/bem/bem-core.git).
 
-**Внимание**: для технологий, базовые шаблоны которых находятся в&nbsp;библиотеке [`bem-bl`](https://github.com/bem/bem-bl.git) следует использовать [`enb-xjst`](https://github.com/enb-make/enb-xjst) пакет.
+**Внимание**: для технологий, базовые шаблоны которых находятся в&nbsp;библиотеке [`bem-bl`](https://github.com/bem/bem-bl.git) следует использовать [`enb-xjst`](https://github.com/enb-bem/enb-xjst) пакет.
 
 Установка
 ---------
