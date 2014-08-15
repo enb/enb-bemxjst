@@ -29,13 +29,13 @@
   "dependencies": {
     "vow": "0.4.5",
     "sibling": "0.1.3",
-    "bem-xjst": "0.8.2",
+    "bem-xjst": "0.8.3",
     "bemhtml-compat": "0.0.11"
   },
   "devDependencies": {
     "enb": ">= 0.13.0 < 1.0.0",
-    "bower": "1.3.8",
-    "mocha": "1.21.3",
+    "bower": "1.3.9",
+    "mocha": "1.21.4",
     "must": "0.12.0",
     "jshint": "2.5.2",
     "jscs": "1.4.5",
