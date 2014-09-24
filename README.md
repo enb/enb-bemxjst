@@ -6,7 +6,7 @@ enb-bemxjst
 Поддержка технологий, базирующихся на основе [BEM-XJST](http://ru.bem.info/tools/templating-engines/bemxjst/), для [ENB](https://github.com/enb-make/enb.git).
 Базовые шаблоны для BEMHTML и BEMTREE находятся в библиотеке [bem-core](http://ru.bem.info/libs/bem-core/v2.3.0/).
 
-**Важно**: для технологий, базовые шаблоны которых находятся в библиотеке [bem-bl](http://ru.bem.info/libs/bem-bl/dev/), следует использовать [enb-xjst](https://github.com/enb-bem/enb-xjst) пакет.
+**Важно**: для технологий, базовые шаблоны которых находятся в библиотеке [bem-bl](http://ru.bem.info/libs/bem-bl/), следует использовать [enb-xjst](https://github.com/enb-bem/enb-xjst) пакет.
 
 Установка
 ---------
@@ -25,7 +25,7 @@ $ npm install --save-dev enb-bemxjst
 * [html-from-bemjson-i18n](#html-from-bemjson-i18n)
 
 ### Зачем нужны `*-old`-технологии?
-Технологии с суффиксом *old* помимо JS-синтаксиса поддерживают ещё и первоначальный синтаксис.
+Технологии с суффиксом `old` помимо JS-синтаксиса поддерживают ещё и первоначальный синтаксис.
 
 Транслирование из первоначального в JS-синтаксис осуществляется с помощью [bemhtml-compat](https://github.com/bem/bemhtml-compat).
 
