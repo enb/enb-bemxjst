@@ -14,27 +14,27 @@ enb-bemxjst
 $ npm install --save-dev enb-bemxjst
 ```
 
-Для работы модуля требуется зависимость от пакета ENB версии `0.13.0` или выше.
+Для работы модуля требуется зависимость от пакета `enb` версии `0.13.0` или выше.
 
 Технологии
 ----------
 
-* [BEMHTML & BEMHTML-old](#bemhtml--bemhtml-old)
-* [BEMTREE & BEMTREE-old](#bemtree--bemtree-old)
-* [HTML-from-BEMJSON](#html-from-bemjson)
-* [HTML-from-BEMJSON-i18n](#html-from-bemjson-i18n)
+* [bemhtml & bemhtml-old](#bemhtml--bemhtml-old)
+* [bemtree & bemtree-old](#bemtree--bemtree-old)
+* [html-from-bemjson](#html-from-bemjson)
+* [html-from-bemjson-i18n](#html-from-bemjson-i18n)
 
-### Зачем нужны <i>*-old</i> технологии?
+### Зачем нужны `*-old`-технологии?
 Технологии с суффиксом *old* помимо JS-синтаксиса поддерживают ещё и первоначальный синтаксис.
 
-Транслирование из первоначального в JS-синтаксис осуществляется с помощью [BEMHTML-compat](https://github.com/bem/bemhtml-compat).
+Транслирование из первоначального в JS-синтаксис осуществляется с помощью [bemhtml-compat](https://github.com/bem/bemhtml-compat).
 
-Использовать технологии с суффиксом *old* следует, когда действительно нужна поддержка первоначального синтаксиса, так как из-за транслирования сборка происходит медленнее, чем в аналогичных технологиях без суффикса.
+Использовать технологии с суффиксом `old` следует, когда действительно нужна поддержка первоначального синтаксиса, так как из-за транслирования сборка происходит медленнее, чем в аналогичных технологиях без суффикса.
 Например, это может быть полезно при миграции c [bem-bl](https://github.com/bem/bem-bl.git) на [bem-core](https://github.com/bem/bem-core), чтобы не переписывать код всего проекта целиком, а поэтапно переходить на JS-синтаксис для каждого отдельного шаблона.
 
-**Важно:** считается, что файлы с расширением `*.xjst` могут быть написаны только в JS-синтаксисе. Транслирование для таких файлов проводиться не будет, даже если использовать *old*-технологии.
+**Важно:** считается, что файлы с расширением `*.xjst` могут быть написаны только в JS-синтаксисе. Транслирование для таких файлов проводиться не будет, даже если использовать `old`-технологии.
 
-### BEMHTML & BEMHTML-old
+### bemhtml & bemhtml-old
 
 Склеивает `bemhtml.xjst` и `bemhtml`-файлы по deps'ам, обрабатывает [BEM-XJST](http://ru.bem.info/tools/templating-engines/bemxjst/)-транслятором, сохраняет (по умолчанию) в виде `?.bemhtml.js`.
 
@@ -54,7 +54,7 @@ $ npm install --save-dev enb-bemxjst
 nodeConfig.addTech([ require('enb-bemxjst/techs/bemhtml'), { devMode: false } ]);
 ```
 
-### BEMTREE & BEMTREE-old
+### bemtree & bemtree-old
 
 Склеивает BEMTREE-файлы по deps'ам, обрабатывает [BEM-XJST](http://ru.bem.info/tools/templating-engines/bemxjst/)-транслятором, сохраняет (по умолчанию) в виде `?.bemtree.js`.
 
@@ -73,7 +73,7 @@ nodeConfig.addTech([ require('enb-bemxjst/techs/bemhtml'), { devMode: false } ])
 nodeConfig.addTech([ require('enb-bemxjst/techs/bemtree'), { devMode: false } ]);
 ```
 
-### HTML-from-BEMJSON
+### html-from-bemjson
 
 Собирает HTML-файл с помощью BEMJSON и BEMHTML.
 
@@ -89,16 +89,16 @@ nodeConfig.addTech([ require('enb-bemxjst/techs/bemtree'), { devMode: false } ])
 nodeConfig.addTech(require('enb-bemxjst/techs/html-from-bemjson'));
 ```
 
-### HTML-from-BEMJSON-i18n
+### html-from-bemjson-i18n
 
-Собирает HTML-файл с помощью BEMJSON, BEMHTML, *lang.all* и *lang.{lang}*.
+Собирает HTML-файл с помощью BEMJSON, BEMHTML, `lang.all` и `lang.{lang}`.
 
 **Опции**
 
 * *String* **bemhtmlFile** — исходный BEMHTML-файл. По умолчанию — `?.bemhtml.js`.
 * *String* **bemjsonFile** — исходный BEMJSON-файл. По умолчанию — `?.bemjson.js`.
 * *String* **langAllFile** — исходный langAll-файл. По умолчанию — `?.lang.all.js`.
-* *String* **langFile** — исходный lang-файл. По умолчанию — `?.lang.{lang}.js`. Если параметр lang не указан, берётся первый из объявленных в проекте языков
+* *String* **langFile** — исходный lang-файл. По умолчанию — `?.lang.{lang}.js`. Если параметр lang не указан, берётся первый из объявленных в проекте языков.
 * *String* **target** — результирующий HTML-файл. По умолчанию — `?.{lang}.html`.
 
 **Пример**
