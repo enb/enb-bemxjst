@@ -2,6 +2,7 @@ var path = require('path'),
     fs = require('fs'),
     fixturesDirname = path.join(__dirname, '..', 'fixtures'),
     blocksDirname = path.join(fixturesDirname, 'blocks'),
+    bundlesDirname = path.join(fixturesDirname, 'bundles'),
     referencesDirname = path.join(fixturesDirname, 'references');
 
 function loadBlocks(names) {
@@ -14,22 +15,33 @@ function loadBlocks(names) {
     return blocks;
 }
 
+function loadBundles(names) {
+    var bundles = {};
+
+    names.forEach(function (name) {
+        bundles[name] = fs.readFileSync(path.join(bundlesDirname, name), { encoding: 'utf-8' });
+    });
+
+    return bundles;
+}
+
 function loadReferences(names) {
-    var blocks = {};
+    var references = {};
 
     names.forEach(function (name) {
         var filename = path.join(referencesDirname, name),
             ext = path.extname(name);
 
         if (ext === '.json') {
-            blocks[name] = require(filename);
+            references[name] = require(filename);
         } else if (ext === '.html') {
-            blocks[name] = fs.readFileSync(filename, { encoding: 'utf-8' }).replace('\n', '');
+            references[name] = fs.readFileSync(filename, { encoding: 'utf-8' }).replace('\n', '');
         }
     });
 
-    return blocks;
+    return references;
 }
 
 exports.blocks = loadBlocks;
+exports.bundles = loadBundles;
 exports.references = loadReferences;
