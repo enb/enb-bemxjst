@@ -1,3 +1,5 @@
+/* global oninit */
+
 oninit(function(exports, context) {
 
 var undef,
@@ -36,19 +38,19 @@ var MOD_DELIM = '_',
 
 function buildModPostfix(modName, modVal) {
     var res = MOD_DELIM + modName;
-    if (modVal !== true) res += MOD_DELIM + modVal;
+    if(modVal !== true) res += MOD_DELIM + modVal;
     return res;
 }
 
 function buildBlockClass(name, modName, modVal) {
     var res = name;
-    if (modVal) res += buildModPostfix(modName, modVal);
+    if(modVal) res += buildModPostfix(modName, modVal);
     return res;
 }
 
 function buildElemClass(block, name, modName, modVal) {
     var res = buildBlockClass(block) + ELEM_DELIM + name;
-    if (modVal) res += buildModPostfix(modName, modVal);
+    if(modVal) res += buildModPostfix(modName, modVal);
     return res;
 }
 
@@ -166,11 +168,11 @@ function BEMContext(context, apply_) {
     // Compatibility stuff, just in case
     var _this = this;
     this._buf = {
-        push: function() {
+        push : function() {
             var chunks = slice.call(arguments).join('');
             _this._str += chunks;
         },
-        join: function() {
+        join : function() {
             return this._str;
         }
     };
@@ -318,14 +320,13 @@ match(this._mode === '')(
 );
 
 def()(function() {
-    var _this = this,
-        BEM_INTERNAL = _this.BEM.INTERNAL,
+    var BEM_INTERNAL = this.BEM.INTERNAL,
         ctx = this.ctx,
         isBEM,
         tag,
         res;
 
-    local({ _str: '' })(function() {
+    local({ _str : '' })(function() {
         var vBlock = this.block;
 
         tag = apply('tag');
@@ -349,14 +350,14 @@ def()(function() {
             var cls = apply('cls');
             cls || (cls = ctx.cls);
 
-            var addJSInitClass = ctx.block && jsParams;
+            var addJSInitClass = ctx.block && jsParams && !ctx.elem;
             if(isBEM || cls) {
                 this._str += ' class="';
                 if(isBEM) {
                     this._str += BEM_INTERNAL.buildClasses(vBlock, ctx.elem, ctx.elemMods || ctx.mods);
 
                     var mix = apply('mix');
-                    ctx.mix && (mix = mix? mix.concat(ctx.mix) : ctx.mix);
+                    ctx.mix && (mix = mix? [].concat(mix, ctx.mix) : ctx.mix);
 
                     if(mix) {
                         var visited = {},
@@ -371,15 +372,15 @@ def()(function() {
                         for(var i = 0; i < mix.length; i++) {
                             var mixItem = mix[i],
                                 hasItem = mixItem.block || mixItem.elem,
-                                mixBlock = mixItem.block || mixItem._block || _this.block,
-                                mixElem = mixItem.elem || mixItem._elem || _this.elem;
+                                mixBlock = mixItem.block || mixItem._block || this.block,
+                                mixElem = mixItem.elem || mixItem._elem || this.elem;
 
                             hasItem && (this._str += ' ');
 
                             this._str += BEM_INTERNAL[hasItem? 'buildClasses' : 'buildModsClasses'](
                                 mixBlock,
                                 mixItem.elem || mixItem._elem ||
-                                    (mixItem.block? undefined : _this.elem),
+                                    (mixItem.block? undefined : this.elem),
                                 mixItem.elemMods || mixItem.mods);
 
                             if(mixItem.js) {
