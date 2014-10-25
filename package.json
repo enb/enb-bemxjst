@@ -39,11 +39,15 @@
     "jscs": "1.7.3",
     "jshint": "2.5.6",
     "mocha": "2.0.1",
+    "must": "0.12.0",
     "mock-fs": "2.3.1",
-    "must": "0.12.0"
+    "mock-require": "1.0.4",
+    "istanbul": "0.3.2"
   },
   "scripts": {
-    "test": "npm run lint && mocha test/techs",
-    "lint": "jshint . && jscs -c .jscs.js ."
+    "test": "npm run lint && npm run cover",
+    "lint": "jshint . && jscs -c .jscs.js .",
+    "test-techs": "mocha test/techs",
+    "cover": "istanbul cover _mocha -- test/techs"
   }
 }
