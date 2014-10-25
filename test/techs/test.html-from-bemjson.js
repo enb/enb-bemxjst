@@ -1,5 +1,4 @@
-var vow = require('vow'),
-    mockFs = require('mock-fs'),
+var mockFs = require('mock-fs'),
     TestNode = require('enb/lib/test/mocks/test-node'),
     Tech = require('../../techs/html-from-bemjson'),
     fixtures = require('../lib/fixtures'),
