@@ -29,18 +29,16 @@
     "enb": ">= 0.13.0 < 1.0.0"
   },
   "dependencies": {
-    "vow": "0.4.5",
+    "vow": "0.4.6",
     "sibling": "0.1.3",
     "bem-xjst": "0.9.0",
     "bemhtml-compat": "0.1.2"
   },
   "devDependencies": {
-    "bower": "1.3.9",
     "enb": ">= 0.13.0 < 1.0.0",
-    "enb-validate-code": "0.0.1",
     "jscs": "1.7.3",
     "jshint": "2.5.6",
-    "mocha": "1.21.4",
+    "mocha": "2.0.1",
     "mock-fs": "2.3.1",
     "must": "0.12.0"
   },
