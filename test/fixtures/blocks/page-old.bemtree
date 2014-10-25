@@ -1,0 +1,18 @@
+block b-page {
+
+    default: {
+        var ctx = this.ctx;
+
+        ctx.title = this.data.title;
+
+        return applyCtx(ctx);
+    }
+
+    content: [
+        {
+            "block": "title",
+            "content": this.data.title
+        },
+        this.data.text
+    ]
+}

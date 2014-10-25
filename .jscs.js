@@ -1,10 +1,7 @@
 var config = require('enb-validate-code/jscs');
 
 config.excludeFiles = [
-    'node_modules',
-    'examples/libs',
-    'examples/*/.enb/tmp',
-    'examples/*/page'
-];
+    'node_modules'
+]
 
 module.exports = config;

@@ -6,10 +6,12 @@
   "repository": "git://github.com/enb-bem/enb-bemxjst",
   "homepage": "https://github.com/enb-bem/enb-bemxjst",
   "bugs": "https://github.com/enb-bem/enb-bemxjst/issues",
-  "licenses": [{
-    "type": "MIT",
-    "url": "https://github.com/enb-bem/enb-bemxjst/blob/master/LICENSE"
-  }],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/enb-bem/enb-bemxjst/blob/master/LICENSE"
+    }
+  ],
   "contributors": [
     {
       "name": "Andrew Abramov",
@@ -33,20 +35,17 @@
     "bemhtml-compat": "0.1.2"
   },
   "devDependencies": {
-    "enb": ">= 0.13.0 < 1.0.0",
     "bower": "1.3.9",
-    "mocha": "1.21.4",
-    "must": "0.12.0",
-    "jshint": "2.5.2",
+    "enb": ">= 0.13.0 < 1.0.0",
+    "enb-validate-code": "0.0.1",
     "jscs": "1.4.5",
-    "enb-validate-code": "0.0.1"
+    "jshint": "2.5.2",
+    "mocha": "1.21.4",
+    "mock-fs": "2.3.1",
+    "must": "0.12.0"
   },
   "scripts": {
-    "test": "npm run lint && npm run func-test",
-    "lint": "jshint . && jscs -c .jscs.js .",
-    "func-test": "npm run deps && npm run clean && npm run build && mocha test/func",
-    "deps": "cd examples && bower install",
-    "build": "cd examples/bemhtml && YENV=development enb make && cd ../bemhtml-old && YENV=development enb make && cd ../bemtree && YENV=development enb make && cd ../bemtree-old && YENV=development enb make",
-    "clean": "cd examples/bemhtml && enb make clean && cd ../bemhtml-old && enb make clean && cd ../bemtree && enb make clean && cd ../bemtree-old && enb make clean"
+    "test": "npm run lint && mocha test/techs",
+    "lint": "jshint . && jscs -c .jscs.js ."
   }
 }

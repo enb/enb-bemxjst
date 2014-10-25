@@ -1,0 +1,12 @@
+{
+    "block": "b-page",
+    "title": "Page Title",
+    "content": [
+        {
+            "block": "title",
+            "content": "Page Title"
+
+        },
+        "Page content"
+    ]
+}
