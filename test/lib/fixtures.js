@@ -1,8 +1,8 @@
-var path = require('path');
-var fs = require('fs');
-var fixturesDirname = path.join(__dirname, '..', 'fixtures');
-var blocksDirname = path.join(fixturesDirname, 'blocks');
-var referencesDirname = path.join(fixturesDirname, 'references');
+var path = require('path'),
+    fs = require('fs'),
+    fixturesDirname = path.join(__dirname, '..', 'fixtures'),
+    blocksDirname = path.join(fixturesDirname, 'blocks'),
+    referencesDirname = path.join(fixturesDirname, 'references');
 
 function loadBlocks(names) {
     var blocks = {};
@@ -18,8 +18,8 @@ function loadReferences(names) {
     var blocks = {};
 
     names.forEach(function (name) {
-        var ext = path.extname(name);
-        var filename = path.join(referencesDirname, name);
+        var filename = path.join(referencesDirname, name),
+            ext = path.extname(name);
 
         if (ext === '.json') {
             blocks[name] = require(filename);

@@ -1,16 +1,18 @@
-var Module = require('module');
-var path = require('path');
-var vow = require('vow');
-var ometajs = require('bemhtml-compat/node_modules/ometajs');
-var bemhtml = require('bemhtml-compat/lib/ometa/bemhtml.ometajs');
-var originalLoader = Module._load;
-var bemcompatId = path.join(__dirname, '..', '..', 'node_modules', 'bemhtml-compat', 'lib', 'compat.js');
-var bemtreeId = path.join(__dirname, '..', '..', 'bundle', 'bundle.bemtree.js');
-var safe = true;
+var path = require('path'),
+    vow = require('vow'),
+    ometajs = require('bemhtml-compat/node_modules/ometajs'),
+    bemhtml = require('bemhtml-compat/lib/ometa/bemhtml.ometajs'),
+    bemcompatId = path.join(__dirname, '..', '..', 'node_modules', 'bemhtml-compat', 'lib', 'compat.js'),
+    bemtreeId = path.join(__dirname, '..', '..', 'bundle', 'bundle.bemtree.js'),
+
+    Module = require('module'),
+    originalLoader = Module._load,
+
+    safe = true;
 
 Module._load = function (request, parent) {
     if (!safe) {
-        if (parent.id === bemtreeId &&request === 'vow') {
+        if (parent.id === bemtreeId && request === 'vow') {
             return vow;
         }
 

@@ -19,12 +19,12 @@
  * nodeConfig.addTech(require('enb-bemxjst/techs/html-from-bemjson-i18n'));
  * ```
  */
-var vm = require('vm');
-var vow = require('vow');
-var vfs = require('enb/lib/fs/async-fs');
-var requireOrEval = require('enb/lib/fs/require-or-eval');
-var asyncRequire = require('enb/lib/fs/async-require');
-var dropRequireCache = require('enb/lib/fs/drop-require-cache');
+var vm = require('vm'),
+    vow = require('vow'),
+    vfs = require('enb/lib/fs/async-fs'),
+    requireOrEval = require('enb/lib/fs/require-or-eval'),
+    asyncRequire = require('enb/lib/fs/async-require'),
+    dropRequireCache = require('enb/lib/fs/drop-require-cache');
 
 module.exports = require('enb/lib/build-flow').create()
     .name('html-from-bemjson-i18n')
@@ -55,6 +55,7 @@ module.exports = require('enb/lib/build-flow').create()
     .builder(function (bemhtmlFilename, bemjsonFilename, allLangFilename, langFilename) {
         dropRequireCache(require, bemhtmlFilename);
         dropRequireCache(require, bemjsonFilename);
+
         return vow.all([
             asyncRequire(bemhtmlFilename),
             requireOrEval(bemjsonFilename),

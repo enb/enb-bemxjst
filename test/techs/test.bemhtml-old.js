@@ -1,17 +1,18 @@
-var vow = require('vow');
-var mockFs = require('mock-fs');
-var mockRequire = require('../lib/mock-require');
-var TestNode = require('enb/lib/test/mocks/test-node');
-var FileList = require('enb/lib/file-list');
-var Tech = require('../../techs/bemhtml-old');
-var fixtures = require('../lib/fixtures');
-var references = fixtures.references(['page-old.json', 'page-old.html']);
+var vow = require('vow'),
+    mockFs = require('mock-fs'),
+    mockRequire = require('../lib/mock-require'),
+    TestNode = require('enb/lib/test/mocks/test-node'),
+    FileList = require('enb/lib/file-list'),
+    Tech = require('../../techs/bemhtml-old'),
+    fixtures = require('../lib/fixtures'),
+    references = fixtures.references(['page-old.json', 'page-old.html']);
 
 describe('bemhtml-old', function () {
     var node;
-    var fileList;
 
     beforeEach(function () {
+        var fileList = new FileList();
+
         mockRequire.start();
         mockFs({
             blocks: fixtures.blocks(['i-bem.bemhtml', 'page-old.bemhtml']),
@@ -19,10 +20,7 @@ describe('bemhtml-old', function () {
         });
 
         node = new TestNode('bundle');
-
-        fileList = new FileList();
         fileList.loadFromDirSync('blocks');
-
         node.provideTechData('?.files', fileList);
     });
 
@@ -56,8 +54,8 @@ describe('bemhtml-old', function () {
             node.runTechAndGetContent(Tech, { devMode: true }),
             node.runTechAndGetContent(Tech, { devMode: false })
         ]).spread(function (dev, prod) {
-            var devSource = dev[0];
-            var prodSource = prod[0];
+            var devSource = dev[0],
+                prodSource = prod[0];
 
             devSource.must.not.be.equal(prodSource);
         }).then(done, done);

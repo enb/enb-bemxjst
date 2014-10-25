@@ -1,17 +1,18 @@
-var vow = require('vow');
-var mockFs = require('mock-fs');
-var mockRequire = require('../lib/mock-require');
-var TestNode = require('enb/lib/test/mocks/test-node');
-var FileList = require('enb/lib/file-list');
-var Tech = require('../../techs/bemtree-old');
-var fixtures = require('../lib/fixtures');
-var references = fixtures.references(['data.json', 'page-old.json']);
+var vow = require('vow'),
+    mockFs = require('mock-fs'),
+    mockRequire = require('../lib/mock-require'),
+    TestNode = require('enb/lib/test/mocks/test-node'),
+    FileList = require('enb/lib/file-list'),
+    Tech = require('../../techs/bemtree-old'),
+    fixtures = require('../lib/fixtures'),
+    references = fixtures.references(['data.json', 'page-old.json']);
 
 describe('bemtree-old', function () {
     var node;
-    var fileList;
 
     beforeEach(function () {
+        var fileList = new FileList();
+
         mockRequire.start();
         mockFs({
             blocks: fixtures.blocks(['i-bem.bemtree', 'vow.bemtree', 'i-start-old.bemtree', 'page-old.bemtree']),
@@ -19,10 +20,7 @@ describe('bemtree-old', function () {
         });
 
         node = new TestNode('bundle');
-
-        fileList = new FileList();
         fileList.loadFromDirSync('blocks');
-
         node.provideTechData('?.files', fileList);
     });
 
@@ -58,8 +56,8 @@ describe('bemtree-old', function () {
             node.runTechAndGetContent(Tech, { devMode: true }),
             node.runTechAndGetContent(Tech, { devMode: false })
         ]).spread(function (dev, prod) {
-            var devSource = dev[0];
-            var prodSource = prod[0];
+            var devSource = dev[0],
+                prodSource = prod[0];
 
             devSource.must.not.be.equal(prodSource);
         }).then(done, done);

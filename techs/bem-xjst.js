@@ -1,13 +1,13 @@
-var vow = require('vow');
-var fs = require('enb/lib/fs/async-fs');
-var bemxjst = require('bem-xjst');
-var bemcompat = require('bemhtml-compat');
-var XJST_SUFFIX = 'xjst';
-var BemxjstProcessor = require('sibling').declare({
-    process: function (source, options) {
-        return bemxjst.generate(source, options);
-    }
-});
+var vow = require('vow'),
+    fs = require('enb/lib/fs/async-fs'),
+    bemxjst = require('bem-xjst'),
+    bemcompat = require('bemhtml-compat'),
+    BemxjstProcessor = require('sibling').declare({
+        process: function (source, options) {
+            return bemxjst.generate(source, options);
+        }
+    }),
+    XJST_SUFFIX = 'xjst';
 
 module.exports = require('enb/lib/build-flow').create()
     .name('bem-xjst')
@@ -34,14 +34,15 @@ module.exports = require('enb/lib/build-flow').create()
             var bemxjstProcessor = BemxjstProcessor.fork();
 
             return bemxjstProcessor.process(source, {
-                wrap: true,
-                exportName: this._exportName,
-                optimize: !this._devMode,
-                cache: !this._devMode && this._cache,
-                modulesDeps: this._modulesDeps
-            }).then(function (res) {
-                bemxjstProcessor.dispose();
-                return res;
+                    wrap: true,
+                    exportName: this._exportName,
+                    optimize: !this._devMode,
+                    cache: !this._devMode && this._cache,
+                    modulesDeps: this._modulesDeps
+                })
+                .then(function (res) {
+                    bemxjstProcessor.dispose();
+                    return res;
             });
         }
     })
