@@ -886,7 +886,7 @@ block('page')(
                         elem : 'head',
                         content : [
                             { tag : 'meta', attrs : { charset : 'utf-8' } },
-                            { tag : 'title', content : ctx.title },
+                            { tag : 'title', content : BEM.I18N('page', 'title') },
                             ctx.head
                         ]
                     },
