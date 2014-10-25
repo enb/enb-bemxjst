@@ -43,7 +43,7 @@ module.exports = require('enb/lib/build-flow').create()
                 .then(function (res) {
                     bemxjstProcessor.dispose();
                     return res;
-            });
+                });
         }
     })
     .createTech();
