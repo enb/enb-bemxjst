@@ -39,18 +39,18 @@ module.exports = require('enb/lib/build-flow').create()
     .optionAlias('langFile', 'langTarget')
     .optionAlias('target', 'destTarget')
     .needRebuild(function (cache) {
-        return cache.needRebuildFile('bemhtml-file', this.node.resolvePath(this._bemhtmlTarget)) ||
-            cache.needRebuildFile('bemjson-file', this.node.resolvePath(this._bemjsonTarget)) ||
-            cache.needRebuildFile('allLang-file', this.node.resolvePath(this._langAllTarget)) ||
-            cache.needRebuildFile('lang-file', this.node.resolvePath(this._langTarget)) ||
-            cache.needRebuildFile('html-file', this.node.resolvePath(this._destTarget));
+        return cache.needRebuildFile('bemhtml-file', this.node.resolvePath(this._bemhtmlFile)) ||
+            cache.needRebuildFile('bemjson-file', this.node.resolvePath(this._bemjsonFile)) ||
+            cache.needRebuildFile('allLang-file', this.node.resolvePath(this._langAllFile)) ||
+            cache.needRebuildFile('lang-file', this.node.resolvePath(this._langFile)) ||
+            cache.needRebuildFile('html-file', this.node.resolvePath(this._target));
     })
     .saveCache(function (cache) {
-        cache.cacheFileInfo('bemhtml-file', this.node.resolvePath(this._bemhtmlTarget));
-        cache.cacheFileInfo('bemjson-file', this.node.resolvePath(this._bemjsonTarget));
-        cache.cacheFileInfo('allLang-file', this.node.resolvePath(this._langAllTarget));
-        cache.cacheFileInfo('lang-file', this.node.resolvePath(this._langTarget));
-        cache.cacheFileInfo('html-file', this.node.resolvePath(this._destTarget));
+        cache.cacheFileInfo('bemhtml-file', this.node.resolvePath(this._bemhtmlFile));
+        cache.cacheFileInfo('bemjson-file', this.node.resolvePath(this._bemjsonFile));
+        cache.cacheFileInfo('allLang-file', this.node.resolvePath(this._langAllFile));
+        cache.cacheFileInfo('lang-file', this.node.resolvePath(this._langFile));
+        cache.cacheFileInfo('html-file', this.node.resolvePath(this._target));
     })
     .builder(function (bemhtmlFilename, bemjsonFilename, allLangFilename, langFilename) {
         dropRequireCache(require, bemhtmlFilename);
