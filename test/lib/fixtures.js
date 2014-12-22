@@ -35,7 +35,7 @@ function loadReferences(names) {
         if (ext === '.json') {
             references[name] = require(filename);
         } else if (ext === '.html') {
-            references[name] = fs.readFileSync(filename, { encoding: 'utf-8' }).replace('\n', '');
+            references[name] = fs.readFileSync(filename, { encoding: 'utf-8' }).replace(/\r?\n/, '');
         }
     });
 
