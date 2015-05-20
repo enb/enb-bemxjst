@@ -1,3 +1,4 @@
+test/**/*.test.js
 --ui bdd
---reporter spec
+--reporter dot
 --require must
