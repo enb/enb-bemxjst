@@ -42,7 +42,14 @@
     "mocha": "2.2.4",
     "mock-fs": "2.7.0",
     "mock-require": "1.0.5",
-    "must": "0.12.0"
+    "must": "0.12.0",
+    "chai": "2.3.0",
+    "mocha-phantomjs": "3.5.3",
+    "phantomjs": "1.9.16",
+    "finalhandler": "0.3.5",
+    "serve-static": "1.9.2",
+    "vow-node": "0.3.0",
+    "ym": "0.1.1"
   },
   "scripts": {
     "test": "npm run lint && npm run unit",
