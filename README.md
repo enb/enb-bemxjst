@@ -89,23 +89,6 @@ nodeConfig.addTech([ require('enb-bemxjst/techs/bemtree'), { devMode: false } ])
 nodeConfig.addTech(require('enb-bemxjst/techs/html-from-bemjson'));
 ```
 
-### html-from-bemjson-i18n
-
-Собирает HTML-файл с помощью BEMJSON, BEMHTML, `lang.all` и `lang.{lang}`.
-
-**Опции**
-
-* *String* **bemhtmlFile** — исходный BEMHTML-файл. По умолчанию — `?.bemhtml.js`.
-* *String* **bemjsonFile** — исходный BEMJSON-файл. По умолчанию — `?.bemjson.js`.
-* *String* **langAllFile** — исходный langAll-файл. По умолчанию — `?.lang.all.js`.
-* *String* **langFile** — исходный lang-файл. По умолчанию — `?.lang.{lang}.js`. Если параметр lang не указан, берётся первый из объявленных в проекте языков.
-* *String* **target** — результирующий HTML-файл. По умолчанию — `?.{lang}.html`.
-
-**Пример**
-
-```javascript
-nodeConfig.addTech(require('enb-bemxjst/techs/html-from-bemjson-i18n'));
-```
 Лицензия
 --------
 
