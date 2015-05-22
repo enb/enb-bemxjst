@@ -1,7 +1,7 @@
 enb-bemxjst
 ===========
 
-[![NPM version](https://img.shields.io/npm/v/enb-bemxjst.svg?style=flat)](http://badge.fury.io/js/enb-bemxjst) [![Build Status](https://img.shields.io/travis/enb-bem/enb-bemxjst/master.svg?style=flat)](https://travis-ci.org/enb-bem/enb-bemxjst) [![Coverage Status](https://img.shields.io/coveralls/enb-bem/enb-bemxjst.svg?style=flat)](https://coveralls.io/r/enb-bem/enb-bemxjst?branch=master) [![Dependency Status](https://img.shields.io/david/enb-bem/enb-bemxjst.svg?style=flat)](https://david-dm.org/enb-bem/enb-bemxjst)
+[![NPM version](https://img.shields.io/npm/v/enb-bemxjst.svg?style=flat)](https://www.npmjs.org/package/enb-bemxjst) [![Build Status](https://img.shields.io/travis/enb-bem/enb-bemxjst/master.svg?style=flat&label=tests)](https://travis-ci.org/enb-bem/enb-bemxjst) [![Build status](https://img.shields.io/appveyor/ci/blond/enb-bemxjst.svg?style=flat&label=windows)](https://ci.appveyor.com/project/blond/enb-bemxjst) [![Coverage Status](https://img.shields.io/coveralls/enb-bem/enb-bemxjst.svg?style=flat)](https://coveralls.io/r/enb-bem/enb-bemxjst?branch=master) [![Dependency Status](https://img.shields.io/david/enb-bem/enb-bemxjst.svg?style=flat)](https://david-dm.org/enb-bem/enb-bemxjst)
 
 Поддержка технологий, базирующихся на основе [BEM-XJST](https://ru.bem.info/tools/templating-engines/bemxjst/), для [ENB](https://github.com/enb-make/enb.git).
 Базовые шаблоны для BEMHTML и BEMTREE находятся в библиотеке [bem-core](https://ru.bem.info/libs/bem-core/v2.3.0/).
