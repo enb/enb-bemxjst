@@ -1,5 +1,4 @@
-var mockRequire = require('../lib/mock-require'),
-    fs = require('fs'),
+var fs = require('fs'),
     path = require('path'),
     vow = require('vow'),
     vm = require('vm'),
@@ -14,12 +13,7 @@ var mockRequire = require('../lib/mock-require'),
     bDataFilename = path.join(fixturesPath, 'b-data.bemtree');
 
 describe('bemtree', function () {
-    beforeEach(function () {
-        mockRequire.start();
-    });
-
     afterEach(function () {
-        mockRequire.restore();
         mock.restore();
     });
 

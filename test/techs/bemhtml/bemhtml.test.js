@@ -1,5 +1,3 @@
-require('../../lib/mock-require');
-
 var fs = require('fs'),
     path = require('path'),
     vow = require('vow'),
