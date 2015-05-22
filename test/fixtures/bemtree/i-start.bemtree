@@ -5,6 +5,6 @@ mode('').match(!this.data)(function() {
         {
             data: data
         },
-        { block : 'b-page' }
+        { block : 'b-data' }
     )
 })

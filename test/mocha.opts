@@ -1,3 +1,6 @@
+test/**/*.test.js
 --ui bdd
---reporter spec
+--reporter dot
 --require must
+--require test/lib/mocks
+--no-timeouts

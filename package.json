@@ -36,18 +36,26 @@
   },
   "devDependencies": {
     "enb": ">= 0.13.0 < 1.0.0",
-    "istanbul": "0.3.5",
-    "jscs": "1.8.1",
-    "jshint": "2.5.11",
-    "mocha": "2.0.1",
-    "mock-fs": "2.3.2",
+    "istanbul": "0.3.14",
+    "jscs": "1.13.1",
+    "jshint": "2.7.0",
+    "mocha": "2.2.4",
+    "mock-fs": "2.7.0",
     "mock-require": "1.0.5",
-    "must": "0.12.0"
+    "must": "0.12.0",
+    "chai": "2.3.0",
+    "mocha-phantomjs": "3.5.3",
+    "phantomjs": "1.9.16",
+    "finalhandler": "0.3.5",
+    "serve-static": "1.9.2",
+    "vow-node": "0.3.0",
+    "ym": "0.1.1"
   },
   "scripts": {
-    "test": "npm run lint && npm run cover",
+    "test": "npm run lint && npm run unit",
+    "unit": "mocha -R spec",
     "lint": "jshint . && jscs -c .jscs.js .",
-    "test-techs": "mocha test/techs",
-    "cover": "istanbul cover _mocha -- test/techs"
+    "cover": "istanbul cover _mocha",
+    "coveralls": "npm i coveralls && npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   }
 }

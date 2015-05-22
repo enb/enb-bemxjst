@@ -1,0 +1,22 @@
+<html>
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+<div id="mocha"></div>
+<script src="mocha.js"></script>
+<script src="chai.js"></script>
+<script src="ym.js"></script>
+<script src="some-ym-lib.js"></script>
+<script src="bundle/bundle.bemhtml.js"></script>
+<script>
+  mocha.ui('bdd');
+  mocha.reporter('html');
+</script>
+<script src="test.js"></script>
+<script>
+  if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
+  else { mocha.run(); }
+</script>
+</body>
+</html>
