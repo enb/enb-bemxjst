@@ -1,7 +1,8 @@
 var fs = require('fs'),
     path = require('path'),
-    vow = require('vow'),
+    assert = require('assert'),
     vm = require('vm'),
+    vow = require('vow'),
     mock = require('mock-fs'),
     TestNode = require('enb/lib/test/mocks/test-node'),
     Tech = require('../../techs/bemtree'),
@@ -56,9 +57,26 @@ describe('bemtree', function () {
     it('must compile BEMTREE file', function () {
         return build(templates)
             .spread(function (res) {
-                res.BEMTREE.apply(data).then(function (res) {
-                    res.must.eql(expect);
-                });
+                return res.BEMTREE.apply(data)
+                    .then(function (res) {
+                        res.must.eql(expect);
+                    });
+            });
+    });
+
+    it('must compile BEMTREE file without `vow` if includeVow:false', function () {
+        return build(templates, { includeVow: false })
+            .spread(function (res, src) {
+                var sandbox = {
+                    Vow: vow
+                };
+
+                vm.runInNewContext(src, sandbox);
+
+                return sandbox.BEMTREE.apply(data)
+                    .then(function (res) {
+                        assert.deepEqual(res, expect);
+                    });
             });
     });
 
@@ -78,9 +96,10 @@ describe('bemtree', function () {
 
             return build(templates, { compat: true })
                 .spread(function (res) {
-                    res.BEMTREE.apply(data).then(function (res) {
-                        res.must.eql(expect);
-                    });
+                    return res.BEMTREE.apply(data)
+                        .then(function (res) {
+                            res.must.eql(expect);
+                        });
                 });
         });
     });
@@ -88,9 +107,10 @@ describe('bemtree', function () {
     it('must build block with custom exportName', function () {
         return build(templates, { exportName: 'BEMBUSH' })
             .spread(function (res) {
-                res.BEMBUSH.apply(data).then(function (res) {
-                    res.must.eql(expect);
-                });
+                return res.BEMBUSH.apply(data)
+                    .then(function (res) {
+                        res.must.eql(expect);
+                    });
             });
     });
 
@@ -98,18 +118,20 @@ describe('bemtree', function () {
         it('must build block in development mode', function () {
             return build(templates, { devMode: true })
                 .spread(function (res) {
-                    res.BEMTREE.apply(data).then(function (res) {
-                        res.must.eql(expect);
-                    });
+                    return res.BEMTREE.apply(data)
+                        .then(function (res) {
+                            res.must.eql(expect);
+                        });
                 });
         });
 
         it('must build block in production mode', function () {
             return build(templates, { devMode: false })
                 .spread(function (res) {
-                    res.BEMTREE.apply(data).then(function (res) {
-                        res.must.eql(expect);
-                    });
+                    return res.BEMTREE.apply(data)
+                        .then(function (res) {
+                            res.must.eql(expect);
+                        });
                 });
         });
 
@@ -128,6 +150,8 @@ describe('bemtree', function () {
 });
 
 function build(templates, options) {
+    options || (options = {});
+
     var scheme = {
             // Файлы должны собираться в нужной последовательности
             blocks: {
@@ -151,14 +175,11 @@ function build(templates, options) {
     fileList.loadFromDirSync('blocks');
     bundle.provideTechData('?.files', fileList);
 
-    return bundle.runTechAndGetContent(Tech, options)
-        .spread(function (bemtreeSource) {
-            var sandbox = {
-                Vow: vow
-            };
+    return bundle.runTechAndRequire(Tech, options)
+        .spread(function (res) {
+            var filename = bundle.resolvePath(bundle.unmaskTargetName(options.target || '?.bemtree.js')),
+                str = fs.readFileSync(filename, 'utf-8');
 
-            vm.runInNewContext(bemtreeSource, sandbox);
-
-            return [sandbox, bemtreeSource];
+            return [res, str];
         });
 }

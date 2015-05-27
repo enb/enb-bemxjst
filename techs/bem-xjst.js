@@ -1,5 +1,5 @@
 var vow = require('vow'),
-    fs = require('enb/lib/fs/async-fs'),
+    vfs = require('enb/lib/fs/async-fs'),
     bemxjst = require('bem-xjst'),
     bemcompat = require('bemhtml-compat'),
     BemxjstProcessor = require('sibling').declare({
@@ -7,6 +7,7 @@ var vow = require('vow'),
             return bemxjst.generate(source, options);
         }
     }),
+    bundle = require('../lib/bundle'),
     XJST_SUFFIX = 'xjst';
 
 module.exports = require('enb/lib/build-flow').create()
@@ -15,7 +16,7 @@ module.exports = require('enb/lib/build-flow').create()
     .methods({
         _sourceFilesProcess: function (sourceFiles, oldSyntax) {
             return vow.all(sourceFiles.map(function (file) {
-                    return fs.read(file.fullname, 'utf8')
+                    return vfs.read(file.fullname, 'utf8')
                         .then(function (source) {
                             if (oldSyntax && XJST_SUFFIX !== file.suffix.split('.').pop()) {
                                 source = bemcompat.transpile(source);
@@ -34,16 +35,19 @@ module.exports = require('enb/lib/build-flow').create()
             var bemxjstProcessor = BemxjstProcessor.fork();
 
             return bemxjstProcessor.process(source, {
-                    wrap: true,
-                    exportName: this._exportName,
+                    wrap: false,
                     optimize: !this._devMode,
-                    cache: !this._devMode && this._cache,
-                    modulesDeps: this._modulesDeps
+                    cache: !this._devMode && this._cache
                 })
-                .then(function (res) {
+                .then(function (code) {
                     bemxjstProcessor.dispose();
-                    return res;
-                });
+
+                    return bundle.compile(code, {
+                        exportName: this._exportName,
+                        includeVow: this._includeVow,
+                        modulesDeps: this._modulesDeps
+                    });
+                }, this);
         }
     })
     .createTech();
