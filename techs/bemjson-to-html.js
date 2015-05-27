@@ -1,6 +1,6 @@
 /**
- * html-from-bemjson
- * =================
+ * bemjson-to-html
+ * ===============
  *
  * Собирает *html*-файл с помощью *bemjson* и *bemhtml*.
  *
@@ -13,7 +13,7 @@
  * **Пример**
  *
  * ```javascript
- * nodeConfig.addTech(require('enb-bemxjst/techs/html-from-bemjson'));
+ * nodeConfig.addTech(require('enb-bemxjst/techs/bemjson-to-html'));
  * ```
  */
 var requireOrEval = require('enb/lib/fs/require-or-eval'),
@@ -21,7 +21,7 @@ var requireOrEval = require('enb/lib/fs/require-or-eval'),
     dropRequireCache = require('enb/lib/fs/drop-require-cache');
 
 module.exports = require('enb/lib/build-flow').create()
-    .name('html-from-bemjson')
+    .name('bemjson-to-html')
     .target('target', '?.html')
     .useSourceFilename('bemhtmlFile', '?.bemhtml.js')
     .useSourceFilename('bemjsonFile', '?.bemjson.js')
