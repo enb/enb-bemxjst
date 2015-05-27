@@ -5,7 +5,23 @@ var fs = require('fs'),
     TestNode = require('enb/lib/test/mocks/test-node'),
     Tech = require('../../../techs/bemhtml'),
     FileList = require('enb/lib/file-list'),
-    bemhtmlCoreFilename = path.join(__dirname, '..', '..', 'fixtures', 'i-bem.bemhtml');
+    files = {
+        'i-bem.bemhtml': {
+            path: path.join(__dirname, '..', '..', 'fixtures', 'i-bem.bemhtml')
+        },
+        ometajs: {
+            path: require.resolve('bemhtml-compat/node_modules/ometajs')
+        },
+        'bemhtml.ometajs': {
+            path: require.resolve('bemhtml-compat/lib/ometa/bemhtml.ometajs')
+        }
+    };
+
+Object.keys(files).forEach(function (name) {
+    var file = files[name];
+
+    file.contents = fs.readFileSync(file.path, 'utf-8');
+});
 
 describe('bemhtml', function () {
     afterEach(function () {
@@ -18,6 +34,15 @@ describe('bemhtml', function () {
             html = '<a class="bla"></a>';
 
         return assert(bemjson, html, templates);
+    });
+
+    it('must support old syntax', function () {
+        var templates = ['block bla, tag: "a"'],
+            bemjson = { block: 'bla' },
+            html = '<a class="bla"></a>',
+            options = { compat: true };
+
+        return assert(bemjson, html, templates, options);
     });
 
     describe('mode', function () {
@@ -42,7 +67,7 @@ describe('bemhtml', function () {
         it('must build different code by mode', function () {
             var scheme = {
                     blocks: {
-                        'base.bemhtml': fs.readFileSync(bemhtmlCoreFilename, 'utf-8'),
+                        'base.bemhtml': files['i-bem.bemhtml'].contents,
                         'bla.bemhtml': 'block("bla").tag()("a")'
                     },
                     bundle: {}
@@ -75,7 +100,7 @@ describe('bemhtml', function () {
     it('must build block with custom exportName', function () {
         var scheme = {
                 blocks: {
-                    'base.bemhtml': fs.readFileSync(bemhtmlCoreFilename, 'utf-8'),
+                    'base.bemhtml': files['i-bem.bemhtml'].contents,
                     'bla.bemhtml': 'block("bla").tag()("a")'
                 },
                 bundle: {}
@@ -99,7 +124,7 @@ describe('bemhtml', function () {
 function assert(bemjson, html, templates, options) {
     var scheme = {
             blocks: {
-                'base.bemhtml': fs.readFileSync(bemhtmlCoreFilename, 'utf-8')
+                'base.bemhtml': files['i-bem.bemhtml'].contents
             },
             bundle: {}
         },
@@ -108,6 +133,9 @@ function assert(bemjson, html, templates, options) {
     templates && templates.forEach(function (item, i) {
         scheme.blocks['block-' + i + '.bemhtml'] = item;
     });
+
+    scheme[files['ometajs'].path] = files['ometajs'].contents;
+    scheme[files['bemhtml.ometajs'].path] = files['bemhtml.ometajs'].contents;
 
     mock(scheme);
 
