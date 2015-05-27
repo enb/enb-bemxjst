@@ -2,84 +2,43 @@ var fs = require('fs'),
     path = require('path'),
     vow = require('vow'),
     vm = require('vm'),
-    assert = require('assert'),
     mock = require('mock-fs'),
     TestNode = require('enb/lib/test/mocks/test-node'),
     Tech = require('../../techs/bemtree'),
     FileList = require('enb/lib/file-list'),
-    fixturesPath = path.join(__dirname, '..', 'fixtures', 'bemtree'),
-    bemtreeCoreFilename = path.join(fixturesPath, 'i-bem.bemtree'),
-    iStartFilename = path.join(fixturesPath, 'i-start.bemtree'),
-    bDataFilename = path.join(fixturesPath, 'b-data.bemtree');
+    fixturesDirname = path.join(__dirname, '..', 'fixtures', 'bemtree'),
+    files = {
+        'i-bem.bemtree': {
+            path: path.join(fixturesDirname, 'i-bem.bemtree')
+        },
+        'i-start.bemtree': {
+            path: path.join(fixturesDirname, 'i-start.bemtree')
+        },
+        'data.bemtree': {
+            path: path.join(fixturesDirname, 'data.bemtree')
+        },
+        'b-data.bemtree': {
+            path: path.join(fixturesDirname, 'b-data.bemtree')
+        },
+        ometajs: {
+            path: require.resolve('bemhtml-compat/node_modules/ometajs')
+        },
+        'bemhtml.ometajs': {
+            path: require.resolve('bemhtml-compat/lib/ometa/bemhtml.ometajs')
+        }
+    };
 
-describe('bemtree', function () {
-    afterEach(function () {
-        mock.restore();
-    });
+Object.keys(files).forEach(function (name) {
+    var file = files[name];
 
-    describe('exportName', function () {
-        it('must build block with default exportName', function () {
-            return runTest();
-        });
-
-        it('must build block with custom exportName', function () {
-            return runTest({ exportName: 'BEMBUSH' });
-        });
-    });
-
-    describe('mode', function () {
-        it('must build block in development mode', function () {
-            return runTest({ devMode: true });
-        });
-
-        it('must build block in production mode', function () {
-            return runTest({ devMode: false });
-        });
-
-        it('must build different code by mode', function () {
-            var scheme = {
-                    blocks: {
-                        'base.bemtree': fs.readFileSync(bemtreeCoreFilename, 'utf-8'),
-                        'bb-start.bemtree': fs.readFileSync(iStartFilename, 'utf-8')
-                    },
-                    bundle: {}
-                },
-                bundle, fileList;
-
-            mock(scheme);
-
-            bundle = new TestNode('bundle');
-            fileList = new FileList();
-            fileList.loadFromDirSync('blocks');
-            bundle.provideTechData('?.files', fileList);
-
-            return vow.all([
-                bundle.runTechAndGetContent(
-                    Tech, { target: 'dev.bemhtml.js', devMode: true }
-                ),
-                bundle.runTechAndGetContent(
-                    Tech, { target: 'prod.bemhtml.js', devMode: false }
-                )
-            ]).spread(function (dev, prod) {
-                var devSource = dev.toString(),
-                    prodSource = prod.toString();
-
-                devSource.must.not.be.equal(prodSource);
-            });
-        });
-    });
+    file.contents = fs.readFileSync(file.path, 'utf-8');
 });
 
-function runTest(options) {
-    var scheme = {
-            // Файлы должны собираться в нужной последовательности
-            blocks: {
-                'base.bemtree': fs.readFileSync(bemtreeCoreFilename, 'utf-8'),
-                'bb-start.bemtree': fs.readFileSync(iStartFilename, 'utf-8'),
-                'bc-data.bemtree': fs.readFileSync(bDataFilename, 'utf-8')
-            },
-            bundle: {}
-        },
+describe('bemtree', function () {
+    var templates = [
+            files['i-start.bemtree'].contents,
+            files['data.bemtree'].contents
+        ],
         data = {
             bundleName: 'page',
             title: 'Some text'
@@ -88,9 +47,102 @@ function runTest(options) {
             block: 'b-data',
             mods: {},
             content: 'Some text'
+        };
+
+    afterEach(function () {
+        mock.restore();
+    });
+
+    it('must compile BEMTREE file', function () {
+        return build(templates)
+            .spread(function (res) {
+                res.BEMTREE.apply(data).then(function (res) {
+                    res.must.eql(expect);
+                });
+            });
+    });
+
+    describe('compat', function () {
+        it('must throw error if old syntax', function () {
+            return build(templates)
+                .fail(function (err) {
+                    err.must.a(Error);
+                });
+        });
+
+        it('must support old syntax if compat:true', function () {
+            var templates = [
+                files['i-start.bemtree'].contents,
+                files['b-data.bemtree'].contents
+            ];
+
+            return build(templates, { compat: true })
+                .spread(function (res) {
+                    res.BEMTREE.apply(data).then(function (res) {
+                        res.must.eql(expect);
+                    });
+                });
+        });
+    });
+
+    it('must build block with custom exportName', function () {
+        return build(templates, { exportName: 'BEMBUSH' })
+            .spread(function (res) {
+                res.BEMBUSH.apply(data).then(function (res) {
+                    res.must.eql(expect);
+                });
+            });
+    });
+
+    describe('mode', function () {
+        it('must build block in development mode', function () {
+            return build(templates, { devMode: true })
+                .spread(function (res) {
+                    res.BEMTREE.apply(data).then(function (res) {
+                        res.must.eql(expect);
+                    });
+                });
+        });
+
+        it('must build block in production mode', function () {
+            return build(templates, { devMode: false })
+                .spread(function (res) {
+                    res.BEMTREE.apply(data).then(function (res) {
+                        res.must.eql(expect);
+                    });
+                });
+        });
+
+        it('must build different code by mode', function () {
+            return vow.all([
+                build(templates, { target: 'dev.bemhtml.js', devMode: true }),
+                build(templates, { target: 'prod.bemhtml.js', devMode: false })
+            ]).spread(function (dev, prod) {
+                var devSource = dev[1].toString(),
+                    prodSource = prod[1].toString();
+
+                devSource.must.not.be.equal(prodSource);
+            });
+        });
+    });
+});
+
+function build(templates, options) {
+    var scheme = {
+            // Файлы должны собираться в нужной последовательности
+            blocks: {
+                '00-i-bem.bemtree': files['i-bem.bemtree'].contents
+            },
+            bundle: {}
         },
-        exportName = (options && options.exportName) || 'BEMTREE',
         bundle, fileList;
+
+    templates && templates.forEach(function (item, i) {
+        scheme.blocks['block-' + i + '.bemtree'] = item;
+    });
+
+    scheme[files['ometajs'].path] = files['ometajs'].contents;
+    scheme[files['bemhtml.ometajs'].path] = files['bemhtml.ometajs'].contents;
 
     mock(scheme);
 
@@ -107,9 +159,6 @@ function runTest(options) {
 
             vm.runInNewContext(bemtreeSource, sandbox);
 
-            return sandbox[exportName].apply(data)
-                .then(function (bemjson) {
-                    assert.deepEqual(bemjson, expect);
-                });
+            return [sandbox, bemtreeSource];
         });
 }

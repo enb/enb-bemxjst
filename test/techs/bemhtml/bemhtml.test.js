@@ -28,21 +28,27 @@ describe('bemhtml', function () {
         mock.restore();
     });
 
-    it('must compile BEMHTML file', function () {
-        var templates = ['block("bla").tag()("a")'],
-            bemjson = { block: 'bla' },
-            html = '<a class="bla"></a>';
+    describe('compat', function () {
+        it('must throw error if old syntax', function () {
+            var templates = ['block bla, tag: "a"'];
 
-        return assert(bemjson, html, templates);
-    });
+            return build(templates)
+                .fail(function (err) {
+                    err.must.a(Error);
+                });
+        });
 
-    it('must support old syntax', function () {
-        var templates = ['block bla, tag: "a"'],
-            bemjson = { block: 'bla' },
-            html = '<a class="bla"></a>',
-            options = { compat: true };
+        it('must support old syntax if compat:true', function () {
+            var templates = ['block bla, tag: "a"'],
+                bemjson = { block: 'bla' },
+                html = '<a class="bla"></a>',
+                options = { compat: true };
 
-        return assert(bemjson, html, templates, options);
+            return build(templates, options)
+                .spread(function (res) {
+                    res.BEMHTML.apply(bemjson).must.be(html);
+                });
+        });
     });
 
     describe('mode', function () {
@@ -52,7 +58,10 @@ describe('bemhtml', function () {
                 html = '<a class="bla"></a>',
                 options = { devMode: true };
 
-            return assert(bemjson, html, templates, options);
+            return build(templates, options)
+                .spread(function (res) {
+                    res.BEMHTML.apply(bemjson).must.be(html);
+                });
         });
 
         it('must build block in production mode', function () {
@@ -61,67 +70,31 @@ describe('bemhtml', function () {
                 html = '<a class="bla"></a>',
                 options = { devMode: false };
 
-            return assert(bemjson, html, templates, options);
+            return build(templates, options)
+                .spread(function (res) {
+                    res.BEMHTML.apply(bemjson).must.be(html);
+                });
         });
 
         it('must build different code by mode', function () {
-            var scheme = {
-                    blocks: {
-                        'base.bemhtml': files['i-bem.bemhtml'].contents,
-                        'bla.bemhtml': 'block("bla").tag()("a")'
-                    },
-                    bundle: {}
-                },
-                bundle, fileList;
-
-            mock(scheme);
-
-            bundle = new TestNode('bundle');
-            fileList = new FileList();
-            fileList.loadFromDirSync('blocks');
-            bundle.provideTechData('?.files', fileList);
+            var templates = ['block("bla").tag()("a")'];
 
             return vow.all([
-                bundle.runTechAndGetContent(
-                    Tech, { target: 'dev.bemhtml.js', devMode: true }
-                ),
-                bundle.runTechAndGetContent(
-                    Tech, { target: 'prod.bemhtml.js', devMode: false }
-                )
+                build(templates, { target: 'dev.bemhtml.js', devMode: true }),
+                build(templates, { target: 'prod.bemhtml.js', devMode: false })
             ]).spread(function (dev, prod) {
-                var devSource = dev.toString(),
-                    prodSource = prod.toString();
+                var devSource = dev[1].toString(),
+                    prodSource = prod[1].toString();
 
                 devSource.must.not.be.equal(prodSource);
             });
         });
     });
-
-    it('must build block with custom exportName', function () {
-        var scheme = {
-                blocks: {
-                    'base.bemhtml': files['i-bem.bemhtml'].contents,
-                    'bla.bemhtml': 'block("bla").tag()("a")'
-                },
-                bundle: {}
-            },
-            bundle, fileList;
-
-        mock(scheme);
-
-        bundle = new TestNode('bundle');
-        fileList = new FileList();
-        fileList.loadFromDirSync('blocks');
-        bundle.provideTechData('?.files', fileList);
-
-        return bundle.runTechAndRequire(Tech, { exportName: 'BH' })
-            .spread(function (bemhtml) {
-                bemhtml.BH.apply({ block: 'bla' }).must.be('<a class="bla"></a>');
-            });
-    });
 });
 
-function assert(bemjson, html, templates, options) {
+function build(templates, options) {
+    options || (options = {});
+
     var scheme = {
             blocks: {
                 'base.bemhtml': files['i-bem.bemhtml'].contents
@@ -145,7 +118,10 @@ function assert(bemjson, html, templates, options) {
     bundle.provideTechData('?.files', fileList);
 
     return bundle.runTechAndRequire(Tech, options)
-        .spread(function (bemhtml) {
-            bemhtml.BEMHTML.apply(bemjson).must.be(html);
+        .spread(function (res) {
+            var filename = bundle.resolvePath(bundle.unmaskTargetName(options.target || '?.bemhtml.js')),
+                str = fs.readFileSync(filename, 'utf-8');
+
+            return [res, str];
         });
 }
