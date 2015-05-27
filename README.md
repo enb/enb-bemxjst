@@ -19,22 +19,11 @@ $ npm install --save-dev enb-bemxjst
 Технологии
 ----------
 
-* [bemhtml & bemhtml-old](#bemhtml--bemhtml-old)
-* [bemtree & bemtree-old](#bemtree--bemtree-old)
+* [bemhtml](#bemhtml)
+* [bemtree](#bemtree)
 * [html-from-bemjson](#html-from-bemjson)
-* [html-from-bemjson-i18n](#html-from-bemjson-i18n)
 
-### Зачем нужны `*-old`-технологии?
-Технологии с суффиксом `old` помимо JS-синтаксиса поддерживают ещё и первоначальный синтаксис.
-
-Транслирование из первоначального в JS-синтаксис осуществляется с помощью [bemhtml-compat](https://github.com/bem/bemhtml-compat).
-
-Использовать технологии с суффиксом `old` следует, когда действительно нужна поддержка первоначального синтаксиса, так как из-за транслирования сборка происходит медленнее, чем в аналогичных технологиях без суффикса.
-Например, это может быть полезно при миграции c [bem-bl](https://github.com/bem/bem-bl.git) на [bem-core](https://github.com/bem/bem-core), чтобы не переписывать код всего проекта целиком, а поэтапно переходить на JS-синтаксис для каждого отдельного шаблона.
-
-**Важно:** считается, что файлы с расширением `*.xjst` могут быть написаны только в JS-синтаксисе. Транслирование для таких файлов проводиться не будет, даже если использовать `old`-технологии.
-
-### bemhtml & bemhtml-old
+### bemhtml
 
 Склеивает `bemhtml.xjst` и `bemhtml`-файлы по deps'ам, обрабатывает [BEM-XJST](https://ru.bem.info/tools/templating-engines/bemxjst/)-транслятором, сохраняет (по умолчанию) в виде `?.bemhtml.js`.
 
@@ -44,6 +33,7 @@ $ npm install --save-dev enb-bemxjst
 * *String* **filesTarget** — files-таргет, на основе которого создаётся список исходных файлов (его предоставляет технология `files`). По умолчанию — `?.files`.
 * *String* **sourceSuffixes** — суффиксы файлов, по которым строится `files`-таргет. По умолчанию — `['bemhtml', 'bemhtml.xjst']`.
 * *String* **exportName** — имя переменной-обработчика BEMHTML. По умолчанию — `'BEMHTML'`.
+* *Boolean* **compat** — Поддержка первоначального синтаксиса. По умолчанию — false.
 * *Boolean* **devMode** — development-режим. По умолчанию — `true`.
 * *Boolean* **cache** — кэширование. Возможно только в production-режиме. По умолчанию — `false`.
 * *Object* **modulesDeps** — хэш-объект, прокидывающий в генерируемую для скомпилированных шаблонов обвязку необходимые YModules-модули.
@@ -54,7 +44,7 @@ $ npm install --save-dev enb-bemxjst
 nodeConfig.addTech([ require('enb-bemxjst/techs/bemhtml'), { devMode: false } ]);
 ```
 
-### bemtree & bemtree-old
+### bemtree
 
 Склеивает BEMTREE-файлы по deps'ам, обрабатывает [BEM-XJST](https://ru.bem.info/tools/templating-engines/bemxjst/)-транслятором, сохраняет (по умолчанию) в виде `?.bemtree.js`.
 
@@ -64,6 +54,7 @@ nodeConfig.addTech([ require('enb-bemxjst/techs/bemhtml'), { devMode: false } ])
 * *String* **filesTarget** — files-таргет, на основе которого создаётся список исходных файлов (его предоставляет технология `files`). По умолчанию — `?.files`.
 * *String* **sourceSuffixes** — суффиксы файлов, по которым строится `files`-таргет. По умолчанию — `['bemtree']`.
 * *String* **exportName** — имя переменной-обработчика BEMTREE. По умолчанию — `'BEMTREE'`.
+* *Boolean* **compat** — Поддержка первоначального синтаксиса. По умолчанию — false.
 * *Boolean* **devMode** — development-режим. По умолчанию — `true`.
 * *Object* **modulesDeps** — хэш-объект, прокидывающий в генерируемую для скомпилированных шаблонов обвязку необходимые YModules-модули.
 
@@ -88,6 +79,16 @@ nodeConfig.addTech([ require('enb-bemxjst/techs/bemtree'), { devMode: false } ])
 ```javascript
 nodeConfig.addTech(require('enb-bemxjst/techs/html-from-bemjson'));
 ```
+
+### Первоначальный синтаксис
+
+Чтобы включить поддержку первоначального синтаксиса, нужно использовать `compat` опцию. Например, это может быть полезно при миграции c [bem-bl](https://github.com/bem/bem-bl.git) на [bem-core](https://github.com/bem/bem-core), чтобы не переписывать код всего проекта целиком, а поэтапно переходить на JS-синтаксис для каждого отдельного шаблона.
+
+Транслирование из первоначального в JS-синтаксис осуществляется с помощью [bemhtml-compat](https://github.com/bem/bemhtml-compat).
+
+Из-за транслирования сборка происходит медленнее даже для файлов в JS-синтаксисе.
+
+**Важно:** считается, что файлы с расширением `*.xjst` могут быть написаны только в JS-синтаксисе. Транслирование для таких файлов проводиться не будет, даже если опция `compat` включена.
 
 Лицензия
 --------
