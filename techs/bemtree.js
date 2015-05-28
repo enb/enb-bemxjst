@@ -31,6 +31,7 @@ module.exports = require('./bem-xjst').buildFlow()
     .defineOption('exportName', 'BEMTREE')
     .defineOption('compat', false)
     .defineOption('devMode', true)
+    .defineOption('includeVow', true)
     .defineOption('modulesDeps')
     .useFileList(['bemtree'])
     .builder(function (sourceFiles) {
