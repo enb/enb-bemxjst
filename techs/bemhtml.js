@@ -27,6 +27,9 @@
  * nodeConfig.addTech([ require('enb-bemxjst/techs/bemhtml'), { devMode: false } ]);
  * ```
  */
+var bundle = require('../lib/bundle'),
+    BEMHTML_MOCK = 'exports.apply = function () { return ""; };';
+
 module.exports = require('./bem-xjst').buildFlow()
     .name('bemhtml')
     .target('target', '?.bemhtml.js')
@@ -37,6 +40,13 @@ module.exports = require('./bem-xjst').buildFlow()
     .defineOption('modulesDeps')
     .useFileList(['bemhtml', 'bemhtml.xjst'])
     .builder(function (sourceFiles) {
+        if (sourceFiles.length === 0) {
+            return bundle.compile(BEMHTML_MOCK, {
+                exportName: this._exportName,
+                modulesDeps: this._modulesDeps
+            });
+        }
+
         return this._sourceFilesProcess(sourceFiles, this._compat);
     })
     .createTech();

@@ -28,6 +28,17 @@ describe('bemhtml', function () {
         mock.restore();
     });
 
+    it('must generate mock if there is no templates', function () {
+        var templates = [];
+
+        return build(templates)
+            .spread(function (res) {
+                var bemjson = { block: 'block' };
+
+                res.BEMHTML.apply(bemjson).must.be('');
+            });
+    });
+
     describe('compat', function () {
         it('must throw error if old syntax', function () {
             var templates = ['block bla, tag: "a"'];
@@ -93,19 +104,22 @@ describe('bemhtml', function () {
 });
 
 function build(templates, options) {
+    templates || (templates = []);
     options || (options = {});
 
     var scheme = {
-            blocks: {
-                'base.bemhtml': files['i-bem.bemhtml'].contents
-            },
+            blocks: {},
             bundle: {}
         },
         bundle, fileList;
 
-    templates && templates.forEach(function (item, i) {
-        scheme.blocks['block-' + i + '.bemhtml'] = item;
-    });
+    if (templates.length) {
+        scheme.blocks['base.bemhtml'] = files['i-bem.bemhtml'].contents;
+
+        templates.forEach(function (item, i) {
+            scheme.blocks['block-' + i + '.bemhtml'] = item;
+        });
+    }
 
     scheme[files['ometajs'].path] = files['ometajs'].contents;
     scheme[files['bemhtml.ometajs'].path] = files['bemhtml.ometajs'].contents;
