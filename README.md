@@ -25,13 +25,13 @@ $ npm install --save-dev enb-bemxjst
 
 ### bemhtml
 
-Склеивает `bemhtml.xjst` и `bemhtml`-файлы по deps'ам, обрабатывает [BEM-XJST](https://ru.bem.info/tools/templating-engines/bemxjst/)-транслятором, сохраняет (по умолчанию) в виде `?.bemhtml.js`.
+Склеивает `bemhtml`-файлы по deps'ам, обрабатывает [BEM-XJST](https://ru.bem.info/tools/templating-engines/bemxjst/)-транслятором, сохраняет (по умолчанию) в виде `?.bemhtml.js`.
 
 **Опции**
 
 * *String* **target** — результирующий таргет. По умолчанию — `?.bemhtml.js`.
 * *String* **filesTarget** — files-таргет, на основе которого создаётся список исходных файлов (его предоставляет технология `files`). По умолчанию — `?.files`.
-* *String* **sourceSuffixes** — суффиксы файлов, по которым строится `files`-таргет. По умолчанию — `['bemhtml', 'bemhtml.xjst']`.
+* *String* **sourceSuffixes** — суффиксы файлов, по которым строится `files`-таргет. По умолчанию — `['bemhtml']`.
 * *String* **exportName** — имя переменной-обработчика BEMHTML. По умолчанию — `'BEMHTML'`.
 * *Boolean* **compat** — Поддержка первоначального синтаксиса. По умолчанию — false.
 * *Boolean* **devMode** — development-режим. По умолчанию — `true`.
@@ -87,8 +87,6 @@ nodeConfig.addTech(require('enb-bemxjst/techs/bemjson-to-html'));
 Транслирование из первоначального в JS-синтаксис осуществляется с помощью [bemhtml-compat](https://github.com/bem/bemhtml-compat).
 
 Из-за транслирования сборка происходит медленнее даже для файлов в JS-синтаксисе.
-
-**Важно:** считается, что файлы с расширением `*.xjst` могут быть написаны только в JS-синтаксисе. Транслирование для таких файлов проводиться не будет, даже если опция `compat` включена.
 
 Лицензия
 --------

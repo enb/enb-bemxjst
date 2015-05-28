@@ -7,8 +7,7 @@ var vow = require('vow'),
             return bemxjst.generate(source, options);
         }
     }),
-    bundle = require('../lib/bundle'),
-    XJST_SUFFIX = 'xjst';
+    bundle = require('../lib/bundle');
 
 module.exports = require('enb/lib/build-flow').create()
     .name('bem-xjst')
@@ -18,7 +17,7 @@ module.exports = require('enb/lib/build-flow').create()
             return vow.all(sourceFiles.map(function (file) {
                     return vfs.read(file.fullname, 'utf8')
                         .then(function (source) {
-                            if (oldSyntax && XJST_SUFFIX !== file.suffix.split('.').pop()) {
+                            if (oldSyntax) {
                                 source = bemcompat.transpile(source);
                             }
 

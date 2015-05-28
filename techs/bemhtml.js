@@ -2,7 +2,7 @@
  * bemhtml
  * =======
  *
- * Склеивает *bemhtml.xjst* и *bemhtml*-файлы по deps'ам, обрабатывает `bem-xjst`-транслятором,
+ * Склеивает *bemhtml*-файлы по deps'ам, обрабатывает `bem-xjst`-транслятором,
  * сохраняет (по умолчанию) в виде `?.bemhtml.js`.
  * **Внимание:** По умолчанию поддерживает только JS-синтаксис. Чтобы включить поддержку первоначального синтаксиса
  * используйте `compat` опцию.
@@ -13,7 +13,7 @@
  * * *String* **filesTarget** — files-таргет, на основе которого получается список исходных файлов
  *   (его предоставляет технология `files`). По умолчанию — `?.files`.
  * * *String* **sourceSuffixes** — суффиксы файлов, по которым строится `files`-таргет.
- *    По умолчанию — `['bemhtml', 'bemhtml.xjst']`.
+ *    По умолчанию — `['bemhtml']`.
  * * *String* **exportName** — Имя переменной-обработчика BEMHTML. По умолчанию — `'BEMHTML'`.
  * * *Boolean* **compat** — Поддержка первоначального синтаксиса. По умолчанию — false.
  * * *Boolean* **devMode** — Development-режим. По умолчанию — true.
@@ -38,7 +38,7 @@ module.exports = require('./bem-xjst').buildFlow()
     .defineOption('devMode', true)
     .defineOption('cache', false)
     .defineOption('modulesDeps')
-    .useFileList(['bemhtml', 'bemhtml.xjst'])
+    .useFileList(['bemhtml'])
     .builder(function (sourceFiles) {
         if (sourceFiles.length === 0) {
             return bundle.compile(BEMHTML_MOCK, {
