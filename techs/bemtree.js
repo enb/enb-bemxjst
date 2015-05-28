@@ -25,6 +25,9 @@
  * nodeConfig.addTech([ require('enb-bemxjst/techs/bemtree'), { devMode: false } ]);
  * ```
  */
+var bundle = require('../lib/bundle'),
+    BEMTREE_MOCK = 'exports.apply = function () { return Vow.resolve({}); };';
+
 module.exports = require('./bem-xjst').buildFlow()
     .name('bemtree')
     .target('target', '?.bemtree.js')
@@ -35,6 +38,14 @@ module.exports = require('./bem-xjst').buildFlow()
     .defineOption('modulesDeps')
     .useFileList(['bemtree'])
     .builder(function (sourceFiles) {
+        if (sourceFiles.length === 0) {
+            return bundle.compile(BEMTREE_MOCK, {
+                exportName: this._exportName,
+                includeVow: this._includeVow,
+                modulesDeps: this._modulesDeps
+            });
+        }
+
         return this._sourceFilesProcess(sourceFiles, this._compat);
     })
     .createTech();

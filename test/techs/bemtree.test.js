@@ -64,6 +64,16 @@ describe('bemtree', function () {
             });
     });
 
+    it('must generate mock if there is no templates', function () {
+        return build([])
+            .spread(function (res) {
+                return res.BEMTREE.apply(data)
+                    .then(function (res) {
+                        res.must.eql({});
+                    });
+            });
+    });
+
     it('must compile BEMTREE file without `vow` if includeVow:false', function () {
         return build(templates, { includeVow: false })
             .spread(function (res, src) {
@@ -150,20 +160,23 @@ describe('bemtree', function () {
 });
 
 function build(templates, options) {
+    templates || (templates = []);
     options || (options = {});
 
     var scheme = {
             // Файлы должны собираться в нужной последовательности
-            blocks: {
-                '00-i-bem.bemtree': files['i-bem.bemtree'].contents
-            },
+            blocks: {},
             bundle: {}
         },
         bundle, fileList;
 
-    templates && templates.forEach(function (item, i) {
-        scheme.blocks['block-' + i + '.bemtree'] = item;
-    });
+    if (templates.length) {
+        scheme.blocks['00-i-bem.bemtree'] = files['i-bem.bemtree'].contents;
+
+        templates && templates.forEach(function (item, i) {
+            scheme.blocks['block-' + i + '.bemtree'] = item;
+        });
+    }
 
     scheme[files['ometajs'].path] = files['ometajs'].contents;
     scheme[files['bemhtml.ometajs'].path] = files['bemhtml.ometajs'].contents;
