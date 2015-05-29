@@ -14,7 +14,19 @@ module.exports = require('enb/lib/build-flow').create()
     .target('target', '?.bem-xjst.js')
     .methods({
         _sourceFilesProcess: function (sourceFiles, oldSyntax) {
-            return vow.all(sourceFiles.map(function (file) {
+            var added = {};
+
+            return vow.all(sourceFiles.filter(function (file) {
+                    var key = file.fullname.split('.')[0];
+
+                    if (added[key]) {
+                        return false;
+                    }
+
+                    added[key] = true;
+
+                    return true;
+                }).map(function (file) {
                     return vfs.read(file.fullname, 'utf8')
                         .then(function (source) {
                             if (oldSyntax) {

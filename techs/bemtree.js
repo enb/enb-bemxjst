@@ -36,7 +36,7 @@ module.exports = require('./bem-xjst').buildFlow()
     .defineOption('devMode', true)
     .defineOption('includeVow', true)
     .defineOption('modulesDeps')
-    .useFileList(['bemtree'])
+    .useFileList(['bemtree.js', 'bemtree'])
     .builder(function (sourceFiles) {
         if (sourceFiles.length === 0) {
             return bundle.compile(BEMTREE_MOCK, {
