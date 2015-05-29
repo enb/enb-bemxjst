@@ -39,6 +39,39 @@ describe('bemhtml', function () {
             });
     });
 
+    describe('suffixes', function () {
+        it('must use `bemhtml.js` suffix', function () {
+            var blocks = {
+                'base.bemhtml.js': files['i-bem.bemhtml'].contents,
+                'block.bemhtml.js': 'block("block").tag()("a")',
+                'block.bemhtml': 'block("block").tag()("span")'
+            };
+
+            return build(blocks)
+                .spread(function (res) {
+                    var bemjson = { block: 'block' },
+                        html = '<a class="block"></a>';
+
+                    res.BEMHTML.apply(bemjson).must.be(html);
+                });
+        });
+
+        it('must use `bemhtml` suffix if not `bemhtml.js`', function () {
+            var blocks = {
+                'base.bemhtml.js': files['i-bem.bemhtml'].contents,
+                'block.bemhtml': 'block("block").tag()("span")'
+            };
+
+            return build(blocks)
+                .spread(function (res) {
+                    var bemjson = { block: 'block' },
+                        html = '<span class="block"></span>';
+
+                    res.BEMHTML.apply(bemjson).must.be(html);
+                });
+        });
+    });
+
     describe('compat', function () {
         it('must throw error if old syntax', function () {
             var templates = ['block bla, tag: "a"'];
@@ -113,11 +146,23 @@ function build(templates, options) {
         },
         bundle, fileList;
 
+    if (Array.isArray(templates)) {
+        if (templates.length) {
+            scheme.blocks['base.bemhtml.js'] = files['i-bem.bemhtml'].contents;
+
+            templates.forEach(function (item, i) {
+                scheme.blocks['block-' + i + '.bemhtml.js'] = item;
+            });
+        }
+    } else {
+        scheme.blocks = templates;
+    }
+
     if (templates.length) {
-        scheme.blocks['base.bemhtml'] = files['i-bem.bemhtml'].contents;
+        scheme.blocks['base.bemhtml.js'] = files['i-bem.bemhtml'].contents;
 
         templates.forEach(function (item, i) {
-            scheme.blocks['block-' + i + '.bemhtml'] = item;
+            scheme.blocks['block-' + i + '.bemhtml.js'] = item;
         });
     }
 

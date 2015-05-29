@@ -9,14 +9,14 @@ var fs = require('fs'),
     FileList = require('enb/lib/file-list'),
     fixturesDirname = path.join(__dirname, '..', 'fixtures', 'bemtree'),
     files = {
-        'i-bem.bemtree': {
-            path: path.join(fixturesDirname, 'i-bem.bemtree')
+        'i-bem.bemtree.js': {
+            path: path.join(fixturesDirname, 'i-bem.bemtree.js')
         },
-        'i-start.bemtree': {
-            path: path.join(fixturesDirname, 'i-start.bemtree')
+        'i-start.bemtree.js': {
+            path: path.join(fixturesDirname, 'i-start.bemtree.js')
         },
-        'data.bemtree': {
-            path: path.join(fixturesDirname, 'data.bemtree')
+        'data.bemtree.js': {
+            path: path.join(fixturesDirname, 'data.bemtree.js')
         },
         'b-data.bemtree': {
             path: path.join(fixturesDirname, 'b-data.bemtree')
@@ -27,7 +27,8 @@ var fs = require('fs'),
         'bemhtml.ometajs': {
             path: require.resolve('bemhtml-compat/lib/ometa/bemhtml.ometajs')
         }
-    };
+    },
+    EOL = require('os').EOL;
 
 Object.keys(files).forEach(function (name) {
     var file = files[name];
@@ -37,8 +38,8 @@ Object.keys(files).forEach(function (name) {
 
 describe('bemtree', function () {
     var templates = [
-            files['i-start.bemtree'].contents,
-            files['data.bemtree'].contents
+            files['i-start.bemtree.js'].contents,
+            files['data.bemtree.js'].contents
         ],
         data = {
             bundleName: 'page',
@@ -90,6 +91,66 @@ describe('bemtree', function () {
             });
     });
 
+    describe('suffixes', function () {
+        var jsTemplate = [
+                'block("b-data").match(this.data && this.data.title)(',
+                '    content()(function () {',
+                '        return "bemtree.js";',
+                '    })',
+                ')'
+            ].join(EOL),
+            template = [
+                'block("b-data").match(this.data && this.data.title)(',
+                '    content()(function () {',
+                '        return "bemtree";',
+                '    })',
+                ')'
+            ].join(EOL);
+
+        it('must use `bemtree.js` suffix', function () {
+            var blocks = {
+                'base.bemtree.js': files['i-bem.bemtree.js'].contents,
+                'i-start.bemtree.js': files['i-start.bemtree.js'].contents,
+                'data.bemtree.js': jsTemplate,
+                'data.bemtree': template
+            },
+            expect = {
+                block: 'b-data',
+                mods: {},
+                content: 'bemtree.js'
+            };
+
+            return build(blocks)
+                .spread(function (res) {
+                    return res.BEMTREE.apply(data)
+                        .then(function (res) {
+                            res.must.eql(expect);
+                        });
+                });
+        });
+
+        it('must use `bemtree` suffix if not `bemtree.js`', function () {
+            var blocks = {
+                    'base.bemtree.js': files['i-bem.bemtree.js'].contents,
+                    'i-start.bemtree.js': files['i-start.bemtree.js'].contents,
+                    'data.bemtree': template
+                },
+                expect = {
+                    block: 'b-data',
+                    mods: {},
+                    content: 'bemtree'
+                };
+
+            return build(blocks)
+                .spread(function (res) {
+                    return res.BEMTREE.apply(data)
+                        .then(function (res) {
+                            res.must.eql(expect);
+                        });
+                });
+        });
+    });
+
     describe('compat', function () {
         it('must throw error if old syntax', function () {
             return build(templates)
@@ -100,7 +161,7 @@ describe('bemtree', function () {
 
         it('must support old syntax if compat:true', function () {
             var templates = [
-                files['i-start.bemtree'].contents,
+                files['i-start.bemtree.js'].contents,
                 files['b-data.bemtree'].contents
             ];
 
@@ -164,18 +225,21 @@ function build(templates, options) {
     options || (options = {});
 
     var scheme = {
-            // Файлы должны собираться в нужной последовательности
             blocks: {},
             bundle: {}
         },
         bundle, fileList;
 
-    if (templates.length) {
-        scheme.blocks['00-i-bem.bemtree'] = files['i-bem.bemtree'].contents;
+    if (Array.isArray(templates)) {
+        if (templates.length) {
+            scheme.blocks['base.bemtree.js'] = files['i-bem.bemtree.js'].contents;
 
-        templates && templates.forEach(function (item, i) {
-            scheme.blocks['block-' + i + '.bemtree'] = item;
-        });
+            templates.forEach(function (item, i) {
+                scheme.blocks['block-' + i + '.bemtree.js'] = item;
+            });
+        }
+    } else {
+        scheme.blocks = templates;
     }
 
     scheme[files['ometajs'].path] = files['ometajs'].contents;

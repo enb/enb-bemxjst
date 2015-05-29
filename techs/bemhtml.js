@@ -38,7 +38,7 @@ module.exports = require('./bem-xjst').buildFlow()
     .defineOption('devMode', true)
     .defineOption('cache', false)
     .defineOption('modulesDeps')
-    .useFileList(['bemhtml'])
+    .useFileList(['bemhtml.js', 'bemhtml'])
     .builder(function (sourceFiles) {
         if (sourceFiles.length === 0) {
             return bundle.compile(BEMHTML_MOCK, {
