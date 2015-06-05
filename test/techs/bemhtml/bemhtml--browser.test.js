@@ -53,7 +53,7 @@ function runTest(testContent, options, template) {
     bundle.provideTechData('?.files', fileList);
 
     return bundle.runTechAndGetContent(Tech, options)
-        .spread(function (bemhtml) {
+        .spread(function () {
             return runServer(3000);
         });
 }
