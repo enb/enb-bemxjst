@@ -1,7 +1,7 @@
 var fs = require('fs'),
     path = require('path'),
     mock = require('mock-fs'),
-    TestNode = require('enb/lib/test/mocks/test-node'),
+    MockNode = require('mock-enb/lib/mock-node'),
     FileList = require('enb/lib/file-list'),
     Tech = require('../../../techs/bemhtml'),
     bemhtmlCoreFilename = path.join(__dirname, '..', '..', 'fixtures', 'i-bem.bemhtml'),
@@ -47,16 +47,13 @@ function runTest(testContent, options, template) {
 
     mock(scheme);
 
-    bundle = new TestNode('bundle');
+    bundle = new MockNode('bundle');
     fileList = new FileList();
     fileList.loadFromDirSync('blocks');
     bundle.provideTechData('?.files', fileList);
 
     return bundle.runTechAndGetContent(Tech, options)
         .spread(function (bemhtml) {
-            // TODO: удалить, когда пофиксится https://github.com/enb-make/enb/issues/224
-            fs.writeFileSync('bundle/bundle.bemhtml.js', bemhtml);
-
             return runServer(3000);
         });
 }
