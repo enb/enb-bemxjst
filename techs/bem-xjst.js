@@ -17,7 +17,7 @@ module.exports = require('enb/lib/build-flow').create()
             var added = {};
 
             return vow.all(sourceFiles.filter(function (file) {
-                    var key = file.fullname.split('.')[0];
+                    var key = file.fullname.slice(0, -(file.suffix.length + 1));
 
                     if (added[key]) {
                         return false;
