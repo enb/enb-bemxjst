@@ -29,10 +29,10 @@
     "enb": ">= 0.13.0 < 1.0.0"
   },
   "dependencies": {
-    "bem-xjst": "1.0.0",
+    "bem-xjst": "1.0.3",
     "bemhtml-compat": "0.1.2",
     "sibling": "0.1.3",
-    "vow": "0.4.7"
+    "vow": "0.4.10"
   },
   "devDependencies": {
     "enb": ">= 0.13.0 < 1.0.0",
