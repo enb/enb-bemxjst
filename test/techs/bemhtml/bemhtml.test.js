@@ -134,6 +134,28 @@ describe('bemhtml', function () {
             });
         });
     });
+
+    describe('handle template errors', function () {
+        it('must return rejected promise for template errors (development mode)', function () {
+            var templates = ['block("bla")tag()("a")'],
+                options = { devMode: true };
+
+            return build(templates, options)
+                .fail(function (error) {
+                    error.message.must.be.equal('Unexpected identifier');
+                });
+        });
+
+        it('must return rejected promise for template errors (production mode)', function () {
+            var templates = ['block("bla")tag()("a")'],
+                options = { devMode: false };
+
+            return build(templates, options)
+                .fail(function (error) {
+                    error.message.must.be.equal('Line 486: Unexpected identifier');
+                });
+        });
+    });
 });
 
 function build(templates, options) {

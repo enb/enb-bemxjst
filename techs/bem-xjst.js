@@ -58,7 +58,11 @@ module.exports = require('enb/lib/build-flow').create()
                         includeVow: this._includeVow,
                         modulesDeps: this._modulesDeps
                     });
-                }, this);
+                }, this)
+                .fail(function (error) {
+                    bemxjstProcessor.dispose();
+                    throw error;
+                });
         }
     })
     .createTech();
