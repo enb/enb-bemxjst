@@ -136,23 +136,23 @@ describe('bemhtml', function () {
     });
 
     describe('handle template errors', function () {
-        it('must return rejected promise for template errors (development mode)', function () {
+        it('must return rejected promise for template with syntax errors (development mode)', function () {
             var templates = ['block("bla")tag()("a")'],
                 options = { devMode: true };
 
             return build(templates, options)
                 .fail(function (error) {
-                    error.message.must.be.equal('Unexpected identifier');
+                    error.message.must.be.include('Unexpected identifier');
                 });
         });
 
-        it('must return rejected promise for template errors (production mode)', function () {
+        it('must return rejected promise for template with syntax errors (production mode)', function () {
             var templates = ['block("bla")tag()("a")'],
                 options = { devMode: false };
 
             return build(templates, options)
                 .fail(function (error) {
-                    error.message.must.be.equal('Line 486: Unexpected identifier');
+                    error.message.must.be.include('Line 486: Unexpected identifier');
                 });
         });
     });
