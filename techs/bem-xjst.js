@@ -1,12 +1,7 @@
-var vow = require('vow'),
+var path = require('path'),
+    vow = require('vow'),
     vfs = require('enb/lib/fs/async-fs'),
-    bemxjst = require('bem-xjst'),
     bemcompat = require('bemhtml-compat'),
-    BemxjstProcessor = require('sibling').declare({
-        process: function (source, options) {
-            return bemxjst.generate(source, options);
-        }
-    }),
     bundle = require('../lib/bundle');
 
 module.exports = require('enb/lib/build-flow').create()
@@ -43,26 +38,24 @@ module.exports = require('enb/lib/build-flow').create()
                 }, this);
         },
         _bemxjstProcess: function (source) {
-            var bemxjstProcessor = BemxjstProcessor.fork();
+            var jobQueue = this.node.getSharedResources().jobQueue;
 
-            return bemxjstProcessor.process(source, {
-                    wrap: false,
-                    optimize: !this._devMode,
-                    cache: !this._devMode && this._cache
-                })
+            return jobQueue.push(
+                    path.resolve(__dirname, '../lib/bemxjst-processor'),
+                    source,
+                    {
+                        wrap: false,
+                        optimize: !this._devMode,
+                        cache: !this._devMode && this._cache
+                    }
+                )
                 .then(function (code) {
-                    bemxjstProcessor.dispose();
-
                     return bundle.compile(code, {
                         exportName: this._exportName,
                         includeVow: this._includeVow,
                         modulesDeps: this._modulesDeps
                     });
-                }, this)
-                .fail(function (error) {
-                    bemxjstProcessor.dispose();
-                    throw error;
-                });
+                }, this);
         }
     })
     .createTech();
