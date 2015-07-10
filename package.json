@@ -26,7 +26,7 @@
     "node": ">= 0.10.0"
   },
   "peerDependencies": {
-    "enb": "git://github.com/j0tunn/enb.git#feature/job.queue"
+    "enb": ">= 0.16.0 < 1.0.0"
   },
   "dependencies": {
     "bem-xjst": "1.0.3",
@@ -34,12 +34,12 @@
     "vow": "0.4.10"
   },
   "devDependencies": {
-    "enb": ">= 0.13.0 < 1.0.0",
+    "enb": ">= 0.16.0 < 1.0.0",
     "istanbul": "0.3.14",
     "jscs": "1.13.1",
     "jshint": "2.7.0",
     "mocha": "2.2.4",
-    "mock-enb": "git://github.com/j0tunn/mock-enb#feature/job.queue.stub",
+    "mock-enb": "0.1.0",
     "mock-fs": "2.7.0",
     "mock-require": "1.0.5",
     "must": "0.12.0",
