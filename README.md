@@ -36,7 +36,7 @@ $ npm install --save-dev enb-bemxjst
 * *Boolean* **compat** — Поддержка первоначального синтаксиса. По умолчанию — false.
 * *Boolean* **devMode** — development-режим. По умолчанию — `true`.
 * *Boolean* **cache** — кэширование. Возможно только в production-режиме. По умолчанию — `false`.
-* *Object* **modulesDeps** — хэш-объект, прокидывающий в генерируемую для скомпилированных шаблонов обвязку необходимые YModules-модули.
+* *Object* **requires** — Объект с объявлением зависимостей для различных модульных систем. По умолчанию — пустой объект.
 
 **Пример**
 
@@ -56,7 +56,6 @@ nodeConfig.addTech([ require('enb-bemxjst/techs/bemhtml'), { devMode: false } ])
 * *String* **exportName** — имя переменной-обработчика BEMTREE. По умолчанию — `'BEMTREE'`.
 * *Boolean* **compat** — Поддержка первоначального синтаксиса. По умолчанию — false.
 * *Boolean* **devMode** — development-режим. По умолчанию — `true`.
-* *Object* **modulesDeps** — хэш-объект, прокидывающий в генерируемую для скомпилированных шаблонов обвязку необходимые YModules-модули.
 
 **Пример**
 

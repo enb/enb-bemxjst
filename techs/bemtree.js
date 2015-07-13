@@ -16,8 +16,6 @@
  * * *String* **exportName** — Имя переменной-обработчика BEMTREE. По умолчанию — `'BEMTREE'`.
  * * *Boolean* **compat** — Поддержка первоначального синтаксиса. По умолчанию — false.
  * * *Boolean* **devMode** — Development-режим. По умолчанию — true.
- * * *Object* **modulesDeps** — Хэш-объект, прокидывающий в генерируемую для скомпилированных шаблонов обвязку,
- *    необходимые YModules-модули.
  *
  * **Пример**
  *
@@ -35,14 +33,12 @@ module.exports = require('./bem-xjst').buildFlow()
     .defineOption('compat', false)
     .defineOption('devMode', true)
     .defineOption('includeVow', true)
-    .defineOption('modulesDeps')
     .useFileList(['bemtree.js', 'bemtree'])
     .builder(function (sourceFiles) {
         if (sourceFiles.length === 0) {
             return bundle.compile(BEMTREE_MOCK, {
                 exportName: this._exportName,
-                includeVow: this._includeVow,
-                modulesDeps: this._modulesDeps
+                includeVow: this._includeVow
             });
         }
 
