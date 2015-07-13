@@ -18,9 +18,8 @@
  * * *Boolean* **compat** — Поддержка первоначального синтаксиса. По умолчанию — false.
  * * *Boolean* **devMode** — Development-режим. По умолчанию — true.
  * * *Boolean* **cache** — Кэширование. Возможно только в production-режиме. По умолчанию — `false`.
- * * *Object* **modulesDeps** — Хэш-объект, прокидывающий в генерируемую для скомпилированных шаблонов обвязку,
- *    необходимые YModules-модули.
- *
+ * * *Object* **requires** - Объект с объявлением зависимостей для различных модульных систем.
+ *    По умолчанию - пустой объект.
  * **Пример**
  *
  * ```javascript
@@ -37,13 +36,12 @@ module.exports = require('./bem-xjst').buildFlow()
     .defineOption('compat', false)
     .defineOption('devMode', true)
     .defineOption('cache', false)
-    .defineOption('modulesDeps')
+    .defineOption('requires', {})
     .useFileList(['bemhtml.js', 'bemhtml'])
     .builder(function (sourceFiles) {
         if (sourceFiles.length === 0) {
             return bundle.compile(BEMHTML_MOCK, {
-                exportName: this._exportName,
-                modulesDeps: this._modulesDeps
+                exportName: this._exportName
             });
         }
 

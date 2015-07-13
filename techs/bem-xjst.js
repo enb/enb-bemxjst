@@ -1,4 +1,5 @@
-var path = require('path'),
+var EOL = require('os').EOL,
+    path = require('path'),
     vow = require('vow'),
     vfs = require('enb/lib/fs/async-fs'),
     bemcompat = require('bemhtml-compat'),
@@ -38,7 +39,16 @@ module.exports = require('enb/lib/build-flow').create()
                 }, this);
         },
         _bemxjstProcess: function (source) {
-            var jobQueue = this.node.getSharedResources().jobQueue;
+            var jobQueue = this.node.getSharedResources().jobQueue,
+                template = [
+                    'oninit(function(exports, context) {',
+                    '    context.BEMContext.prototype.require = function(lib) {',
+                    '       return __bem_xjst_libs__[lib];',
+                    '    };',
+                    '});'
+                ].join(EOL);
+
+            source += EOL + template;
 
             return jobQueue.push(
                     path.resolve(__dirname, '../lib/bemxjst-processor'),
@@ -53,7 +63,7 @@ module.exports = require('enb/lib/build-flow').create()
                     return bundle.compile(code, {
                         exportName: this._exportName,
                         includeVow: this._includeVow,
-                        modulesDeps: this._modulesDeps
+                        requires: this._requires
                     });
                 }, this);
         }
