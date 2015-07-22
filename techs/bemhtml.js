@@ -1,34 +1,47 @@
-/**
- * bemhtml
- * =======
- *
- * Склеивает *bemhtml*-файлы по deps'ам, обрабатывает `bem-xjst`-транслятором,
- * сохраняет (по умолчанию) в виде `?.bemhtml.js`.
- * **Внимание:** По умолчанию поддерживает только JS-синтаксис. Чтобы включить поддержку первоначального синтаксиса
- * используйте `compat` опцию.
- *
- * **Опции**
- *
- * * *String* **target** — Результирующий таргет. По умолчанию — `?.bemhtml.js`.
- * * *String* **filesTarget** — files-таргет, на основе которого получается список исходных файлов
- *   (его предоставляет технология `files`). По умолчанию — `?.files`.
- * * *String* **sourceSuffixes** — суффиксы файлов, по которым строится `files`-таргет.
- *    По умолчанию — `['bemhtml']`.
- * * *String* **exportName** — Имя переменной-обработчика BEMHTML. По умолчанию — `'BEMHTML'`.
- * * *Boolean* **compat** — Поддержка первоначального синтаксиса. По умолчанию — false.
- * * *Boolean* **devMode** — Development-режим. По умолчанию — true.
- * * *Boolean* **cache** — Кэширование. Возможно только в production-режиме. По умолчанию — `false`.
- * * *Object* **requires** - Объект с объявлением зависимостей для различных модульных систем.
- *    По умолчанию - пустой объект.
- * **Пример**
- *
- * ```javascript
- * nodeConfig.addTech([ require('enb-bemxjst/techs/bemhtml'), { devMode: false } ]);
- * ```
- */
 var bundle = require('../lib/bundle'),
     BEMHTML_MOCK = 'exports.apply = function () { return ""; };';
 
+/**
+ * @class BemhtmlTech
+ * @augments {BemxjstTech}
+ * @classdesc
+ *
+ * Compiles BEMHTML template files with BEMXJST translator and merges them into a single BEMHTML bundle.<br/><br/>
+ *
+ * Important: It supports only JS syntax by default. Use `compat` option to support old BEMHTML syntax.
+ *
+ * @param {Object}    [options]                          Options
+ * @param {String}    [options.target='?.bemhtml.js']    Path to target with compiled file.
+ * @param {String}    [options.exportName='BEMHTML']     Name of BEMHTML template variable.
+ * @param {Boolean}   [options.compat=false]             Set `compat` option to support old BEMHTML syntax.
+ * @param {Boolean}   [options.devMode=true]             Set `devMode` option for convenient debugging. If `devMode` is
+ * set to true, code of templates will not be compiled but only wrapped for development purposes.
+ * @param {Boolean}   [options.cache=false]              Set `cache` option for cache usage.
+ * @param {Object}    [options.requires]                 Names of dependencies which should be available from
+ * code of templates.
+ * @param {String[]}  [options.sourceSuffixes]           Files with specified suffixes involved in the assembly.
+ *
+ * @example
+ * var BemhtmlTech = require('enb-bemhtml/techs/bemhtml'),
+ *     FileProvideTech = require('enb/techs/file-provider'),
+ *     bem = require('enb-bem-techs');
+ *
+ * module.exports = function(config) {
+ *     config.node('bundle', function(node) {
+ *         // get FileList
+ *         node.addTechs([
+ *             [FileProvideTech, { target: '?.bemdecl.js' }],
+ *             [bem.levels, levels: ['blocks']],
+ *             bem.deps,
+ *             bem.files
+ *         ]);
+ *
+ *         // build BEMHTML file
+ *         node.addTech(BemhtmlTech);
+ *         node.addTarget('?.bemhtml.js');
+ *     });
+ * };
+ */
 module.exports = require('./bem-xjst').buildFlow()
     .name('bemhtml')
     .target('target', '?.bemhtml.js')

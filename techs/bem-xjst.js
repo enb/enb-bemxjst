@@ -5,10 +5,30 @@ var EOL = require('os').EOL,
     bemcompat = require('bemhtml-compat'),
     bundle = require('../lib/bundle');
 
+/**
+ * @class BemxjstTech
+ * @augments {BaseTech}
+ * @classdesc
+ *
+ * Compiles BEMXJST template files with BEMXJST translator and merges them into a single template bundle.<br/><br/>
+ *
+ * Important: Normally you don't need to use this tech directly.
+ * It supports only JS syntax by default. Use `compat` option to support old BEMXJST syntax. <br/><br/>
+ *
+ * @param {Object}      [options]                           Options
+ * @param {String}      [options.target='?.bem-xjst.js']    Path to target with compiled file.
+ */
 module.exports = require('enb/lib/build-flow').create()
     .name('bem-xjst')
     .target('target', '?.bem-xjst.js')
     .methods({
+        /**
+         * Process all given source files. Join them into single file and pass into BEMXJST compiler
+         * @param {Object[]} sourceFiles — objects that contain file information
+         * @param {Boolean} oldSyntax — enables transpilation from old syntax to regular JS syntax
+         * @returns {Promise}
+         * @private
+         */
         _sourceFilesProcess: function (sourceFiles, oldSyntax) {
             var added = {};
 
@@ -38,6 +58,13 @@ module.exports = require('enb/lib/build-flow').create()
                     return this._bemxjstProcess(sources.join('\n'));
                 }, this);
         },
+        /**
+         * Uses BEMXJST processor for templates compilation
+         * Wraps compiled code for usage with different modular systems
+         * @param {String} source — merged code of templates
+         * @returns {Promise}
+         * @private
+         */
         _bemxjstProcess: function (source) {
             var jobQueue = this.node.getSharedResources().jobQueue,
                 template = [
