@@ -22,7 +22,7 @@ var bundle = require('../lib/bundle'),
  * @param {String[]}  [options.sourceSuffixes]           Files with specified suffixes involved in the assembly.
  *
  * @example
- * var BemhtmlTech = require('enb-bemhtml/techs/bemhtml'),
+ * var BemhtmlTech = require('enb-bemxjst/techs/bemhtml'),
  *     FileProvideTech = require('enb/techs/file-provider'),
  *     bem = require('enb-bem-techs');
  *
