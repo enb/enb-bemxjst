@@ -17,8 +17,8 @@ var requireOrEval = require('enb/lib/fs/require-or-eval'),
  * @param {String}  [options.bemjsonFile='?.bemjson.js'] Path to BEMJSON file.
  *
  * @example
- * var BemjsonToHtmlTech = require('enb-bh/techs/bemjson-to-html'),
- *     BemhtmlTech = require('enb-bemhtml/techs/bemhtml'),
+ * var BemjsonToHtmlTech = require('enb-bemxjst/techs/bemjson-to-html'),
+ *     BemhtmlTech = require('enb-bemxjst/techs/bemhtml'),
  *     FileProvideTech = require('enb/techs/file-provider'),
  *     bem = require('enb-bem-techs');
  *
