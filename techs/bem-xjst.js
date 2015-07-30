@@ -69,6 +69,9 @@ module.exports = require('enb/lib/build-flow').create()
             var jobQueue = this.node.getSharedResources().jobQueue,
                 template = [
                     'oninit(function(exports, context) {',
+                    '    if(!context.BEMContext) {',
+                    '        throw Error("Seems like you have no base templates from i-bem.' + this.getName() + '");',
+                    '    }',
                     '    context.BEMContext.prototype.require = function(lib) {',
                     '       return __bem_xjst_libs__[lib];',
                     '    };',

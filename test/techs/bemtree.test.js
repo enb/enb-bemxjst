@@ -218,6 +218,48 @@ describe('bemtree', function () {
             });
         });
     });
+
+    it('should throw valid error if base template is missed (for production mode)', function () {
+        var blocks = {
+                'i-start.bemtree.js': files['i-start.bemtree.js'].contents,
+                'data.bemtree.js': [
+                    'block("b-data").match(this.data && this.data.title)(',
+                    '    content()(function () {',
+                    '        return "bemtree";',
+                    '    })',
+                    ')'
+                ].join(EOL)
+            };
+
+        return build(blocks, { devMode: false })
+            .spread(function (res) {
+                return res.BEMTREE.apply(data);
+            })
+            .fail(function (error) {
+                error.message.must.be.equal('Seems like you have no base templates from i-bem.bemtree');
+            });
+    });
+
+    it('should throw valid error if base template is missed (for development mode)', function () {
+        var blocks = {
+            'i-start.bemtree.js': files['i-start.bemtree.js'].contents,
+            'data.bemtree.js': [
+                'block("b-data").match(this.data && this.data.title)(',
+                '    content()(function () {',
+                '        return "bemtree";',
+                '    })',
+                ')'
+            ].join(EOL)
+        };
+
+        return build(blocks, { devMode: true })
+            .spread(function (res) {
+                return res.BEMTREE.apply(data);
+            })
+            .fail(function (error) {
+                error.message.must.be.equal('Seems like you have no base templates from i-bem.bemtree');
+            });
+    });
 });
 
 function build(templates, options) {

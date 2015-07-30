@@ -156,6 +156,36 @@ describe('bemhtml', function () {
                 });
         });
     });
+
+    it('should throw valid error if base template is missed (for development mode)', function () {
+        var blocks = {
+            'block.bemhtml.js': 'block("block").tag()("a")'
+        };
+
+        return build(blocks, { devMode: true })
+            .spread(function (res) {
+                var bemjson = { block: 'block' };
+                return res.BEMHTML.apply(bemjson);
+            })
+            .fail(function (error) {
+                error.message.must.be.equal('Seems like you have no base templates from i-bem.bemhtml');
+            });
+    });
+
+    it('should throw valid error if base template is missed (for production mode)', function () {
+        var blocks = {
+            'block.bemhtml.js': 'block("block").tag()("a")'
+        };
+
+        return build(blocks, { devMode: false })
+            .spread(function (res) {
+                var bemjson = { block: 'block' };
+                return res.BEMHTML.apply(bemjson);
+            })
+            .fail(function (error) {
+                error.message.must.be.equal('Seems like you have no base templates from i-bem.bemhtml');
+            });
+    });
 });
 
 function build(templates, options) {

@@ -29,7 +29,7 @@
     "enb": ">= 0.16.0 < 1.0.0"
   },
   "dependencies": {
-    "bem-xjst": "1.0.3",
+    "bem-xjst": "1.0.4",
     "bemhtml-compat": "0.1.2",
     "vow": "0.4.10"
   },
