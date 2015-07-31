@@ -11,13 +11,13 @@ var bundle = require('../lib/bundle'),
  * Important: It supports only JS syntax by default. Use `compat` option to support old BEMTREE syntax.
  *
  * @param {Object}      [options]                          Options
- * @param {String}      [options.target='?.bemtree.js']    Path to target with compiled file.
+ * @param {String}      [options.target='?.bemtree.js']    Path to a target with compiled file.
  * @param {String}      [options.exportName='BEMTREE']     Name of BEMTREE template variable.
- * @param {Boolean}     [options.compat=false]             Set `compat` option to support old BEMTREE syntax.
- * @param {Boolean}     [options.devMode=true]             Set `devMode` option for convenient debugging.
+ * @param {Boolean}     [options.compat=false]             Sets `compat` option to support old BEMTREE syntax.
+ * @param {Boolean}     [options.devMode=true]             Sets `devMode` option for convenient debugging.
  * If `devMode` is set to true, code of templates will not be compiled but only wrapped for development purposes.
- * @param {Boolean}     [options.includeVow=true]          Set `includeVow` option to include code of `vow` module
- * into template file
+ * @param {Boolean}     [options.includeVow=true]          Sets `includeVow` option to include code of `vow` module
+ * into a template file.
  * @param {String[]}    [options.sourceSuffixes]           Files with specified suffixes involved in the assembly.
  *
  * @example
@@ -35,7 +35,7 @@ var bundle = require('../lib/bundle'),
  *             bem.files
  *         ]);
  *
- *         // build BEMTREE file
+ *         // builds BEMTREE file
  *         node.addTech(BemtreeTech);
  *         node.addTarget('?.bemtree.js');
  *     });

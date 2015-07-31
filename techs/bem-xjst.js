@@ -16,16 +16,16 @@ var EOL = require('os').EOL,
  * It supports only JS syntax by default. Use `compat` option to support old BEMXJST syntax. <br/><br/>
  *
  * @param {Object}      [options]                           Options
- * @param {String}      [options.target='?.bem-xjst.js']    Path to target with compiled file.
+ * @param {String}      [options.target='?.bem-xjst.js']    Path to a target with compiled file.
  */
 module.exports = require('enb/lib/build-flow').create()
     .name('bem-xjst')
     .target('target', '?.bem-xjst.js')
     .methods({
         /**
-         * Process all given source files. Join them into single file and pass into BEMXJST compiler
-         * @param {Object[]} sourceFiles — objects that contain file information
-         * @param {Boolean} oldSyntax — enables transpilation from old syntax to regular JS syntax
+         * Processes all given source files. Join them into single file and pass into BEMXJST compiler.
+         * @param {Object[]} sourceFiles — objects that contain file information.
+         * @param {Boolean} oldSyntax — enables transpilation from old syntax to regular JS syntax.
          * @returns {Promise}
          * @private
          */
@@ -59,9 +59,9 @@ module.exports = require('enb/lib/build-flow').create()
                 }, this);
         },
         /**
-         * Uses BEMXJST processor for templates compilation
-         * Wraps compiled code for usage with different modular systems
-         * @param {String} source — merged code of templates
+         * Uses BEMXJST processor for templates compilation.
+         * Wraps compiled code for usage with different modular systems.
+         * @param {String} source — merged code of templates.
          * @returns {Promise}
          * @private
          */
