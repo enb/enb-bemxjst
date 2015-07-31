@@ -11,12 +11,12 @@ var bundle = require('../lib/bundle'),
  * Important: It supports only JS syntax by default. Use `compat` option to support old BEMHTML syntax.
  *
  * @param {Object}    [options]                          Options
- * @param {String}    [options.target='?.bemhtml.js']    Path to target with compiled file.
+ * @param {String}    [options.target='?.bemhtml.js']    Path to a target with compiled file.
  * @param {String}    [options.exportName='BEMHTML']     Name of BEMHTML template variable.
- * @param {Boolean}   [options.compat=false]             Set `compat` option to support old BEMHTML syntax.
- * @param {Boolean}   [options.devMode=true]             Set `devMode` option for convenient debugging. If `devMode` is
+ * @param {Boolean}   [options.compat=false]             Sets `compat` option to support old BEMHTML syntax.
+ * @param {Boolean}   [options.devMode=true]             Sets `devMode` option for convenient debugging. If `devMode` is
  * set to true, code of templates will not be compiled but only wrapped for development purposes.
- * @param {Boolean}   [options.cache=false]              Set `cache` option for cache usage.
+ * @param {Boolean}   [options.cache=false]              Sets `cache` option for cache usage.
  * @param {Object}    [options.requires]                 Names of dependencies which should be available from
  * code of templates.
  * @param {String[]}  [options.sourceSuffixes]           Files with specified suffixes involved in the assembly.
