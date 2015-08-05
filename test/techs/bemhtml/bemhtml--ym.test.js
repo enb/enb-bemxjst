@@ -9,7 +9,8 @@ var fs = require('fs'),
     mochaFilename = require.resolve('mocha/mocha.js'),
     chaiFilename = require.resolve('chai/chai.js'),
     ymFilename = require.resolve('ym/modules.js'),
-    runServer = require('../../lib/run-server');
+    runServer = require('../../lib/run-server'),
+    EOL = require('os').EOL;
 
 describe('bemhtml --browser --ym', function () {
     afterEach(function () {
@@ -45,6 +46,21 @@ describe('bemhtml --browser --ym', function () {
             return runTest(test, options, template, lib);
         });
 
+        it('must get dependency from global scope using dot-delimited key', function () {
+            var test = generateTest({ block: 'block' }, '<div class="block">^_^</div>'),
+                options = {
+                    requires: {
+                        depend: {
+                            globals: 'depend.key'
+                        }
+                    }
+                },
+                template = 'block("block").content()(function(){ return this.require("depend"); });',
+                lib = 'var depend = { key: "^_^" };';
+
+            return runTest(test, options, template, lib);
+        });
+
         it('must require depend from ym', function () {
             var test = generateTest({ block: 'block' }, '<div class="block">^_^</div>'),
                 options = {
@@ -56,6 +72,49 @@ describe('bemhtml --browser --ym', function () {
                 },
                 template = 'block("block").content()(function(){ return this.require("depend"); });',
                 lib = 'modules.define("depend", function (provide) { provide("^_^"); });';
+
+            return runTest(test, options, template, lib);
+        });
+
+        it('must require module from CommonJS', function () {
+            var test = generateTest({ block: 'block' }, '<div class="block">^_^</div>'),
+                options = {
+                    requires: {
+                        fake: {
+                            commonJS: 'fake'
+                        }
+                    }
+                },
+                template = [
+                    'block("block")(',
+                    '    content()(function() {',
+                    '       var fake = this.require("fake");',
+                    '       return fake.getText();',
+                    '    })',
+                    ')'
+                ].join(EOL);
+
+            return runTest(test, options, template);
+        });
+
+        it('must get dependency from ym scope if it also is presented in CommonJS', function () {
+            var test = generateTest({ block: 'block' }, '<div class="block">globals</div>'),
+                options = {
+                    requires: {
+                        depend: {
+                            ym: 'depend',
+                            commonJS: 'depend'
+                        }
+                    }
+                },
+                template = [
+                    'block("block")(',
+                    '    content()(function() {',
+                    '       return this.require("depend");',
+                    '    })',
+                    ')'
+                ].join(EOL),
+                lib = 'modules.define("depend", function (provide) { provide("globals"); });';
 
             return runTest(test, options, template, lib);
         });
@@ -72,6 +131,16 @@ function runTest(testContent, options, template, lib) {
                 'bla.bemhtml': template || 'block("bla").tag()("a")'
             },
             bundle: {},
+            // jscs:disable
+            node_modules: {
+                fake: {
+                    'index.js': 'module.exports = { getText: function () { return "^_^"; } };'
+                },
+                depend: {
+                    'index.js': 'module.exports = "CommonJS";'
+                }
+            },
+            // jscs:enable
             'index.html': fs.readFileSync(htmlFilename, 'utf-8'),
             'test.js': testContent,
             'mocha.js': fs.readFileSync(mochaFilename, 'utf-8'),

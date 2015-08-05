@@ -31,25 +31,26 @@
   "dependencies": {
     "bem-xjst": "1.2.1",
     "bemhtml-compat": "0.1.2",
-    "vow": "0.4.10"
+    "browserify": "11.0.1",
+    "vow": "0.4.10",
+    "vow-node": "0.3.0"
   },
   "devDependencies": {
     "enb": ">= 0.16.0 < 1.0.0",
     "istanbul": "0.3.14",
     "jscs": "1.13.1",
     "jshint": "2.7.0",
-    "mocha": "2.2.4",
+    "mocha": "2.2.5",
     "mock-enb": "0.1.0",
-    "mock-fs": "2.7.0",
+    "mock-fs": "3.0.0",
     "mock-require": "1.0.5",
     "must": "0.12.0",
-    "chai": "2.3.0",
-    "mocha-phantomjs": "3.5.3",
-    "phantomjs": "1.9.16",
-    "finalhandler": "0.3.5",
-    "serve-static": "1.9.2",
-    "vow-node": "0.3.0",
-    "ym": "0.1.1"
+    "chai": "3.2.0",
+    "mocha-phantomjs": "3.5.6",
+    "phantomjs": "1.9.17",
+    "finalhandler": "0.4.0",
+    "serve-static": "1.10.0",
+    "ym": "0.1.2"
   },
   "scripts": {
     "test": "npm run lint && npm run unit",
