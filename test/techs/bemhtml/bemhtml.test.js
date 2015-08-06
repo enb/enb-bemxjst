@@ -152,7 +152,7 @@ describe('bemhtml', function () {
 
             return build(templates, options)
                 .fail(function (error) {
-                    error.message.must.be.include('Line 486: Unexpected identifier');
+                    error.message.must.be.include('Unexpected identifier');
                 });
         });
     });

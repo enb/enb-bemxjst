@@ -1,5 +1,4 @@
-var bundle = require('../lib/bundle'),
-    BEMHTML_MOCK = 'exports.apply = function () { return ""; };';
+var bundle = require('../lib/bundle');
 
 /**
  * @class BemhtmlTech
@@ -51,13 +50,31 @@ module.exports = require('./bem-xjst').buildFlow()
     .defineOption('cache', false)
     .defineOption('requires', {})
     .useFileList(['bemhtml.js', 'bemhtml'])
-    .builder(function (sourceFiles) {
-        if (sourceFiles.length === 0) {
-            return bundle.compile(BEMHTML_MOCK, {
+    .builder(function (fileList) {
+        // don't add fat wrapper code of bem-xjst
+        if (fileList.length === 0) {
+            return this._mockBEMHTML();
+        }
+
+        var filenames = this._getUniqueFilenames(fileList);
+
+        return this._readFiles(filenames)
+            .then(this._processSources, this)
+            .then(this._compileBEMXJST, this);
+    })
+    .methods({
+        /**
+         * Returns BEMHTML mock.
+         *
+         * @returns {String}
+         * @private
+         */
+        _mockBEMHTML: function () {
+            var code = 'exports.apply = function () { return ""; };';
+
+            return bundle.compile(code, {
                 exportName: this._exportName
             });
         }
-
-        return this._sourceFilesProcess(sourceFiles, this._compat);
     })
     .createTech();
