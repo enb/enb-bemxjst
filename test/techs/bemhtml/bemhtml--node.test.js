@@ -74,23 +74,44 @@ describe('bemhtml --node', function () {
                 });
         });
 
+        it('must get dependency from global scope using dot-delimited key', function () {
+            var templates = [
+                    'block("block").content()(function(){ return this.require("text"); })'
+                ],
+                bemjson = { block: 'block' },
+                html = '<div class="block">Hello world!</div>',
+                options = {
+                    requires: {
+                        text: {
+                            globals: 'text.text'
+                        }
+                    }
+                },
+                lib = 'this.text = { text: "Hello world!" };';
+
+            return build(templates, options, lib)
+                .then(function (res) {
+                    res.BEMHTML.apply(bemjson).must.equal(html);
+                });
+        });
+
         it('must require module from CommonJS', function () {
             var templates = [
                     [
                         'block("block")(',
-                        '    tag()("a"),',
-                        '    attrs()(function() {',
-                        '       return { href: this.require("url").resolve("http://example.com/", "/one") }',
+                        '    content()(function() {',
+                        '       var fake = this.require("fake");',
+                        '       return fake.getText();',
                         '    })',
                         ')'
                     ].join(EOL)
                 ],
                 bemjson = { block: 'block' },
-                html = '<a class="block" href="http://example.com/one"></a>',
+                html = '<div class="block">^_^</div>',
                 options = {
                     requires: {
-                        url: {
-                            commonJS: 'url'
+                        fake: {
+                            commonJS: 'fake'
                         }
                     }
                 };
@@ -111,7 +132,14 @@ function build(templates, options, lib) {
             blocks: {
                 'base.bemhtml': files['i-bem.bemhtml'].contents
             },
-            bundle: {}
+            bundle: {},
+            // jscs:disable
+            node_modules: {
+                fake: {
+                    'index.js': 'module.exports = { getText: function () { return "^_^"; } };'
+                }
+            }
+            // jscs:enable
         },
         bundle, fileList;
 
@@ -129,7 +157,7 @@ function build(templates, options, lib) {
     fileList.loadFromDirSync('blocks');
     bundle.provideTechData('?.files', fileList);
 
-    return bundle.runTechAndRequire(Tech, options)
+    return bundle.runTech(Tech, options)
         .spread(function () {
             var filename = bundle.resolvePath(bundle.unmaskTargetName(options.target || '?.bemhtml.js')),
                 contents = [
