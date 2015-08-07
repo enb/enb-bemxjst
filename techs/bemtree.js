@@ -1,5 +1,4 @@
-var bundle = require('../lib/bundle'),
-    BEMTREE_MOCK = 'exports.apply = function () { return Vow.resolve({}); };';
+var bundle = require('../lib/bundle');
 
 /**
  * @class BemtreeTech
@@ -49,14 +48,32 @@ module.exports = require('./bem-xjst').buildFlow()
     .defineOption('devMode', true)
     .defineOption('includeVow', true)
     .useFileList(['bemtree.js', 'bemtree'])
-    .builder(function (sourceFiles) {
-        if (sourceFiles.length === 0) {
-            return bundle.compile(BEMTREE_MOCK, {
+    .builder(function (fileList) {
+        // don't add fat wrapper code of bem-xjst
+        if (fileList.length === 0) {
+            return this._mockBEMTREE();
+        }
+
+        var filenames = this._getUniqueFilenames(fileList);
+
+        return this._readFiles(filenames)
+            .then(this._processSources, this)
+            .then(this._compileBEMXJST, this);
+    })
+    .methods({
+        /**
+         * Returns BEMTREE mock.
+         *
+         * @returns {String}
+         * @private
+         */
+        _mockBEMTREE: function () {
+            var code = 'exports.apply = function () { return Vow.resolve({}); };';
+
+            return bundle.compile(code, {
                 exportName: this._exportName,
                 includeVow: this._includeVow
             });
         }
-
-        return this._sourceFilesProcess(sourceFiles, this._compat);
     })
     .createTech();

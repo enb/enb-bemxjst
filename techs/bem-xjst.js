@@ -13,7 +13,6 @@ var EOL = require('os').EOL,
  * Compiles BEMXJST template files with BEMXJST translator and merges them into a single template bundle.<br/><br/>
  *
  * Important: Normally you don't need to use this tech directly.
- * It supports only JS syntax by default. Use `compat` option to support old BEMXJST syntax. <br/><br/>
  *
  * @param {Object}      [options]                           Options
  * @param {String}      [options.target='?.bem-xjst.js']    Path to a target with compiled file.
@@ -23,75 +22,132 @@ module.exports = require('enb/lib/build-flow').create()
     .target('target', '?.bem-xjst.js')
     .methods({
         /**
-         * Processes all given source files. Join them into single file and pass into BEMXJST compiler.
-         * @param {Object[]} sourceFiles — objects that contain file information.
-         * @param {Boolean} oldSyntax — enables transpilation from old syntax to regular JS syntax.
-         * @returns {Promise}
+         * Returns filenames to compile.
+         *
+         * Important: it leaves only one file for a BEM entity in a level.
+         *
+         * Case #1. BEM entity has several implementations on level.
+         * Only file with .bemhtml.js extention will be used (if `.bemhtml.js` extention was specified first).
+         *
+         * blocks/
+         * ├── block.bemhtml
+         * └── block.bemhtml.js
+         *
+         * Case #2. BEM entity has several implementations on several levels.
+         * Both files will be used.
+         *
+         * common.blocks/
+         * └── block.bemhtml
+         * desktop.blocks/
+         * └── block.bemhtml
+         *
+         * @param {FileList} fileList — objects that contain file information.
+         * @returns {String[]}
          * @private
          */
-        _sourceFilesProcess: function (sourceFiles, oldSyntax) {
-            var added = {};
+        _getUniqueFilenames: function (fileList) {
+            var uniques = {},   // filenames without suffixes
+                filenames = [];
 
-            return vow.all(sourceFiles.filter(function (file) {
-                    var key = file.fullname.slice(0, -(file.suffix.length + 1));
+            fileList.forEach(function (file) {
+                var filename = file.fullname,
+                    // filename without suffix
+                    key = filename.slice(0, -(file.suffix.length + 1));
 
-                    if (added[key]) {
-                        return false;
-                    }
+                if (!uniques[key]) {
+                    uniques[key] = true;
+                    filenames.push(filename);
+                }
+            });
 
-                    added[key] = true;
-
-                    return true;
-                }).map(function (file) {
-                    return vfs.read(file.fullname, 'utf8')
-                        .then(function (source) {
-                            if (oldSyntax) {
-                                source = bemcompat.transpile(source);
-                            }
-
-                            return '/* begin: ' + file.fullname + ' *' + '/\n' +
-                                source +
-                                '\n/* end: ' + file.fullname + ' *' + '/';
-                        });
-                }))
-                .then(function (sources) {
-                    return this._bemxjstProcess(sources.join('\n'));
-                }, this);
+            return filenames;
         },
         /**
-         * Uses BEMXJST processor for templates compilation.
-         * Wraps compiled code for usage with different modular systems.
-         * @param {String} source — merged code of templates.
+         * Reads source files.
+         *
+         * Each file will be in a form of an object `{ path: String, contents: String }`.
+         *
+         * @param {String[]} filenames
          * @returns {Promise}
          * @private
          */
-        _bemxjstProcess: function (source) {
-            var jobQueue = this.node.getSharedResources().jobQueue,
-                template = [
+        _readFiles: function (filenames) {
+            return vow.all(filenames.map(function (filename) {
+                return vfs.read(filename, 'utf8')
+                    .then(function (source) {
+                        return {
+                            path: filename,
+                            contents: source
+                        };
+                    });
+            }));
+        },
+        /**
+         * Processes sources.
+         *
+         * @param {{ path: String, contents: String }[]} sources — objects that contain file information.
+         * @returns {{ path: String, contents: String }[]}
+         * @private
+         */
+        _processSources: function (sources) {
+            return sources.map(function (source) {
+                var filename = source.path,
+                    contents = source.contents;
+
+                if (this._compat) {
+                    contents = bemcompat.transpile(contents);
+                }
+
+                return {
+                    path: filename,
+                    contents: [
+                        '/* begin: ' + filename + ' */',
+                        contents,
+                        '/* end: ' + filename + ' */'
+                    ].join(EOL)
+                };
+            }, this);
+        },
+        /**
+         * Compiles source code using BEMXJST processor.
+         * Wraps compiled code for usage with different modular systems.
+         *
+         * @param {{ path: String, contents: String }[]} sources — objects that contain file information.
+         * @returns {Promise}
+         * @private
+         */
+        _compileBEMXJST: function (sources) {
+            var queue = this.node.getSharedResources().jobQueue,
+                compilerFilename = path.resolve(__dirname, '../lib/bemxjst-processor'),
+                compilerOptions = {
+                    wrap: false,
+                    optimize: !this._devMode,
+                    cache: !this._devMode && this._cache
+                },
+                // join source code
+                sourceCode = sources.map(function (source) {
+                    return source.contents;
+                }).join(EOL),
+                codeToCompile = [
+                    sourceCode,
                     'oninit(function(exports, context) {',
                     '    var BEMContext = exports.BEMContext || context.BEMContext;',
+                    '    // Block templates can not work without base templates',
                     '    if(!BEMContext) {',
                     '        throw Error("Seems like you have no base templates from i-bem.' + this.getName() + '");',
                     '    }',
+                    '    // Provides third-party libraries from different modular systems',
                     '    BEMContext.prototype.require = function(lib) {',
                     '       return __bem_xjst_libs__[lib];',
                     '    };',
                     '});'
                 ].join(EOL);
 
-            source += EOL + template;
-
-            return jobQueue.push(
-                    path.resolve(__dirname, '../lib/bemxjst-processor'),
-                    source,
-                    {
-                        wrap: false,
-                        optimize: !this._devMode,
-                        cache: !this._devMode && this._cache
-                    }
-                )
-                .then(function (code) {
-                    return bundle.compile(code, {
+            // Compiles source code using BEMXJST processor.
+            return queue.push(compilerFilename, codeToCompile, compilerOptions)
+                .then(function (compiledCode) {
+                    // Wraps compiled code for usage with different modular systems.
+                    return bundle.compile(compiledCode, {
                         exportName: this._exportName,
                         includeVow: this._includeVow,
                         requires: this._requires
