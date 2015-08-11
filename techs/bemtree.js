@@ -11,13 +11,14 @@ var bundle = require('../lib/bundle');
  *
  * @param {Object}      [options]                          Options
  * @param {String}      [options.target='?.bemtree.js']    Path to a target with compiled file.
+ * @param {String}      [options.filesTarget='?.files']    Path to a target with FileList.
+ * @param {String[]}    [options.sourceSuffixes]           Files with specified suffixes involved in the assembly.
  * @param {String}      [options.exportName='BEMTREE']     Name of BEMTREE template variable.
  * @param {Boolean}     [options.compat=false]             Sets `compat` option to support old BEMTREE syntax.
  * @param {Boolean}     [options.devMode=true]             Sets `devMode` option for convenient debugging.
  * If `devMode` is set to true, code of templates will not be compiled but only wrapped for development purposes.
  * @param {Boolean}     [options.includeVow=true]          Sets `includeVow` option to include code of `vow` module
  * into a template file.
- * @param {String[]}    [options.sourceSuffixes]           Files with specified suffixes involved in the assembly.
  *
  * @example
  * var BemtreeTech = require('enb-bemxjst/techs/bemtree'),

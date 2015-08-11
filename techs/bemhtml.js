@@ -11,6 +11,8 @@ var bundle = require('../lib/bundle');
  *
  * @param {Object}    [options]                          Options
  * @param {String}    [options.target='?.bemhtml.js']    Path to a target with compiled file.
+ * @param {String}    [options.filesTarget='?.files']    Path to a target with FileList.
+ * @param {String[]}  [options.sourceSuffixes]           Files with specified suffixes involved in the assembly.
  * @param {String}    [options.exportName='BEMHTML']     Name of BEMHTML template variable.
  * @param {Boolean}   [options.compat=false]             Sets `compat` option to support old BEMHTML syntax.
  * @param {Boolean}   [options.devMode=true]             Sets `devMode` option for convenient debugging. If `devMode` is
@@ -18,7 +20,6 @@ var bundle = require('../lib/bundle');
  * @param {Boolean}   [options.cache=false]              Sets `cache` option for cache usage.
  * @param {Object}    [options.requires]                 Names of dependencies which should be available from
  * code of templates.
- * @param {String[]}  [options.sourceSuffixes]           Files with specified suffixes involved in the assembly.
  *
  * @example
  * var BemhtmlTech = require('enb-bemxjst/techs/bemhtml'),
