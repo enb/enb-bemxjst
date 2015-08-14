@@ -24,16 +24,16 @@ var bundle = require('../lib/bundle');
  * @example
  * var BemhtmlTech = require('enb-bemxjst/techs/bemhtml'),
  *     FileProvideTech = require('enb/techs/file-provider'),
- *     bem = require('enb-bem-techs');
+ *     bemTechs = require('enb-bem-techs');
  *
  * module.exports = function(config) {
  *     config.node('bundle', function(node) {
  *         // get FileList
  *         node.addTechs([
  *             [FileProvideTech, { target: '?.bemdecl.js' }],
- *             [bem.levels, levels: ['blocks']],
- *             bem.deps,
- *             bem.files
+ *             [bemTechs.levels, levels: ['blocks']],
+ *             bemTechs.deps,
+ *             bemTechs.files
  *         ]);
  *
  *         // build BEMHTML file
