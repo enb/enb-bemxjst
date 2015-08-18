@@ -83,14 +83,30 @@ describe('bemhtml', function () {
         });
 
         it('must support old syntax if compat:true', function () {
-            var templates = ['block bla, tag: "a"'],
+            var blocks = {
+                    'base.bemhtml.js': files['i-bem.bemhtml'].contents,
+                    'block.bemhtml': 'block bla, tag: "a"'
+                },
                 bemjson = { block: 'bla' },
                 html = '<a class="bla"></a>',
                 options = { compat: true };
 
-            return build(templates, options)
+            return build(blocks, options)
                 .spread(function (res) {
                     res.BEMHTML.apply(bemjson).must.be(html);
+                });
+        });
+
+        it('must not support old syntax for files with `.js` extension', function () {
+            var blocks = {
+                    'base.bemhtml.js': files['i-bem.bemhtml'].contents,
+                    'block.bemhtml.js': 'block bla, tag: "a"'
+                },
+                options = { compat: true };
+
+            return build(blocks, options)
+                .fail(function (err) {
+                    err.must.a(Error);
                 });
         });
     });
