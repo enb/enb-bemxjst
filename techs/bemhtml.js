@@ -17,7 +17,6 @@ var bundle = require('../lib/bundle');
  * @param {Boolean}   [options.compat=false]             Sets `compat` option to support old BEMHTML syntax.
  * @param {Boolean}   [options.devMode=true]             Sets `devMode` option for convenient debugging. If `devMode` is
  * set to true, code of templates will not be compiled but only wrapped for development purposes.
- * @param {Boolean}   [options.cache=false]              Sets `cache` option for cache usage.
  * @param {Object}    [options.requires]                 Names of dependencies which should be available from
  * code of templates.
  *
@@ -48,7 +47,6 @@ module.exports = require('./bem-xjst').buildFlow()
     .defineOption('exportName', 'BEMHTML')
     .defineOption('compat', false)
     .defineOption('devMode', true)
-    .defineOption('cache', false)
     .defineOption('requires', {})
     .useFileList(['bemhtml.js', 'bemhtml'])
     .builder(function (fileList) {

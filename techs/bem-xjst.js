@@ -121,8 +121,7 @@ module.exports = require('enb/lib/build-flow').create()
                 compilerFilename = path.resolve(__dirname, '../lib/bemxjst-processor'),
                 compilerOptions = {
                     wrap: false,
-                    optimize: !this._devMode,
-                    cache: !this._devMode && this._cache
+                    optimize: !this._devMode
                 },
                 // join source code
                 sourceCode = sources.map(function (source) {
