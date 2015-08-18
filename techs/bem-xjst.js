@@ -92,9 +92,11 @@ module.exports = require('enb/lib/build-flow').create()
         _processSources: function (sources) {
             return sources.map(function (source) {
                 var filename = source.path,
-                    contents = source.contents;
+                    contents = source.contents,
+                    ext = path.extname(filename);
 
-                if (this._compat) {
+                // In files with `.js` extension stored templates only in JS syntax.
+                if (this._compat && ext !== '.js') {
                     contents = bemcompat.transpile(contents);
                 }
 

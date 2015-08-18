@@ -160,17 +160,32 @@ describe('bemtree', function () {
         });
 
         it('must support old syntax if compat:true', function () {
-            var templates = [
-                files['i-start.bemtree.js'].contents,
-                files['b-data.bemtree'].contents
-            ];
+            var blocks = {
+                'i-bem.bemtree.js': files['i-bem.bemtree.js'].contents,
+                'i-start.bemtree.js': files['i-start.bemtree.js'].contents,
+                'b-data.bemtree': files['b-data.bemtree'].contents
+            };
 
-            return build(templates, { compat: true })
+            return build(blocks, { compat: true })
                 .spread(function (res) {
                     return res.BEMTREE.apply(data)
                         .then(function (res) {
                             res.must.eql(expect);
                         });
+                });
+        });
+
+        it('must not support old syntax for files with `.js` extension', function () {
+            var blocks = {
+                    'i-bem.bemtree.js': files['i-bem.bemtree.js'].contents,
+                    'i-start.bemtree.js': files['i-start.bemtree.js'].contents,
+                    'b-data.bemtree.js': files['b-data.bemtree'].contents
+                },
+                options = { compat: true };
+
+            return build(blocks, options)
+                .fail(function (err) {
+                    err.must.a(Error);
                 });
         });
     });
