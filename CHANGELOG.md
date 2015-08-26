@@ -29,6 +29,7 @@
 
 * [ __*major*__ ] Из технологии `bemjson-to-html` удалены устаревшие опции: `destTarget`, `bemjsonTarget` и `bemhtmlTarget`. Вместо них следует использовать `target`, `bemjsonFile` и `bemhtmlFile`, соответственно. ([#58]).
 * [ __*major*__ ] Из технологий [bemhtml](api.ru.md#bemhtml) удалена опция `cache` ([#88]).
+* [ __*major*__ ] В технологиях [bemhtml](api.ru.md#bemhtml) и [bemtree](api.ru.md#bemtree) опция [devMode](api.ru.md#devmode) отключена по умолчанию ([#93]).
 
 ### Зависимости
 
@@ -165,6 +166,7 @@
 
 * Добавлена технология `bemhtml`.
 
+[#93]: https://github.com/enb-bem/enb-bemxjst/issues/93
 [#90]: https://github.com/enb-bem/enb-bemxjst/issues/90
 [#88]: https://github.com/enb-bem/enb-bemxjst/issues/88
 [#80]: https://github.com/enb-bem/enb-bemxjst/issues/80
