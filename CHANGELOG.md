@@ -165,17 +165,17 @@
 
 * Добавлена технология `bemhtml`.
 
-[#90]: https://github.com/enb-bem/enb-bh/issues/90
-[#88]: https://github.com/enb-bem/enb-bh/issues/88
-[#80]: https://github.com/enb-bem/enb-bh/issues/80
-[#61]: https://github.com/enb-bem/enb-bh/issues/61
-[#60]: https://github.com/enb-bem/enb-bh/issues/60
-[#58]: https://github.com/enb-bem/enb-bh/issues/58
-[#51]: https://github.com/enb-bem/enb-bh/issues/51
-[#50]: https://github.com/enb-bem/enb-bh/issues/50
-[#47]: https://github.com/enb-bem/enb-bh/issues/47
-[#42]: https://github.com/enb-bem/enb-bh/issues/42
-[#41]: https://github.com/enb-bem/enb-bh/issues/41
-[#33]: https://github.com/enb-bem/enb-bh/issues/33
-[#37]: https://github.com/enb-bem/enb-bh/issues/37
-[#25]: https://github.com/enb-bem/enb-bh/issues/25
+[#90]: https://github.com/enb-bem/enb-bemxjst/issues/90
+[#88]: https://github.com/enb-bem/enb-bemxjst/issues/88
+[#80]: https://github.com/enb-bem/enb-bemxjst/issues/80
+[#61]: https://github.com/enb-bem/enb-bemxjst/issues/61
+[#60]: https://github.com/enb-bem/enb-bemxjst/issues/60
+[#58]: https://github.com/enb-bem/enb-bemxjst/issues/58
+[#51]: https://github.com/enb-bem/enb-bemxjst/issues/51
+[#50]: https://github.com/enb-bem/enb-bemxjst/issues/50
+[#47]: https://github.com/enb-bem/enb-bemxjst/issues/47
+[#42]: https://github.com/enb-bem/enb-bemxjst/issues/42
+[#41]: https://github.com/enb-bem/enb-bemxjst/issues/41
+[#33]: https://github.com/enb-bem/enb-bemxjst/issues/33
+[#37]: https://github.com/enb-bem/enb-bemxjst/issues/37
+[#25]: https://github.com/enb-bem/enb-bemxjst/issues/25
