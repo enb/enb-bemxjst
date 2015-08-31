@@ -1,6 +1,11 @@
 История изменений
 =================
 
+2.0.1
+-----
+
+* Исправлено [подключение сторонних библиотек](README.md#Подключение-сторонних-библиотек) для `YModules` ([#95]).
+
 2.0.0
 -----
 
@@ -166,6 +171,7 @@
 
 * Добавлена технология `bemhtml`.
 
+[#95]: https://github.com/enb-bem/enb-bemxjst/issues/95
 [#93]: https://github.com/enb-bem/enb-bemxjst/issues/93
 [#90]: https://github.com/enb-bem/enb-bemxjst/issues/90
 [#88]: https://github.com/enb-bem/enb-bemxjst/issues/88
