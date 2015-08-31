@@ -66,12 +66,12 @@ describe('bemhtml --browser --ym', function () {
                 options = {
                     requires: {
                         depend: {
-                            ym: 'depend'
+                            ym: 'ym-depend'
                         }
                     }
                 },
                 template = 'block("block").content()(function(){ return this.require("depend"); });',
-                lib = 'modules.define("depend", function (provide) { provide("^_^"); });';
+                lib = 'modules.define("ym-depend", function (provide) { provide("^_^"); });';
 
             return runTest(test, options, template, lib);
         });
