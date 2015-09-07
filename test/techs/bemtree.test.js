@@ -1,13 +1,13 @@
 var fs = require('fs'),
     path = require('path'),
-    assert = require('assert'),
-    vm = require('vm'),
     vow = require('vow'),
     mock = require('mock-fs'),
+    dropRequireCache = require('enb/lib/fs/drop-require-cache'),
     MockNode = require('mock-enb/lib/mock-node'),
     Tech = require('../../techs/bemtree'),
     FileList = require('enb/lib/file-list'),
     fixturesDirname = path.join(__dirname, '..', 'fixtures', 'bemtree'),
+    vowCode = require('../../lib/vow-code'),
     files = {
         'i-bem.bemtree.js': {
             path: path.join(fixturesDirname, 'i-bem.bemtree.js')
@@ -75,20 +75,46 @@ describe('bemtree', function () {
             });
     });
 
-    it('must compile BEMTREE file without `vow` if includeVow:false', function () {
-        return build(templates, { includeVow: false })
-            .spread(function (res, src) {
-                var sandbox = {
-                    Vow: vow
-                };
+    describe('vow', function () {
+        it('must compile BEMTREE file without `vow` if includeVow:false', function () {
+            return build(templates, { includeVow: false })
+                .spread(function (res) {
+                    return res.BEMTREE.apply(data);
+                })
+                .fail(function (error) {
+                    error.message.must.be.equal('Vow is not defined');
+                });
+        });
 
-                vm.runInNewContext(src, sandbox);
+        it('must provide `vow` to templates if requires `vow`', function () {
+            return build(templates, {
+                    includeVow: false,
+                    requires: {
+                        vow: { globals: 'vow' }
+                    }
+                }, vowCode + 'this.vow = Vow;')
+                .spread(function (res) {
+                    return res.BEMTREE.apply(data)
+                        .then(function (res) {
+                            res.must.eql(expect);
+                        });
+                });
+        });
 
-                return sandbox.BEMTREE.apply(data)
-                    .then(function (res) {
-                        assert.deepEqual(res, expect);
-                    });
-            });
+        it('must provide `vow` to templates if requires `Vow`', function () {
+            return build(templates, {
+                    includeVow: false,
+                    requires: {
+                        Vow: { globals: 'vow' }
+                    }
+                }, vowCode + 'this.vow = Vow;')
+                .spread(function (res) {
+                    return res.BEMTREE.apply(data)
+                        .then(function (res) {
+                            res.must.eql(expect);
+                        });
+                });
+        });
     });
 
     describe('suffixes', function () {
@@ -277,7 +303,7 @@ describe('bemtree', function () {
     });
 });
 
-function build(templates, options) {
+function build(templates, options, lib) {
     templates || (templates = []);
     options || (options = {});
 
@@ -309,11 +335,16 @@ function build(templates, options) {
     fileList.loadFromDirSync('blocks');
     bundle.provideTechData('?.files', fileList);
 
-    return bundle.runTechAndRequire(Tech, options)
-        .spread(function (res) {
+    return bundle.runTech(Tech, options)
+        .then(function () {
             var filename = bundle.resolvePath(bundle.unmaskTargetName(options.target || '?.bemtree.js')),
-                str = fs.readFileSync(filename, 'utf-8');
+                contents = [
+                    lib,
+                    fs.readFileSync(filename, 'utf-8')
+                ].join(EOL);
 
-            return [res, str];
+            fs.writeFileSync(filename, contents);
+            dropRequireCache(require, filename);
+            return [require(filename), contents];
         });
 }
