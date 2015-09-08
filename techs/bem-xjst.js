@@ -152,7 +152,8 @@ module.exports = require('enb/lib/build-flow').create()
                         dirname: this.node.getDir(),
                         exportName: this._exportName,
                         includeVow: this._includeVow,
-                        requires: this._requires
+                        requires: this._requires,
+                        tech: this.getName()
                     });
                 }, this);
         }

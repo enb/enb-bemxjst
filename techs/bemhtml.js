@@ -72,7 +72,8 @@ module.exports = require('./bem-xjst').buildFlow()
             var code = 'exports.apply = function () { return ""; };';
 
             return bundle.compile(code, {
-                exportName: this._exportName
+                exportName: this._exportName,
+                tech: this.getName()
             });
         }
     })
