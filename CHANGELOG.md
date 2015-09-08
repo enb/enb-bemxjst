@@ -1,6 +1,11 @@
 История изменений
 =================
 
+2.0.2
+-----
+
+* Исправлено подключение библиотеки `vow` c помощью опции `requires` для BEMTREE ([#100]).
+
 2.0.1
 -----
 
@@ -171,6 +176,7 @@
 
 * Добавлена технология `bemhtml`.
 
+[#100]: https://github.com/enb-bem/enb-bemxjst/issues/100
 [#95]: https://github.com/enb-bem/enb-bemxjst/issues/95
 [#93]: https://github.com/enb-bem/enb-bemxjst/issues/93
 [#90]: https://github.com/enb-bem/enb-bemxjst/issues/90
