@@ -5,8 +5,6 @@ enb-bemxjst
 
 Пакет предоставляет набор [ENB](https://ru.bem.info/tools/bem/enb-bem/)-технологий для сборки [BEMHTML](https://ru.bem.info/technology/bemhtml/current/reference/)- и [BEMTREE](https://ru.bem.info/technology/bemtree/)-шаблонов в проектах, построенных по [методологии БЭМ](https://ru.bem.info/method/).
 
-**Важно**: базовые шаблоны для BEMHTML и BEMTREE находятся в библиотеке [bem-core](https://ru.bem.info/libs/bem-core/). Для технологий, базовые шаблоны которых находятся в библиотеке [bem-bl](https://ru.bem.info/libs/bem-bl/), следует использовать пакет [enb-xjst](https://ru.bem.info/tools/bem/enb-xjst/readme/).
-
 **Технологии пакета `enb-bemxjst`:**
 
 * [bemhtml](api.ru.md#bemhtml)

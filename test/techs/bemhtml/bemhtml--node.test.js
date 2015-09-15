@@ -1,6 +1,5 @@
 var EOL = require('os').EOL,
     fs = require('fs'),
-    path = require('path'),
     mock = require('mock-fs'),
     clearRequire = require('clear-require'),
     MockNode = require('mock-enb/lib/mock-node'),
@@ -8,9 +7,6 @@ var EOL = require('os').EOL,
     FileList = require('enb/lib/file-list'),
     loadDirSync = require('mock-enb/utils/dir-utils').loadDirSync,
     files = {
-        'i-bem.bemhtml': {
-            path: path.join(__dirname, '..', '..', 'fixtures', 'i-bem.bemhtml')
-        },
         ometajs: {
             path: require.resolve('bemhtml-compat/node_modules/ometajs')
         },
@@ -130,9 +126,7 @@ function build(templates, options, lib) {
     lib || (lib = '');
 
     var scheme = {
-            blocks: {
-                'base.bemhtml': files['i-bem.bemhtml'].contents
-            },
+            blocks: {},
             bundle: {},
             // jscs:disable
             node_modules: {

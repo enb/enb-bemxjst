@@ -1,5 +1,4 @@
 var fs = require('fs'),
-    path = require('path'),
     vow = require('vow'),
     mock = require('mock-fs'),
     MockNode = require('mock-enb/lib/mock-node'),
@@ -7,9 +6,6 @@ var fs = require('fs'),
     FileList = require('enb/lib/file-list'),
     loadDirSync = require('mock-enb/utils/dir-utils').loadDirSync,
     files = {
-        'i-bem.bemhtml': {
-            path: path.join(__dirname, '..', '..', 'fixtures', 'i-bem.bemhtml')
-        },
         ometajs: {
             path: require.resolve('bemhtml-compat/node_modules/ometajs')
         },
@@ -43,7 +39,6 @@ describe('bemhtml', function () {
     describe('suffixes', function () {
         it('must use `bemhtml.js` suffix', function () {
             var blocks = {
-                'base.bemhtml.js': files['i-bem.bemhtml'].contents,
                 'block.bemhtml.js': 'block("block").tag()("a")',
                 'block.bemhtml': 'block("block").tag()("span")'
             };
@@ -59,7 +54,6 @@ describe('bemhtml', function () {
 
         it('must use `bemhtml` suffix if not `bemhtml.js`', function () {
             var blocks = {
-                'base.bemhtml.js': files['i-bem.bemhtml'].contents,
                 'block.bemhtml': 'block("block").tag()("span")'
             };
 
@@ -85,7 +79,6 @@ describe('bemhtml', function () {
 
         it('must support old syntax if compat:true', function () {
             var blocks = {
-                    'base.bemhtml.js': files['i-bem.bemhtml'].contents,
                     'block.bemhtml': 'block bla, tag: "a"'
                 },
                 bemjson = { block: 'bla' },
@@ -100,7 +93,6 @@ describe('bemhtml', function () {
 
         it('must not support old syntax for files with `.js` extension', function () {
             var blocks = {
-                    'base.bemhtml.js': files['i-bem.bemhtml'].contents,
                     'block.bemhtml.js': 'block bla, tag: "a"'
                 },
                 options = { compat: true };
@@ -217,8 +209,6 @@ function build(templates, options) {
 
     if (Array.isArray(templates)) {
         if (templates.length) {
-            scheme.blocks['base.bemhtml.js'] = files['i-bem.bemhtml'].contents;
-
             templates.forEach(function (item, i) {
                 scheme.blocks['block-' + i + '.bemhtml.js'] = item;
             });
@@ -228,8 +218,6 @@ function build(templates, options) {
     }
 
     if (templates.length) {
-        scheme.blocks['base.bemhtml.js'] = files['i-bem.bemhtml'].contents;
-
         templates.forEach(function (item, i) {
             scheme.blocks['block-' + i + '.bemhtml.js'] = item;
         });
