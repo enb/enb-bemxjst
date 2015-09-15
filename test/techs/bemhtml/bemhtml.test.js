@@ -22,35 +22,19 @@ describe('bemhtml', function () {
             });
     });
 
-    describe('suffixes', function () {
-        it('must use `bemhtml.js` suffix', function () {
-            var blocks = {
-                'block.bemhtml.js': 'block("block").tag()("a")',
-                'block.bemhtml': 'block("block").tag()("span")'
-            };
+    it('must use `bemhtml.js` suffix', function () {
+        var blocks = {
+            'block.bemhtml.js': 'block("block").tag()("a")',
+            'block.bemhtml': 'block("block").tag()("span")'
+        };
 
-            return build(blocks)
-                .spread(function (res) {
-                    var bemjson = { block: 'block' },
-                        html = '<a class="block"></a>';
+        return build(blocks)
+            .spread(function (res) {
+                var bemjson = { block: 'block' },
+                    html = '<a class="block"></a>';
 
-                    res.BEMHTML.apply(bemjson).must.be(html);
-                });
-        });
-
-        it('must use `bemhtml` suffix if not `bemhtml.js`', function () {
-            var blocks = {
-                'block.bemhtml': 'block("block").tag()("span")'
-            };
-
-            return build(blocks)
-                .spread(function (res) {
-                    var bemjson = { block: 'block' },
-                        html = '<span class="block"></span>';
-
-                    res.BEMHTML.apply(bemjson).must.be(html);
-                });
-        });
+                res.BEMHTML.apply(bemjson).must.be(html);
+            });
     });
 
     describe('compat', function () {

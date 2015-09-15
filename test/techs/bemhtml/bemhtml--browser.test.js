@@ -109,7 +109,7 @@ function runTest(testContent, options, template, lib) {
 
         scheme = {
             blocks: {
-                'bla.bemhtml': template || 'block("bla").tag()("a")'
+                'bla.bemhtml.js': template || 'block("bla").tag()("a")'
             },
             bundle: {},
             // jscs:disable

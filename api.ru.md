@@ -40,7 +40,7 @@ bemhtml
 
 #### sourceSuffixes
 
-Тип: `String | String[]`. По умолчанию: `['bemhtml.js', 'bemhtml']`.
+Тип: `String | String[]`. По умолчанию: `['bemhtml.js']`.
 
 Суффиксы файлов, по которым отбираются файлы BEMHTML-шаблонов для дальнейшей сборки.
 

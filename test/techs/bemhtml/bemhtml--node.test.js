@@ -125,7 +125,7 @@ function build(templates, options, lib) {
         bundle, fileList;
 
     templates && templates.forEach(function (item, i) {
-        scheme.blocks['block-' + i + '.bemhtml'] = item;
+        scheme.blocks['block-' + i + '.bemhtml.js'] = item;
     });
 
     mock(scheme);

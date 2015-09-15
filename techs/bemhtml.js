@@ -47,7 +47,7 @@ module.exports = require('./bem-xjst').buildFlow()
     .defineOption('exportName', 'BEMHTML')
     .defineOption('devMode', false)
     .defineOption('requires', {})
-    .useFileList(['bemhtml.js', 'bemhtml'])
+    .useFileList(['bemhtml.js'])
     .builder(function (fileList) {
         // don't add fat wrapper code of bem-xjst
         if (fileList.length === 0) {
