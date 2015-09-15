@@ -1,3 +1,0 @@
-block b-data {
-    content: this.data.title
-}
