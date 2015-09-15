@@ -4,7 +4,6 @@ var EOL = require('os').EOL,
     enb = require('enb'),
     vfs = enb.asyncFs || require('enb/lib/fs/async-fs'),
     buildFlow = enb.buildFlow || require('enb/lib/build-flow'),
-    bemcompat = require('bemhtml-compat'),
     bundle = require('../lib/bundle');
 
 /**
@@ -94,13 +93,7 @@ module.exports = buildFlow.create()
         _processSources: function (sources) {
             return sources.map(function (source) {
                 var filename = source.path,
-                    contents = source.contents,
-                    ext = path.extname(filename);
-
-                // In files with `.js` extension stored templates only in JS syntax.
-                if (this._compat && ext !== '.js') {
-                    contents = bemcompat.transpile(contents);
-                }
+                    contents = source.contents;
 
                 return {
                     path: filename,

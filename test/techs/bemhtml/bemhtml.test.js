@@ -3,22 +3,8 @@ var fs = require('fs'),
     mock = require('mock-fs'),
     MockNode = require('mock-enb/lib/mock-node'),
     Tech = require('../../../techs/bemhtml'),
-    FileList = require('enb/lib/file-list'),
     loadDirSync = require('mock-enb/utils/dir-utils').loadDirSync,
-    files = {
-        ometajs: {
-            path: require.resolve('bemhtml-compat/node_modules/ometajs')
-        },
-        'bemhtml.ometajs': {
-            path: require.resolve('bemhtml-compat/lib/ometa/bemhtml.ometajs')
-        }
-    };
-
-Object.keys(files).forEach(function (name) {
-    var file = files[name];
-
-    file.contents = fs.readFileSync(file.path, 'utf-8');
-});
+    FileList = require('enb/lib/file-list');
 
 describe('bemhtml', function () {
     afterEach(function () {
@@ -74,20 +60,6 @@ describe('bemhtml', function () {
             return build(templates)
                 .fail(function (err) {
                     err.must.a(Error);
-                });
-        });
-
-        it('must support old syntax if compat:true', function () {
-            var blocks = {
-                    'block.bemhtml': 'block bla, tag: "a"'
-                },
-                bemjson = { block: 'bla' },
-                html = '<a class="bla"></a>',
-                options = { compat: true };
-
-            return build(blocks, options)
-                .spread(function (res) {
-                    res.BEMHTML.apply(bemjson).must.be(html);
                 });
         });
 
@@ -222,9 +194,6 @@ function build(templates, options) {
             scheme.blocks['block-' + i + '.bemhtml.js'] = item;
         });
     }
-
-    scheme[files['ometajs'].path] = files['ometajs'].contents;
-    scheme[files['bemhtml.ometajs'].path] = files['bemhtml.ometajs'].contents;
 
     mock(scheme);
 

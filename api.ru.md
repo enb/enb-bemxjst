@@ -22,7 +22,6 @@ bemhtml
 * [target](#target)
 * [filesTarget](#filestarget)
 * [sourceSuffixes](#sourcesuffixes)
-* [compat](#compat)
 * [devMode](#devmode)
 * [requires](#requires)
 * [exportName](#exportname)
@@ -44,14 +43,6 @@ bemhtml
 Тип: `String | String[]`. По умолчанию: `['bemhtml.js', 'bemhtml']`.
 
 Суффиксы файлов, по которым отбираются файлы BEMHTML-шаблонов для дальнейшей сборки.
-
-#### compat
-
-Тип: `Boolean`. По умолчанию: `false`.
-
-Включает поддержку [сокращенного синтаксиса](https://ru.bem.info/technology/bemhtml/current/reference/) для шаблонов BEMHTML.
-
-> Принцип работы описан в разделе [Поддержка сокращенного синтаксиса](README.md#Поддержка-сокращенного-синтаксиса).
 
 #### devMode
 

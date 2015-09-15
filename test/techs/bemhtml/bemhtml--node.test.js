@@ -4,22 +4,8 @@ var EOL = require('os').EOL,
     clearRequire = require('clear-require'),
     MockNode = require('mock-enb/lib/mock-node'),
     Tech = require('../../../techs/bemhtml'),
-    FileList = require('enb/lib/file-list'),
     loadDirSync = require('mock-enb/utils/dir-utils').loadDirSync,
-    files = {
-        ometajs: {
-            path: require.resolve('bemhtml-compat/node_modules/ometajs')
-        },
-        'bemhtml.ometajs': {
-            path: require.resolve('bemhtml-compat/lib/ometa/bemhtml.ometajs')
-        }
-    };
-
-Object.keys(files).forEach(function (name) {
-    var file = files[name];
-
-    file.contents = fs.readFileSync(file.path, 'utf-8');
-});
+    FileList = require('enb/lib/file-list');
 
 describe('bemhtml --node', function () {
     afterEach(function () {
@@ -141,9 +127,6 @@ function build(templates, options, lib) {
     templates && templates.forEach(function (item, i) {
         scheme.blocks['block-' + i + '.bemhtml'] = item;
     });
-
-    scheme[files['ometajs'].path] = files['ometajs'].contents;
-    scheme[files['bemhtml.ometajs'].path] = files['bemhtml.ometajs'].contents;
 
     mock(scheme);
 
