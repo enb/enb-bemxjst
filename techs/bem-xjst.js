@@ -142,7 +142,6 @@ module.exports = buildFlow.create()
                     return bundle.compile(compiledCode, {
                         dirname: this.node.getDir(),
                         exportName: this._exportName,
-                        includeVow: this._includeVow,
                         requires: this._requires
                     });
                 }, this);
