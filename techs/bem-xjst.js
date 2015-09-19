@@ -117,8 +117,7 @@ module.exports = buildFlow.create()
             var queue = this.node.getSharedResources().jobQueue,
                 compilerFilename = path.resolve(__dirname, '../lib/bemxjst-processor'),
                 compilerOptions = {
-                    wrap: false,
-                    optimize: !this._devMode
+                    wrap: false
                 },
                 // join source code
                 sourceCode = sources.map(function (source) {

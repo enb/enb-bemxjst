@@ -22,7 +22,6 @@ bemhtml
 * [target](#target)
 * [filesTarget](#filestarget)
 * [sourceSuffixes](#sourcesuffixes)
-* [devMode](#devmode)
 * [requires](#requires)
 * [exportName](#exportname)
 
@@ -43,12 +42,6 @@ bemhtml
 Тип: `String | String[]`. По умолчанию: `['bemhtml.js']`.
 
 Суффиксы файлов, по которым отбираются файлы BEMHTML-шаблонов для дальнейшей сборки.
-
-#### devMode
-
-Тип: `Boolean`. По умолчанию: `false`.
-
-Включает режим сборки для дальнейшей отладки. Код шаблонов не будет скомпилирован, а только обернут специальным BEM-XJST-кодом, включающим ядро BEM-XJST.
 
 #### requires
 

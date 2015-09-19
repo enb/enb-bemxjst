@@ -14,9 +14,6 @@ var bundle = require('../lib/bundle');
  * @param {String}    [options.filesTarget='?.files']  Path to a target with FileList.
  * @param {String[]}  [options.sourceSuffixes]         Files with specified suffixes involved in the assembly.
  * @param {String}    [options.exportName='BEMHTML']   Name of BEMHTML template variable.
- * @param {Boolean}   [options.devMode=false]          Sets `devMode` option for convenient debugging. If `devMode` is
- *                                                     set to true, code of templates will not be compiled but only
- *                                                     wrapped for development purposes.
  * @param {Object}    [options.requires]               Names of dependencies which should be available from
  *                                                     code of templates.
  *
@@ -45,7 +42,6 @@ module.exports = require('./bem-xjst').buildFlow()
     .name('bemhtml')
     .target('target', '?.bemhtml.js')
     .defineOption('exportName', 'BEMHTML')
-    .defineOption('devMode', false)
     .defineOption('requires', {})
     .useFileList(['bemhtml.js'])
     .builder(function (fileList) {

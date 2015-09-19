@@ -1,5 +1,4 @@
 var fs = require('fs'),
-    vow = require('vow'),
     mock = require('mock-fs'),
     MockNode = require('mock-enb/lib/mock-node'),
     Tech = require('../../../techs/bemhtml'),
@@ -60,62 +59,11 @@ describe('bemhtml', function () {
         });
     });
 
-    describe('mode', function () {
-        it('must build block in development mode', function () {
-            var templates = ['block("bla").tag()("a")'],
-                bemjson = { block: 'bla' },
-                html = '<a class="bla"></a>',
-                options = { devMode: true };
-
-            return build(templates, options)
-                .spread(function (res) {
-                    res.BEMHTML.apply(bemjson).must.be(html);
-                });
-        });
-
-        it('must build block in production mode', function () {
-            var templates = ['block("bla").tag()("a")'],
-                bemjson = { block: 'bla' },
-                html = '<a class="bla"></a>',
-                options = { devMode: false };
-
-            return build(templates, options)
-                .spread(function (res) {
-                    res.BEMHTML.apply(bemjson).must.be(html);
-                });
-        });
-
-        it('must build different code by mode', function () {
-            var templates = ['block("bla").tag()("a")'];
-
-            return vow.all([
-                build(templates, { target: 'dev.bemhtml.js', devMode: true }),
-                build(templates, { target: 'prod.bemhtml.js', devMode: false })
-            ]).spread(function (dev, prod) {
-                var devSource = dev[1].toString(),
-                    prodSource = prod[1].toString();
-
-                devSource.must.not.be.equal(prodSource);
-            });
-        });
-    });
-
     describe('handle template errors', function () {
         it('must return rejected promise for template with syntax errors (development mode)', function () {
-            var templates = ['block("bla")tag()("a")'],
-                options = { devMode: true };
+            var templates = ['block("bla")tag()("a")'];
 
-            return build(templates, options)
-                .fail(function (error) {
-                    error.message.must.be.include('Unexpected identifier');
-                });
-        });
-
-        it('must return rejected promise for template with syntax errors (production mode)', function () {
-            var templates = ['block("bla")tag()("a")'],
-                options = { devMode: false };
-
-            return build(templates, options)
+            return build(templates)
                 .fail(function (error) {
                     error.message.must.be.include('Unexpected identifier');
                 });
