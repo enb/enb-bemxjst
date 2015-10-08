@@ -6,6 +6,7 @@ var EOL = require('os').EOL,
     MockNode = require('mock-enb/lib/mock-node'),
     Tech = require('../../../techs/bemhtml'),
     FileList = require('enb/lib/file-list'),
+    loadDirSync = require('mock-enb/utils/dir-utils').loadDirSync,
     files = {
         'i-bem.bemhtml': {
             path: path.join(__dirname, '..', '..', 'fixtures', 'i-bem.bemhtml')
@@ -154,7 +155,7 @@ function build(templates, options, lib) {
 
     bundle = new MockNode('bundle');
     fileList = new FileList();
-    fileList.loadFromDirSync('blocks');
+    fileList.addFiles(loadDirSync('blocks'));
     bundle.provideTechData('?.files', fileList);
 
     return bundle.runTech(Tech, options)
