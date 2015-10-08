@@ -6,6 +6,7 @@ var fs = require('fs'),
     MockNode = require('mock-enb/lib/mock-node'),
     Tech = require('../../techs/bemtree'),
     FileList = require('enb/lib/file-list'),
+    loadDirSync = require('mock-enb/utils/dir-utils').loadDirSync,
     fixturesDirname = path.join(__dirname, '..', 'fixtures', 'bemtree'),
     vowCode = require('../../lib/vow-code'),
     files = {
@@ -332,7 +333,7 @@ function build(templates, options, lib) {
 
     bundle = new MockNode('bundle');
     fileList = new FileList();
-    fileList.loadFromDirSync('blocks');
+    fileList.addFiles(loadDirSync('blocks'));
     bundle.provideTechData('?.files', fileList);
 
     return bundle.runTech(Tech, options)

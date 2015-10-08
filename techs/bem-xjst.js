@@ -1,7 +1,9 @@
 var EOL = require('os').EOL,
     path = require('path'),
     vow = require('vow'),
-    vfs = require('enb/lib/fs/async-fs'),
+    enb = require('enb'),
+    vfs = enb.asyncFs || require('enb/lib/fs/async-fs'),
+    buildFlow = enb.buildFlow || require('enb/lib/build-flow'),
     bemcompat = require('bemhtml-compat'),
     bundle = require('../lib/bundle');
 
@@ -17,7 +19,7 @@ var EOL = require('os').EOL,
  * @param {Object}      [options]                           Options
  * @param {String}      [options.target='?.bem-xjst.js']    Path to a target with compiled file.
  */
-module.exports = require('enb/lib/build-flow').create()
+module.exports = buildFlow.create()
     .name('bem-xjst')
     .target('target', '?.bem-xjst.js')
     .methods({
