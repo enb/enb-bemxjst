@@ -2,7 +2,7 @@ var fs = require('fs'),
     path = require('path'),
     vow = require('vow'),
     mock = require('mock-fs'),
-    dropRequireCache = require('enb/lib/fs/drop-require-cache'),
+    clearRequire = require('clear-require'),
     MockNode = require('mock-enb/lib/mock-node'),
     Tech = require('../../techs/bemtree'),
     FileList = require('enb/lib/file-list'),
@@ -344,7 +344,7 @@ function build(templates, options, lib) {
                 ].join(EOL);
 
             fs.writeFileSync(filename, contents);
-            dropRequireCache(require, filename);
+            clearRequire(filename);
             return [require(filename), contents];
         });
 }
