@@ -1,6 +1,11 @@
 История изменений
 =================
 
+2.1.0
+-----
+
+* Добавлена поддержка `enb` версии `1.x` ([#106]).
+
 2.0.2
 -----
 
@@ -176,6 +181,7 @@
 
 * Добавлена технология `bemhtml`.
 
+[#106]: https://github.com/enb-bem/enb-bemxjst/pull/106
 [#100]: https://github.com/enb-bem/enb-bemxjst/issues/100
 [#95]: https://github.com/enb-bem/enb-bemxjst/issues/95
 [#93]: https://github.com/enb-bem/enb-bemxjst/issues/93
