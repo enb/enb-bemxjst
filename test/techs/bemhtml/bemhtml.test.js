@@ -36,6 +36,36 @@ describe('bemhtml', function () {
             });
     });
 
+    describe('base templates', function () {
+        it('must ignore templates in `i-bem`', function () {
+            var blocks = {
+                'i-bem.bemhtml.js': 'block("block").tag()("a")'
+            };
+
+            return build(blocks)
+                .spread(function (res) {
+                    var bemjson = { block: 'block' },
+                        html = '<div class="block"></div>';
+
+                    res.BEMHTML.apply(bemjson).must.be(html);
+                });
+        });
+
+        it('must ignore templates in `i-bem__html`', function () {
+            var blocks = {
+                'i-bem__html.bemhtml': 'block("block").tag()("a")'
+            };
+
+            return build(blocks, { sourceSuffixes: ['bemhtml.js', 'bemhtml'] })
+                .spread(function (res) {
+                    var bemjson = { block: 'block' },
+                        html = '<div class="block"></div>';
+
+                    res.BEMHTML.apply(bemjson).must.be(html);
+                });
+        });
+    });
+
     describe('compat', function () {
         it('must throw error if old syntax', function () {
             var templates = ['block bla, tag: "a"'];

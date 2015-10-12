@@ -4,7 +4,8 @@ var EOL = require('os').EOL,
     enb = require('enb'),
     vfs = enb.asyncFs || require('enb/lib/fs/async-fs'),
     buildFlow = enb.buildFlow || require('enb/lib/build-flow'),
-    bundle = require('../lib/bundle');
+    bundle = require('../lib/bundle'),
+    I_BEM_REG_EX = /^i-bem(__html)?\.bemhtml(\.js)?$/;
 
 /**
  * @class BemxjstTech
@@ -55,11 +56,14 @@ module.exports = buildFlow.create()
                     // filename without suffix
                     key = filename.slice(0, -(file.suffix.length + 1));
 
+                // remove base templates as they are inside bem-xjst since 2.x
+                if (this._hasBaseTemplate(file.name)) { return; }
+
                 if (!uniques[key]) {
                     uniques[key] = true;
                     filenames.push(filename);
                 }
-            });
+            }, this);
 
             return filenames;
         },
@@ -144,6 +148,12 @@ module.exports = buildFlow.create()
                         requires: this._requires
                     });
                 }, this);
+        },
+        /**
+         * Determines whether the file is the basic templates.
+         */
+        _hasBaseTemplate: function (basename) {
+            return I_BEM_REG_EX.test(basename);
         }
     })
     .createTech();
