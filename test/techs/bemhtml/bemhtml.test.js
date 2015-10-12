@@ -66,6 +66,36 @@ describe('bemhtml', function () {
         });
     });
 
+    describe('naming', function () {
+        it('must use origin naming', function () {
+            var blocks = {
+                'block.bemhtml.js': 'block("block").tag()("div")'
+            };
+
+            return build(blocks)
+                .spread(function (res) {
+                    var bemjson = { block: 'block', elem: 'elem', mods: { mod: true } },
+                        html = '<div class="block__elem block__elem_mod"></div>';
+
+                    res.BEMHTML.apply(bemjson).must.be(html);
+                });
+        });
+
+        it('must support custom naming', function () {
+            var blocks = {
+                'block.bemhtml.js': 'block("block").tag()("div")'
+            };
+
+            return build(blocks, { naming: { elem: '__', mod: '--' } })
+                .spread(function (res) {
+                    var bemjson = { block: 'block', elem: 'elem', mods: { mod: true } },
+                        html = '<div class="block__elem block__elem--mod"></div>';
+
+                    res.BEMHTML.apply(bemjson).must.be(html);
+                });
+        });
+    });
+
     describe('compat', function () {
         it('must throw error if old syntax', function () {
             var templates = ['block bla, tag: "a"'];

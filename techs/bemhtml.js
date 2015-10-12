@@ -16,6 +16,11 @@ var bundle = require('../lib/bundle');
  * @param {String}    [options.exportName='BEMHTML']   Name of BEMHTML template variable.
  * @param {Object}    [options.requires]               Names of dependencies which should be available from
  *                                                     code of templates.
+ * @param {Object}    [options.naming]                 Custom naming convention:
+ *                                                       * String `elem` — separates element's name from block.
+ *                                                         Default as `__`.
+ *                                                       * String `mod` — separates names and values of modifiers
+ *                                                         from blocks and elements. Default as `_`.
  *
  * @example
  * var BemhtmlTech = require('enb-bemxjst/techs/bemhtml'),
@@ -42,6 +47,7 @@ module.exports = require('./bem-xjst').buildFlow()
     .name('bemhtml')
     .target('target', '?.bemhtml.js')
     .defineOption('exportName', 'BEMHTML')
+    .defineOption('naming')
     .defineOption('requires', {})
     .useFileList(['bemhtml.js'])
     .builder(function (fileList) {

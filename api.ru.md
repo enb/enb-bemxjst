@@ -24,6 +24,7 @@ bemhtml
 * [sourceSuffixes](#sourcesuffixes)
 * [requires](#requires)
 * [exportName](#exportname)
+* [naming](#naming)
 
 ### target
 
@@ -78,6 +79,43 @@ bemhtml
       BEMHTML.apply({ block: 'button' }); // <button class="button">...</button>
   });
   ```
+
+#### naming
+
+Тип: `Object`. По умолчанию: `{ elem: '__', mod: '_' }`.
+
+Соглашение об именовании БЭМ-сущностей для генерации CSS-классов:
+
+* **String** `elem` — отделяет имя элемента от блока.
+* **String** `mod` — отделяет названия и значения модификаторов от блоков и элементов.
+
+**Пример**
+
+```js
+{
+    block : 'button',
+    mods : { disabled : true },
+    content : 'Неактивна'
+}
+```
+
+По умолчанию CSS-классы будут сгенерированы согласно оригинальному соглашению об именовании БЭМ-сущностей.
+
+```html
+<button class="button button_disabled">Неактивна</button>
+```
+
+Чтобы использовать [стиль Гарри Робертса](https://github.com/bem/bem-naming/blob/master/README.ru.md#В-стиле-Гарри-Робертса) укажите `--` в качестве разделителя для модификатора.
+
+```js
+naming: { elem: '__', mod: '--' }
+```
+
+В результате получится следующий HTML-код:
+
+```html
+<button class="button button--disabled">Неактивна</button>
+```
 
 --------------------------------------
 
