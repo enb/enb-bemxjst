@@ -4,8 +4,8 @@ var EOL = require('os').EOL,
     enb = require('enb'),
     vfs = enb.asyncFs || require('enb/lib/fs/async-fs'),
     buildFlow = enb.buildFlow || require('enb/lib/build-flow'),
-    bemcompat = require('bemhtml-compat'),
-    bundle = require('../lib/bundle');
+    bundle = require('../lib/bundle'),
+    I_BEM_REG_EX = /^i-bem(__html)?\.bemhtml(\.js)?$/;
 
 /**
  * @class BemxjstTech
@@ -56,11 +56,14 @@ module.exports = buildFlow.create()
                     // filename without suffix
                     key = filename.slice(0, -(file.suffix.length + 1));
 
+                // remove base templates as they are inside bem-xjst since 2.x
+                if (this._hasBaseTemplate(file.name)) { return; }
+
                 if (!uniques[key]) {
                     uniques[key] = true;
                     filenames.push(filename);
                 }
-            });
+            }, this);
 
             return filenames;
         },
@@ -94,13 +97,7 @@ module.exports = buildFlow.create()
         _processSources: function (sources) {
             return sources.map(function (source) {
                 var filename = source.path,
-                    contents = source.contents,
-                    ext = path.extname(filename);
-
-                // In files with `.js` extension stored templates only in JS syntax.
-                if (this._compat && ext !== '.js') {
-                    contents = bemcompat.transpile(contents);
-                }
+                    contents = source.contents;
 
                 return {
                     path: filename,
@@ -125,7 +122,7 @@ module.exports = buildFlow.create()
                 compilerFilename = path.resolve(__dirname, '../lib/bemxjst-processor'),
                 compilerOptions = {
                     wrap: false,
-                    optimize: !this._devMode
+                    naming: this._naming
                 },
                 // join source code
                 sourceCode = sources.map(function (source) {
@@ -135,10 +132,6 @@ module.exports = buildFlow.create()
                     sourceCode,
                     'oninit(function(exports, context) {',
                     '    var BEMContext = exports.BEMContext || context.BEMContext;',
-                    '    // Block templates can not work without base templates',
-                    '    if(!BEMContext) {',
-                    '        throw Error("Seems like you have no base templates from i-bem.' + this.getName() + '");',
-                    '    }',
                     '    // Provides third-party libraries from different modular systems',
                     '    BEMContext.prototype.require = function(lib) {',
                     '       return __bem_xjst_libs__[lib];',
@@ -153,10 +146,15 @@ module.exports = buildFlow.create()
                     return bundle.compile(compiledCode, {
                         dirname: this.node.getDir(),
                         exportName: this._exportName,
-                        includeVow: this._includeVow,
                         requires: this._requires
                     });
                 }, this);
+        },
+        /**
+         * Determines whether the file is the basic templates.
+         */
+        _hasBaseTemplate: function (basename) {
+            return I_BEM_REG_EX.test(basename);
         }
     })
     .createTech();

@@ -3,19 +3,16 @@ enb-bemxjst
 
 [![NPM version](https://img.shields.io/npm/v/enb-bemxjst.svg?style=flat)](https://www.npmjs.org/package/enb-bemxjst) [![Build Status](https://img.shields.io/travis/enb-bem/enb-bemxjst/master.svg?style=flat&label=tests)](https://travis-ci.org/enb-bem/enb-bemxjst) [![Build status](https://img.shields.io/appveyor/ci/blond/enb-bemxjst.svg?style=flat&label=windows)](https://ci.appveyor.com/project/blond/enb-bemxjst) [![Coverage Status](https://img.shields.io/coveralls/enb-bem/enb-bemxjst.svg?style=flat)](https://coveralls.io/r/enb-bem/enb-bemxjst?branch=master) [![Dependency Status](https://img.shields.io/david/enb-bem/enb-bemxjst.svg?style=flat)](https://david-dm.org/enb-bem/enb-bemxjst)
 
-Пакет предоставляет набор [ENB](https://ru.bem.info/tools/bem/enb-bem/)-технологий для сборки [BEMHTML](https://ru.bem.info/technology/bemhtml/current/reference/)- и [BEMTREE](https://ru.bem.info/technology/bemtree/)-шаблонов в проектах, построенных по [методологии БЭМ](https://ru.bem.info/method/).
-
-**Важно**: базовые шаблоны для BEMHTML и BEMTREE находятся в библиотеке [bem-core](https://ru.bem.info/libs/bem-core/). Для технологий, базовые шаблоны которых находятся в библиотеке [bem-bl](https://ru.bem.info/libs/bem-bl/), следует использовать пакет [enb-xjst](https://ru.bem.info/tools/bem/enb-xjst/readme/).
+Пакет предоставляет набор [ENB](https://ru.bem.info/tools/bem/enb-bem/)-технологий для сборки [BEMHTML](https://ru.bem.info/technology/bemhtml/current/reference/)-шаблонов в проектах, построенных по [методологии БЭМ](https://ru.bem.info/method/).
 
 **Технологии пакета `enb-bemxjst`:**
 
 * [bemhtml](api.ru.md#bemhtml)
-* [bemtree](api.ru.md#bemtree)
 * [bemjson-to-html](api.ru.md#bemjson-to-html)
 
 Принципы работы технологий и их API описаны в документе [API технологий](api.ru.md).
 
-**Совместимость:** технологии пакета `enb-bemxjst` используют [компилятор BEM-XJST](https://ru.bem.info/tools/templating-engines/bemxjst/) версии `1.2.1`.
+**Совместимость:** технологии пакета `enb-bemxjst` используют [компилятор BEM-XJST](https://ru.bem.info/tools/templating-engines/bemxjst/) версии `4.2.3`.
 
 Установка
 ---------
@@ -46,11 +43,10 @@ $ npm install --save-dev enb-bemxjst
 Быстрый старт
 -------------
 
-Подключите необходимые технологии: [bemhtml](api.ru.md#bemhtml), [bemtree](api.ru.md#bemtree).
+Подключите технологию [bemhtml](api.ru.md#bemhtml).
 
 ```js
-var BemtreeTech = require('enb-bemxjst/techs/bemtree'),
-    BemhtmlTech = require('enb-bemxjst/techs/bemhtml'),
+var BemhtmlTech = require('enb-bemxjst/techs/bemhtml'),
     FileProvideTech = require('enb/techs/file-provider'),
     bemTechs = require('enb-bem-techs');
 
@@ -59,14 +55,10 @@ var BemtreeTech = require('enb-bemxjst/techs/bemtree'),
          // Получаем FileList
          node.addTechs([
              [FileProvideTech, { target: '?.bemdecl.js' }],
-             [bemTechs.levels, levels: ['blocks']],
+             [bemTechs.levels, { levels: ['blocks'] }],
              bemTechs.deps,
              bemTechs.files
          ]);
-
-         // Создаем BEMTREE-файл
-         node.addTech(BemtreeTech);
-         node.addTarget('?.bemtree.js');
 
          // Создаем BEMHTML-файл
          node.addTech(BemhtmlTech);
@@ -91,9 +83,9 @@ module.exports = function(config) {
         // Получаем FileList
         node.addTechs([
             [bemTechs.levels, levels: ['blocks']],
-            bemTechs.bemjsonToBemdecl,
-            bemTechs.deps,
-            bemTechs.files
+            [bemTechs.bemjsonToBemdecl],
+            [bemTechs.deps],
+            [bemTechs.files]
         ]);
 
         // Собираем BEMHTML-файл
@@ -110,14 +102,11 @@ module.exports = function(config) {
 Работа с технологиями
 ---------------------
 
-По БЭМ-методологии шаблоны к каждому блоку хранятся в отдельных файлах с расширением `.bemhtml.js` или `.bemtree.js` в директориях блоков. Чтобы использовать шаблоны, необходимо собрать их исходные файлы.
+По БЭМ-методологии шаблоны к каждому блоку хранятся в отдельных файлах с расширением `.bemhtml.js` в директориях блоков. Чтобы использовать шаблоны, необходимо собрать их исходные файлы.
 
-Отдельные файлы с шаблонами (`.bemhtml.js` или `.bemtree.js`) собираются в один общий файл (`?.bemhtml.js` или `?.bemtree.js`) с помощью одной из следующих технологий:
+Отдельные файлы с шаблонами собираются в один общий файл (`?.bemhtml.js`) с помощью технологии [bemhtml](api.ru.md#bemhtml).
 
-* [bemhtml](api.ru.md#bemhtml)
-* [bemtree](api.ru.md#bemtree)
-
-Результат — скомпилированный файл `?.bemhtml.js` или `?.bemtree.js` — может применяться по-разному в зависимости от наличия модульной системы и ее типа в следующих случаях:
+Результат — скомпилированный файл `?.bemhtml.js` — может применяться по-разному в зависимости от наличия модульной системы и ее типа в следующих случаях:
 
 * [в Node.js](#Исполнение-шаблонов-в-nodejs)
 * [в браузере](#Исполнение-шаблонов-в-браузере)
@@ -128,13 +117,9 @@ module.exports = function(config) {
 Скомпилированный файл подключается как модуль в формате [CommonJS](http://www.commonjs.org/).
 
 ```js
-var BEMTREE = require('bundle.bemtree.js').BEMTREE, // Путь до скомпилированного BEMTREE-файла
-    BEMHTML = require('bundle.bemhtml.js').BEMHTML; // Путь до скомпилированного BEMHTML-файла
+var BEMHTML = require('bundle.bemhtml.js').BEMHTML; // Путь до скомпилированного BEMHTML-файла
 
-BEMTREE.apply({ block: 'page', data: { /* ... */ } })
-    .then(function (bemjson) {
-        var html = BEMHTML.apply(bemjson);
-    });
+BEMHTML.apply(bemjson); // <html>...</html>
 ```
 
 ### Исполнение шаблонов в браузере
@@ -142,7 +127,6 @@ BEMTREE.apply({ block: 'page', data: { /* ... */ } })
 Скомпилированный файл подключается на страницу как JavaScript-файл.
 
 ```html
-<script src="bundle.bemtree.js"></script>
 <script src="bundle.bemhtml.js"></script>
 ```
 
@@ -150,24 +134,18 @@ BEMTREE.apply({ block: 'page', data: { /* ... */ } })
 
 * **Без модульной системы**
 
-  Шаблоны доступны из глобальной переменной `BEMHTML` или `BEMTREE`.
+  Шаблоны доступны из глобальной переменной `BEMHTML`.
 
   ```js
-  BEMTREE.apply({ block: 'page', data: { /* ... */ } })
-      .then(function (bemjson) {
-          var html = BEMHTML.apply(bemjson);
-      });
+  BEMHTML.apply(bemjson); // <html>...</html>
   ```
 * **С модульной системой YModules**
 
   Шаблоны доступны из модульной системы ([YModules](https://ru.bem.info/tools/bem/modules/)):
 
   ```js
-  modules.require(['BEMTREE', 'BEMHTML'], function(BEMTREE, BEMHTML) {
-      BEMTREE.apply({ block: 'page', data: { /* ... */ } })
-          .then(function (bemjson) {
-              var html = BEMHTML.apply(bemjson);
-          });
+  modules.require(['BEMHTML'], function(BEMHTML) {
+      BEMHTML.apply(bemjson); // <html>...</html>
   });
   ```
 
@@ -185,7 +163,7 @@ HTML – результат применения скомпилированно�
 
 ### Подключение сторонних библиотек
 
-Технологии [bemhtml](api.ru.md#bemhtml) и [bemtree](api.ru.md#bemtree) поддерживают возможность подключения сторонних библиотек как глобально, так и для разных модульных систем с помощью опции [requires](api.ru.md#requires).
+Технология [bemhtml](api.ru.md#bemhtml) поддерживают возможность подключения сторонних библиотек как глобально, так и для разных модульных систем с помощью опции [requires](api.ru.md#requires).
 
 Для подключения укажите название библиотеки и в зависимости от используемой модульной системы:
 
@@ -256,36 +234,14 @@ block('post').elem('data').content()(function () {
 
 ### Синтаксис
 
-Существует два синтаксиса для шаблонов BEMHTML и BEMTREE:
+Существует два синтаксиса для BEMHTML-шаблонов:
 
 * [JS-синтаксис](https://ru.bem.info/technology/bemhtml/current/bemhtml-js-syntax/)
 * [сокращенный синтаксис](https://ru.bem.info/technology/bemhtml/current/reference/)
 
-#### Какой выбрать?
-
-С момента выпуска библиотеки [bem-core](https://ru.bem.info/libs/bem-core/) сокращенный синтаксис шаблонов считается устаревшим. Рекомендуется использовать JS-синтаксис для всех шаблонов.
+С момента выпуска библиотеки [bem-core](https://ru.bem.info/libs/bem-core/) сокращенный синтаксис шаблонов считается устаревшим и больше не поддерживается.
 
 О правилах перехода на JS-синтаксис читайте в [руководстве по миграции](https://ru.bem.info/technology/bemhtml/current/bemhtml-js-syntax/).
-
-#### Поддержка сокращенного синтаксиса
-
-Технологии [bemhtml](api.ru.md#bemhtml) и [bemtree](api.ru.md#bemtree) позволяют собирать шаблоны в сокращенном синтаксисе c помощью опции [compat](api.ru.md#compat).
-
-Это может быть полезно при миграции c `bem-bl` на `bem-core`. Опция [compat](api.ru.md#compat) позволяет поэтапно переходить на JS-синтакис для каждого отдельного шаблона, а не переписывать код всего проекта целиком.
-
-В процессе сборки шаблоны, написанные в сокращенном синтаксисе, приводятся к JS-синтаксису. Синтаксическое преобразование производит модуль [bemhtml-compat](https://github.com/bem/bemhtml-compat). Из-за транслирования сборка происходит медленнее даже для файлов в JS-синтаксисе.
-
-Шаблоны в сокращенном синтаксисе следует хранить в файлах с расширениями `.bemhtml` и `.bemtree`, а не `.bemhtml.js` и `.bemtree.js`.
-
-**Важно:** оба синтаксиса не могут использоваться одновременно в файле шаблона.
-
-### Асинхронная шаблонизация
-
-Технология [BEMTREE](https://ru.bem.info/technology/bemtree/current/bemtree/) работает асинхронно. Для обработки асинхронных вызовов используются промисы. Это означает, что после подключения скомпилированного BEMTREE-файла и вызова метода [BEMTREE.apply](https://ru.bem.info/technology/bemtree/v2/bemtree/#Входные-и-результирующие-данные-bemjson), который применит шаблоны к данным, вернется промис.
-
-Для работы с промисами используется библиотека [vow](http://dfilatov.github.io/vow/) версии `0.4.10`.
-
-**Важно:** технология [BEMHTML](https://ru.bem.info/technology/bemhtml/current/reference/) работает синхронно, асинхронная работа невозможна.
 
 ### Интернационализация
 
@@ -315,9 +271,7 @@ block('button').elem('tooltip').content()(function () {
 * [Быстрый старт по BEMHTML](https://ru.bem.info/technology/bemhtml/current/intro/)
 * [Описание шаблонизатора и его преимуществ](https://ru.bem.info/technology/bemhtml/current/rationale/)
 * [Справочное руководство по шаблонизатору BEMHTML](https://ru.bem.info/technology/bemhtml/current/reference/)
-* [Справочное руководство по шаблонизатору BEMTREE](https://ru.bem.info/technology/bemtree/current/bemtree/)
 * [Справочное руководство по BEMJSON](https://ru.bem.info/technology/bemjson/current/bemjson/)
-* [Шаблонизация данных](https://ru.bem.info/technology/bemhtml/current/templating/)
 * [JS-синтаксис](https://ru.bem.info/technology/bemhtml/current/bemhtml-js-syntax/)
 
 Лицензия

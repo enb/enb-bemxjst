@@ -1,28 +1,9 @@
 var fs = require('fs'),
-    path = require('path'),
-    vow = require('vow'),
     mock = require('mock-fs'),
     MockNode = require('mock-enb/lib/mock-node'),
     Tech = require('../../../techs/bemhtml'),
-    FileList = require('enb/lib/file-list'),
     loadDirSync = require('mock-enb/utils/dir-utils').loadDirSync,
-    files = {
-        'i-bem.bemhtml': {
-            path: path.join(__dirname, '..', '..', 'fixtures', 'i-bem.bemhtml')
-        },
-        ometajs: {
-            path: require.resolve('bemhtml-compat/node_modules/ometajs')
-        },
-        'bemhtml.ometajs': {
-            path: require.resolve('bemhtml-compat/lib/ometa/bemhtml.ometajs')
-        }
-    };
-
-Object.keys(files).forEach(function (name) {
-    var file = files[name];
-
-    file.contents = fs.readFileSync(file.path, 'utf-8');
-});
+    FileList = require('enb/lib/file-list');
 
 describe('bemhtml', function () {
     afterEach(function () {
@@ -40,33 +21,75 @@ describe('bemhtml', function () {
             });
     });
 
-    describe('suffixes', function () {
-        it('must use `bemhtml.js` suffix', function () {
+    it('must use `bemhtml.js` suffix', function () {
+        var blocks = {
+            'block.bemhtml.js': 'block("block").tag()("a")',
+            'block.bemhtml': 'block("block").tag()("span")'
+        };
+
+        return build(blocks)
+            .spread(function (res) {
+                var bemjson = { block: 'block' },
+                    html = '<a class="block"></a>';
+
+                res.BEMHTML.apply(bemjson).must.be(html);
+            });
+    });
+
+    describe('base templates', function () {
+        it('must ignore templates in `i-bem`', function () {
             var blocks = {
-                'base.bemhtml.js': files['i-bem.bemhtml'].contents,
-                'block.bemhtml.js': 'block("block").tag()("a")',
-                'block.bemhtml': 'block("block").tag()("span")'
+                'i-bem.bemhtml.js': 'block("block").tag()("a")'
             };
 
             return build(blocks)
                 .spread(function (res) {
                     var bemjson = { block: 'block' },
-                        html = '<a class="block"></a>';
+                        html = '<div class="block"></div>';
 
                     res.BEMHTML.apply(bemjson).must.be(html);
                 });
         });
 
-        it('must use `bemhtml` suffix if not `bemhtml.js`', function () {
+        it('must ignore templates in `i-bem__html`', function () {
             var blocks = {
-                'base.bemhtml.js': files['i-bem.bemhtml'].contents,
-                'block.bemhtml': 'block("block").tag()("span")'
+                'i-bem__html.bemhtml': 'block("block").tag()("a")'
+            };
+
+            return build(blocks, { sourceSuffixes: ['bemhtml.js', 'bemhtml'] })
+                .spread(function (res) {
+                    var bemjson = { block: 'block' },
+                        html = '<div class="block"></div>';
+
+                    res.BEMHTML.apply(bemjson).must.be(html);
+                });
+        });
+    });
+
+    describe('naming', function () {
+        it('must use origin naming', function () {
+            var blocks = {
+                'block.bemhtml.js': 'block("block").tag()("div")'
             };
 
             return build(blocks)
                 .spread(function (res) {
-                    var bemjson = { block: 'block' },
-                        html = '<span class="block"></span>';
+                    var bemjson = { block: 'block', elem: 'elem', mods: { mod: true } },
+                        html = '<div class="block__elem block__elem_mod"></div>';
+
+                    res.BEMHTML.apply(bemjson).must.be(html);
+                });
+        });
+
+        it('must support custom naming', function () {
+            var blocks = {
+                'block.bemhtml.js': 'block("block").tag()("div")'
+            };
+
+            return build(blocks, { naming: { elem: '__', mod: '--' } })
+                .spread(function (res) {
+                    var bemjson = { block: 'block', elem: 'elem', mods: { mod: true } },
+                        html = '<div class="block__elem block__elem--mod"></div>';
 
                     res.BEMHTML.apply(bemjson).must.be(html);
                 });
@@ -83,24 +106,8 @@ describe('bemhtml', function () {
                 });
         });
 
-        it('must support old syntax if compat:true', function () {
-            var blocks = {
-                    'base.bemhtml.js': files['i-bem.bemhtml'].contents,
-                    'block.bemhtml': 'block bla, tag: "a"'
-                },
-                bemjson = { block: 'bla' },
-                html = '<a class="bla"></a>',
-                options = { compat: true };
-
-            return build(blocks, options)
-                .spread(function (res) {
-                    res.BEMHTML.apply(bemjson).must.be(html);
-                });
-        });
-
         it('must not support old syntax for files with `.js` extension', function () {
             var blocks = {
-                    'base.bemhtml.js': files['i-bem.bemhtml'].contents,
                     'block.bemhtml.js': 'block bla, tag: "a"'
                 },
                 options = { compat: true };
@@ -112,96 +119,15 @@ describe('bemhtml', function () {
         });
     });
 
-    describe('mode', function () {
-        it('must build block in development mode', function () {
-            var templates = ['block("bla").tag()("a")'],
-                bemjson = { block: 'bla' },
-                html = '<a class="bla"></a>',
-                options = { devMode: true };
-
-            return build(templates, options)
-                .spread(function (res) {
-                    res.BEMHTML.apply(bemjson).must.be(html);
-                });
-        });
-
-        it('must build block in production mode', function () {
-            var templates = ['block("bla").tag()("a")'],
-                bemjson = { block: 'bla' },
-                html = '<a class="bla"></a>',
-                options = { devMode: false };
-
-            return build(templates, options)
-                .spread(function (res) {
-                    res.BEMHTML.apply(bemjson).must.be(html);
-                });
-        });
-
-        it('must build different code by mode', function () {
-            var templates = ['block("bla").tag()("a")'];
-
-            return vow.all([
-                build(templates, { target: 'dev.bemhtml.js', devMode: true }),
-                build(templates, { target: 'prod.bemhtml.js', devMode: false })
-            ]).spread(function (dev, prod) {
-                var devSource = dev[1].toString(),
-                    prodSource = prod[1].toString();
-
-                devSource.must.not.be.equal(prodSource);
-            });
-        });
-    });
-
     describe('handle template errors', function () {
         it('must return rejected promise for template with syntax errors (development mode)', function () {
-            var templates = ['block("bla")tag()("a")'],
-                options = { devMode: true };
+            var templates = ['block("bla")tag()("a")'];
 
-            return build(templates, options)
+            return build(templates)
                 .fail(function (error) {
                     error.message.must.be.include('Unexpected identifier');
                 });
         });
-
-        it('must return rejected promise for template with syntax errors (production mode)', function () {
-            var templates = ['block("bla")tag()("a")'],
-                options = { devMode: false };
-
-            return build(templates, options)
-                .fail(function (error) {
-                    error.message.must.be.include('Unexpected identifier');
-                });
-        });
-    });
-
-    it('should throw valid error if base template is missed (for development mode)', function () {
-        var blocks = {
-            'block.bemhtml.js': 'block("block").tag()("a")'
-        };
-
-        return build(blocks, { devMode: true })
-            .spread(function (res) {
-                var bemjson = { block: 'block' };
-                return res.BEMHTML.apply(bemjson);
-            })
-            .fail(function (error) {
-                error.message.must.be.equal('Seems like you have no base templates from i-bem.bemhtml');
-            });
-    });
-
-    it('should throw valid error if base template is missed (for production mode)', function () {
-        var blocks = {
-            'block.bemhtml.js': 'block("block").tag()("a")'
-        };
-
-        return build(blocks, { devMode: false })
-            .spread(function (res) {
-                var bemjson = { block: 'block' };
-                return res.BEMHTML.apply(bemjson);
-            })
-            .fail(function (error) {
-                error.message.must.be.equal('Seems like you have no base templates from i-bem.bemhtml');
-            });
     });
 });
 
@@ -217,8 +143,6 @@ function build(templates, options) {
 
     if (Array.isArray(templates)) {
         if (templates.length) {
-            scheme.blocks['base.bemhtml.js'] = files['i-bem.bemhtml'].contents;
-
             templates.forEach(function (item, i) {
                 scheme.blocks['block-' + i + '.bemhtml.js'] = item;
             });
@@ -228,15 +152,10 @@ function build(templates, options) {
     }
 
     if (templates.length) {
-        scheme.blocks['base.bemhtml.js'] = files['i-bem.bemhtml'].contents;
-
         templates.forEach(function (item, i) {
             scheme.blocks['block-' + i + '.bemhtml.js'] = item;
         });
     }
-
-    scheme[files['ometajs'].path] = files['ometajs'].contents;
-    scheme[files['bemhtml.ometajs'].path] = files['bemhtml.ometajs'].contents;
 
     mock(scheme);
 

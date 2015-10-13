@@ -5,20 +5,22 @@ var bundle = require('../lib/bundle');
  * @augments {BemxjstTech}
  * @classdesc
  *
- * Compiles BEMHTML template files with BEMXJST translator and merges them into a single BEMHTML bundle.<br/><br/>
+ * Compiles BEMHTML template files with BEMXJST translator and merges them into a single BEMHTML bundle.
  *
- * Important: It supports only JS syntax by default. Use `compat` option to support old BEMHTML syntax.
+ * Important: It supports only JS syntax.
  *
- * @param {Object}    [options]                          Options
- * @param {String}    [options.target='?.bemhtml.js']    Path to a target with compiled file.
- * @param {String}    [options.filesTarget='?.files']    Path to a target with FileList.
- * @param {String[]}  [options.sourceSuffixes]           Files with specified suffixes involved in the assembly.
- * @param {String}    [options.exportName='BEMHTML']     Name of BEMHTML template variable.
- * @param {Boolean}   [options.compat=false]             Sets `compat` option to support old BEMHTML syntax.
- * @param {Boolean}   [options.devMode=false]            Sets `devMode` option for convenient debugging. If `devMode` is
- * set to true, code of templates will not be compiled but only wrapped for development purposes.
- * @param {Object}    [options.requires]                 Names of dependencies which should be available from
- * code of templates.
+ * @param {Object}    [options]                        Options
+ * @param {String}    [options.target='?.bemhtml.js']  Path to a target with compiled file.
+ * @param {String}    [options.filesTarget='?.files']  Path to a target with FileList.
+ * @param {String[]}  [options.sourceSuffixes]         Files with specified suffixes involved in the assembly.
+ * @param {String}    [options.exportName='BEMHTML']   Name of BEMHTML template variable.
+ * @param {Object}    [options.requires]               Names of dependencies which should be available from
+ *                                                     code of templates.
+ * @param {Object}    [options.naming]                 Custom naming convention:
+ *                                                       * String `elem` — separates element's name from block.
+ *                                                         Default as `__`.
+ *                                                       * String `mod` — separates names and values of modifiers
+ *                                                         from blocks and elements. Default as `_`.
  *
  * @example
  * var BemhtmlTech = require('enb-bemxjst/techs/bemhtml'),
@@ -30,9 +32,9 @@ var bundle = require('../lib/bundle');
  *         // get FileList
  *         node.addTechs([
  *             [FileProvideTech, { target: '?.bemdecl.js' }],
- *             [bemTechs.levels, levels: ['blocks']],
- *             bemTechs.deps,
- *             bemTechs.files
+ *             [bemTechs.levels, { levels: ['blocks'] }],
+ *             [bemTechs.deps],
+ *             [bemTechs.files]
  *         ]);
  *
  *         // build BEMHTML file
@@ -45,10 +47,9 @@ module.exports = require('./bem-xjst').buildFlow()
     .name('bemhtml')
     .target('target', '?.bemhtml.js')
     .defineOption('exportName', 'BEMHTML')
-    .defineOption('compat', false)
-    .defineOption('devMode', false)
+    .defineOption('naming')
     .defineOption('requires', {})
-    .useFileList(['bemhtml.js', 'bemhtml'])
+    .useFileList(['bemhtml.js'])
     .builder(function (fileList) {
         // don't add fat wrapper code of bem-xjst
         if (fileList.length === 0) {

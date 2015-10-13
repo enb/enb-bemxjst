@@ -5,7 +5,6 @@ var fs = require('fs'),
     FileList = require('enb/lib/file-list'),
     loadDirSync = require('mock-enb/utils/dir-utils').loadDirSync,
     Tech = require('../../../techs/bemhtml'),
-    bemhtmlCoreFilename = path.join(__dirname, '..', '..', 'fixtures', 'i-bem.bemhtml'),
     htmlFilename = path.join(__dirname, '..', '..', 'fixtures', 'bemhtml', 'browser--ym.html'),
     mochaFilename = require.resolve('mocha/mocha.js'),
     chaiFilename = require.resolve('chai/chai.js'),
@@ -128,8 +127,7 @@ function runTest(testContent, options, template, lib) {
 
         scheme = {
             blocks: {
-                'base.bemhtml': fs.readFileSync(bemhtmlCoreFilename, 'utf-8'),
-                'bla.bemhtml': template || 'block("bla").tag()("a")'
+                'bla.bemhtml.js': template || 'block("bla").tag()("a")'
             },
             bundle: {},
             // jscs:disable
