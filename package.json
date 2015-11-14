@@ -29,7 +29,7 @@
     "enb": ">= 0.16.0 < 2.0.0"
   },
   "dependencies": {
-    "bem-xjst": "4.2.4",
+    "bem-xjst": "4.2.7",
     "browserify": "11.2.0",
     "clear-require": "1.0.1",
     "enb-async-require": "1.0.1",
@@ -44,7 +44,7 @@
     "jshint": "2.8.0",
     "mocha": "2.3.3",
     "mock-enb": "0.3.0",
-    "mock-fs": "3.3.0",
+    "mock-fs": "3.4.0",
     "must": "0.13.1",
     "chai": "3.2.0",
     "mocha-phantomjs": "3.5.6",
