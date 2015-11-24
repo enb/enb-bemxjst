@@ -1,6 +1,11 @@
 История изменений
 =================
 
+2.1.1
+-----
+
+* Исправлен экспорт в глобальный скоуп ([#110]).
+
 2.1.0
 -----
 
@@ -181,6 +186,7 @@
 
 * Добавлена технология `bemhtml`.
 
+[#110]: https://github.com/enb-bem/enb-bemxjst/issues/110
 [#106]: https://github.com/enb-bem/enb-bemxjst/pull/106
 [#100]: https://github.com/enb-bem/enb-bemxjst/issues/100
 [#95]: https://github.com/enb-bem/enb-bemxjst/issues/95
