@@ -37,6 +37,11 @@
 * Модуль `vow@0.4.10` обновлен до версии `0.4.11`.
 * Модуль `browserify@11.0.1` обновлен до версии `11.2.0`.
 
+2.1.1
+-----
+
+* Исправлен экспорт в глобальный скоуп ([#110]).
+
 2.1.0
 -----
 
@@ -217,6 +222,7 @@
 
 * Добавлена технология `bemhtml`.
 
+[#110]: https://github.com/enb-bem/enb-bemxjst/issues/110
 [#106]: https://github.com/enb-bem/enb-bemxjst/pull/106
 [#100]: https://github.com/enb-bem/enb-bemxjst/issues/100
 [#95]: https://github.com/enb-bem/enb-bemxjst/issues/95
