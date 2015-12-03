@@ -1,9 +1,11 @@
 var fs = require('fs'),
+    path = require('path'),
     mock = require('mock-fs'),
     MockNode = require('mock-enb/lib/mock-node'),
     Tech = require('../../../techs/bemhtml'),
     loadDirSync = require('mock-enb/utils/dir-utils').loadDirSync,
-    FileList = require('enb/lib/file-list');
+    FileList = require('enb/lib/file-list'),
+    bundlePath = path.resolve('lib/bundle.js');
 
 describe('bemhtml', function () {
     afterEach(function () {
@@ -140,6 +142,9 @@ function build(templates, options) {
             bundle: {}
         },
         bundle, fileList;
+
+    // hack for mock-fs
+    scheme[bundlePath] = '';
 
     if (Array.isArray(templates)) {
         if (templates.length) {

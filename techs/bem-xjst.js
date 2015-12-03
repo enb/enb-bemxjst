@@ -4,7 +4,6 @@ var EOL = require('os').EOL,
     enb = require('enb'),
     vfs = enb.asyncFs || require('enb/lib/fs/async-fs'),
     buildFlow = enb.buildFlow || require('enb/lib/build-flow'),
-    bundle = require('../lib/bundle'),
     I_BEM_REG_EX = /^i-bem(__html)?\.bemhtml(\.js)?$/;
 
 /**
@@ -137,7 +136,8 @@ module.exports = buildFlow.create()
                     '       return __bem_xjst_libs__[lib];',
                     '    };',
                     '});'
-                ].join(EOL);
+                ].join(EOL),
+                bundle = require('../lib/bundle');
 
             // Compiles source code using BEMXJST processor.
             return queue.push(compilerFilename, codeToCompile, compilerOptions)

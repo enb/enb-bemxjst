@@ -1,5 +1,3 @@
-var bundle = require('../lib/bundle');
-
 /**
  * @class BemhtmlTech
  * @augments {BemxjstTech}
@@ -70,7 +68,8 @@ module.exports = require('./bem-xjst').buildFlow()
          * @private
          */
         _mockBEMHTML: function () {
-            var code = 'exports.apply = function () { return ""; };';
+            var code = 'exports.apply = function () { return ""; };',
+                bundle = require('../lib/bundle');
 
             return bundle.compile(code, {
                 exportName: this._exportName

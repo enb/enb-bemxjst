@@ -10,6 +10,7 @@ var fs = require('fs'),
     chaiFilename = require.resolve('chai/chai.js'),
     ymFilename = require.resolve('ym/modules.js'),
     runServer = require('../../lib/run-server'),
+    bundlePath = path.resolve('lib/bundle.js'),
     EOL = require('os').EOL;
 
 describe('bemhtml --browser --ym', function () {
@@ -147,6 +148,9 @@ function runTest(testContent, options, template, lib) {
             'ym.js': fs.readFileSync(ymFilename, 'utf-8'),
             'some-ym-lib.js': lib || ''
         };
+
+    // hack for mock-fs
+    scheme[bundlePath] = '';
 
     mock(scheme);
 

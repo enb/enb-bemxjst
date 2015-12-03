@@ -1,11 +1,13 @@
 var EOL = require('os').EOL,
     fs = require('fs'),
+    path = require('path'),
     mock = require('mock-fs'),
     clearRequire = require('clear-require'),
     MockNode = require('mock-enb/lib/mock-node'),
     Tech = require('../../../techs/bemhtml'),
     loadDirSync = require('mock-enb/utils/dir-utils').loadDirSync,
-    FileList = require('enb/lib/file-list');
+    FileList = require('enb/lib/file-list'),
+    bundlePath = path.resolve('lib/bundle.js');
 
 describe('bemhtml --node', function () {
     afterEach(function () {
@@ -127,6 +129,9 @@ function build(templates, options, lib) {
     templates && templates.forEach(function (item, i) {
         scheme.blocks['block-' + i + '.bemhtml.js'] = item;
     });
+
+    // hack for mock-fs
+    scheme[bundlePath] = '';
 
     mock(scheme);
 

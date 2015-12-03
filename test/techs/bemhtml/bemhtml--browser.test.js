@@ -9,6 +9,7 @@ var fs = require('fs'),
     mochaFilename = require.resolve('mocha/mocha.js'),
     chaiFilename = require.resolve('chai/chai.js'),
     runServer = require('../../lib/run-server'),
+    bundlePath = path.resolve('lib/bundle.js'),
     EOL = require('os').EOL;
 
 describe('bemhtml --browser', function () {
@@ -128,6 +129,9 @@ function runTest(testContent, options, template, lib) {
             'chai.js': fs.readFileSync(chaiFilename, 'utf-8'),
             'some-lib.js': lib || ''
         };
+
+    // hack for mock-fs
+    scheme[bundlePath] = '';
 
     mock(scheme);
 
