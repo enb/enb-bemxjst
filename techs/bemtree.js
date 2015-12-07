@@ -76,7 +76,8 @@ module.exports = require('./bem-xjst').buildFlow()
 
             return bundle.compile(code, {
                 exportName: this._exportName,
-                includeVow: this._includeVow
+                includeVow: this._includeVow,
+                tech: this.getName()
             });
         }
     })
