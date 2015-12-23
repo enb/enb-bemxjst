@@ -122,12 +122,21 @@ describe('bemhtml', function () {
     });
 
     describe('handle template errors', function () {
-        it('must return rejected promise for template with syntax errors (development mode)', function () {
+        it('must throw syntax error', function () {
             var templates = ['block("bla")tag()("a")'];
 
             return build(templates)
                 .fail(function (error) {
                     error.message.must.be.include('Unexpected identifier');
+                });
+        });
+
+        it('must throw predicate error', function () {
+            var templates = ['block("bla").tag("a")'];
+
+            return build(templates)
+                .fail(function (error) {
+                    error.message.must.be.include('Predicate should not have arguments');
                 });
         });
     });
