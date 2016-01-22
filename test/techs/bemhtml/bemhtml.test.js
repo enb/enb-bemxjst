@@ -23,6 +23,18 @@ describe('bemhtml', function () {
             });
     });
 
+    it('must keep base templates if there is no templates and forceBaseTemplates option is true', function () {
+        var templates = [];
+
+        return build(templates, { forceBaseTemplates: true })
+            .spread(function (res) {
+                var bemjson = { block: 'block' },
+                    html = '<div class="block"></div>';
+
+                res.BEMHTML.apply(bemjson).must.be(html);
+            });
+    });
+
     it('must use `bemhtml.js` suffix', function () {
         var blocks = {
             'block.bemhtml.js': 'block("block").tag()("a")',

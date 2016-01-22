@@ -24,6 +24,7 @@ bemhtml
 * [sourceSuffixes](#sourcesuffixes)
 * [requires](#requires)
 * [exportName](#exportname)
+* [forceBaseTemplates](#forceBaseTemplates)
 * [naming](#naming)
 
 ### target
@@ -79,6 +80,14 @@ bemhtml
       BEMHTML.apply({ block: 'button' }); // <button class="button">...</button>
   });
   ```
+
+#### forceBaseTemplates
+
+Тип: `Boolean`. По умолчанию `false`.
+
+Включать ли ядро в сборку, если нет пользовательских шаблонов.
+
+По умолчанию, если пользовательских шаблонов нет, то и код ядра `bem-xjst` также не будет включен в сборку.
 
 #### naming
 
