@@ -1,6 +1,18 @@
 История изменений
 =================
 
+4.1.0
+-----
+
+### Опции
+
+* Для технологии `bemhtml` добавлена опция [forceBaseTemplates](api.ru.md#forcebasetemplates) ([#119]).
+
+### Зависимости
+
+* Модуль `browserify@12.0.1` обновлен до версии `13.0.0`.
+* Модуль `vow@0.4.11` обновлен до версии `0.4.12`.
+
 4.0.5
 -----
 
@@ -267,6 +279,7 @@
 
 * Добавлена технология `bemhtml`.
 
+[#119]: https://github.com/enb-bem/enb-bemxjst/pull/119
 [#115]: https://github.com/enb-bem/enb-bemxjst/pull/115
 [#110]: https://github.com/enb-bem/enb-bemxjst/issues/110
 [#106]: https://github.com/enb-bem/enb-bemxjst/pull/106
