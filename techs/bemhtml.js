@@ -14,6 +14,7 @@
  * @param {String}    [options.exportName='BEMHTML']   Name of BEMHTML template variable.
  * @param {Object}    [options.requires]               Names of dependencies which should be available from
  *                                                     code of templates.
+ * @param {Boolean}   [options.forceBaseTemplates=false] Include base templates if no user templates present
  * @param {Object}    [options.naming]                 Custom naming convention:
  *                                                       * String `elem` — separates element's name from block.
  *                                                         Default as `__`.
@@ -47,10 +48,11 @@ module.exports = require('./bem-xjst').buildFlow()
     .defineOption('exportName', 'BEMHTML')
     .defineOption('naming')
     .defineOption('requires', {})
+    .defineOption('forceBaseTemplates', false)
     .useFileList(['bemhtml.js'])
     .builder(function (fileList) {
         // don't add fat wrapper code of bem-xjst
-        if (fileList.length === 0) {
+        if (!this._forceBaseTemplates && fileList.length === 0) {
             return this._mockBEMHTML();
         }
 
