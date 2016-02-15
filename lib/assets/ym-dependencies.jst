@@ -1,0 +1,11 @@
+{
+    <%_.map(requires, function(item, name) {%>
+        <%if (item.ym) {%>
+            ${ name }: ${ name },
+        <%} else if (item.commonJS) {%>
+            ${ name }: require('${ item.commonJS }'),
+        <%} else if (item.globals) {%>
+            ${ name }: global['${ item.globals.split(".").join("']['") }'],
+        <%}%>
+    <%});%>
+}

@@ -23,9 +23,10 @@ var ${ exportName };
     if (typeof modules === 'object') {
         modules.define(
             '${ exportName }',
-            <%if (ymDependencyNames) {%>[${ ymDependencyNames }],<%}%>
+            [<%_.each(ymDependencyNames, function(name) {%>'${ name }',<%});%>],
             function(
-                provide<%if (ymDependencyVars) {%>, ${ ymDependencyVars }<%}%>
+                provide<%if (ymDependencyVars.length) {%>,<%}%>
+                ${ ymDependencyVars.join(', ') }
                 ) {
                     provide(buildBemXjst(${ ymDependencies }));
                 }
