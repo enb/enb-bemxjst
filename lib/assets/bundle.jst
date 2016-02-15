@@ -1,0 +1,42 @@
+var ${ exportName };
+
+(function(global) {
+    function buildBemXjst(__bem_xjst_libs__) {
+        var exports = {};
+
+        ${ bemxjst }
+
+        return exports;
+    };
+
+    ${ commonJSModules }
+
+    var defineAsGlobal = true;
+
+    // Provide with CommonJS
+    if (typeof module === 'object' && typeof module.exports === 'object') {
+        exports['${ exportName }'] = buildBemXjst(${ commonJSDependencies });
+        defineAsGlobal = false;
+    }
+
+    // Provide to YModules
+    if (typeof modules === 'object') {
+        modules.define(
+            '${ exportName }',
+            <%if (ymDependencyNames) {%>[${ ymDependencyNames }],<%}%>
+            function(
+                provide<%if (ymDependencyVars) {%>, ${ ymDependencyVars }<%}%>
+                ) {
+                    provide(buildBemXjst(${ ymDependencies }));
+                }
+            );
+
+        defineAsGlobal = false;
+    }
+
+    // Provide to global scope
+    if (defineAsGlobal) {
+        ${ exportName } = buildBemXjst(${ globalDependencies });
+        global['${ exportName }'] = ${ exportName };
+    }
+})(this);

@@ -1,6 +1,7 @@
 module.exports = {
     excludeFiles: [
         'node_modules',
+        'lib/assets',
         'test/fixtures',
         'coverage'
     ],
