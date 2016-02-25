@@ -87,7 +87,8 @@ function getLibs(sandbox) {
 }
 
 /**
- * Нужно для того, чтобы mtime записанного файла гарантированно отличался от ранее созданных
+ * It is is necessary to files have different mtime.
+ *
  * @returns {Promise}
  */
 function writeFile() {

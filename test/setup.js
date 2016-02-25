@@ -1,6 +1,7 @@
 var chai = require('chai');
 
 chai.should();
+chai.use(require('chai-as-promised'));
 
 var JobQueueStub = require('mock-enb/lib/job-queue-stub');
 
