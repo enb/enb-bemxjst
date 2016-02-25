@@ -1,4 +1,5 @@
-var vm = require('vm'),
+var fs = require('fs'),
+    vm = require('vm'),
     vow = require('vow'),
     ym = require('ym'),
     bundle = require('../lib/bundle.js'),
@@ -65,7 +66,7 @@ function run(code, opts) {
  * Returns libs from executed code.
  *
  * @param {Object} sandbox
- * @returns {Object}
+ * @returns {Promise<Object>}
  */
 function getLibs(sandbox) {
     if (sandbox.BEMHTML) {
@@ -85,8 +86,25 @@ function getLibs(sandbox) {
     }
 }
 
+/**
+ * Нужно для того, чтобы mtime записанного файла гарантированно отличался от ранее созданных
+ * @returns {Promise}
+ */
+function writeFile() {
+    var defer = vow.defer(),
+        args = arguments;
+
+    setTimeout(function () {
+        fs.writeFileSync.apply(fs, args);
+        defer.resolve();
+    }, 10);
+
+    return defer.promise();
+}
+
 module.exports = {
     compileBundle: compileBundle,
     run: run,
-    getLibs: getLibs
+    getLibs: getLibs,
+    writeFile: writeFile
 };
