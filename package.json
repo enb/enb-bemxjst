@@ -39,15 +39,15 @@
     "vow-node": "0.3.0"
   },
   "devDependencies": {
-    "chai": "3.4.1",
-    "chai-as-promised": "^5.2.0",
+    "chai": "3.5.0",
+    "chai-as-promised": "5.2.0",
     "enb": ">= 0.16.0 < 2.0.0",
-    "istanbul": "0.4.1",
-    "jscs": "2.8.0",
+    "istanbul": "0.4.2",
+    "jscs": "2.10.1",
     "jshint": "2.9.1",
-    "mocha": "2.3.4",
-    "mock-enb": "0.3.0",
-    "mock-fs": "3.6.0",
+    "mocha": "2.4.5",
+    "mock-enb": "0.3.1",
+    "mock-fs": "3.7.0",
     "must": "0.13.1",
     "ym": "0.1.2"
   },
