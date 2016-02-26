@@ -62,10 +62,10 @@ describe('bemhtml', function () {
     describe('base templates', function () {
         it('must ignore templates in `i-bem`', function () {
             var blocks = {
-                'i-bem.bemhtml.js': 'block("block").tag()("a")'
+                'i-bem.bemhtml': 'block("block").tag()("a")'
             };
 
-            return build(blocks)
+            return build(blocks, { sourceSuffixes: ['bemhtml.js', 'bemhtml'] })
                 .spread(function (res) {
                     var bemjson = { block: 'block' },
                         html = '<div class="block"></div>';
