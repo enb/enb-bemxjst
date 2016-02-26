@@ -10,10 +10,10 @@ var path = require('path');
  * Important: It supports only JS syntax.
  *
  * @param {Object}   [options]                          Options
- * @param {String}   [options.target='?.bemhtml.js']    Path to a target with compiled file.
+ * @param {String}   [options.target='?.bemtree.js']    Path to a target with compiled file.
  * @param {String}   [options.filesTarget='?.files']    Path to a target with FileList.
  * @param {String[]} [options.sourceSuffixes]           Files with specified suffixes involved in the assembly.
- * @param {String}   [options.exportName='BEMTREE']     Name of BEMHTML template variable.
+ * @param {String}   [options.exportName='BEMTREE']     Name of BEMTREE template variable.
  * @param {Object}   [options.requires]                 Names of dependencies which should be available from
  *                                                      code of templates.
  * @param {Boolean}  [options.forceBaseTemplates=false] Include base templates if no user templates present
@@ -33,7 +33,7 @@ var path = require('path');
  *             [bemTechs.files]
  *         ]);
  *
- *         // build BEMHTML file
+ *         // build BEMTREE file
  *         node.addTech(BemtreeTech);
  *         node.addTarget('?.bemtree.js');
  *     });
