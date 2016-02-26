@@ -4,6 +4,7 @@ API технологий
 Пакет предоставляет следующие технологии:
 
 * [bemhtml](#bemhtml) — для сборки шаблонов;
+* [bemtree](#bemtree) — для сборки шаблонов;
 * [bemjson-to-html](#bemjson-to-html) — для генерации HTML.
 
 bemhtml
@@ -148,6 +149,114 @@ var BemhtmlTech = require('enb-bemxjst/techs/bemhtml'),
          // Создаем BEMHTML-файл
          node.addTech(BemhtmlTech);
          node.addTarget('?.bemhtml.js');
+     });
+ };
+```
+
+bemtree
+-------
+
+Собирает `bemtree.js`-файлы блоков в один файл — `?.bemtree.js`-бандл, который используется для работы как в браузере, так и в `Node.js`. Не требует подключения исходных файлов шаблонов.
+
+Поддерживает [YModules](https://ru.bem.info/tools/bem/modules/) и частично [CommonJS](http://www.commonjs.org/), так как в `bemhtml.js`-файлах функция `require` не будет работать корректно.
+
+Если в исполняемой среде нет ни одной модульной системы, то модуль будет предоставлен в глобальную переменную `BEMTREE`.
+
+### Опции
+
+Опции указываются в конфигурационном файле (`.enb/make.js`).
+
+* [target](#target)
+* [filesTarget](#filestarget)
+* [sourceSuffixes](#sourcesuffixes)
+* [requires](#requires)
+* [exportName](#exportname)
+* [forceBaseTemplates](#forceBaseTemplates)
+
+### target
+
+Тип: `String`. По умолчанию: `?.bemtree.js`.
+
+Имя скомпилированного файла, куда будет записан результат сборки необходимых `bemtree.js`-файлов проекта.
+
+#### filesTarget
+
+Тип: `String`. По умолчанию: `?.files`.
+
+Имя таргета, откуда будет доступен список исходных файлов для сборки. Список файлов предоставляет технология [files](https://github.com/enb-bem/enb-bem-techs/blob/master/docs/api.ru.md#files) пакета [enb-bem-techs](https://github.com/enb-bem/enb-bem-techs/blob/master/README.md).
+
+#### sourceSuffixes
+
+Тип: `String | String[]`. По умолчанию: `['bemtree.js']`.
+
+Суффиксы файлов, по которым отбираются файлы BEMHTML-шаблонов для дальнейшей сборки.
+
+#### requires
+
+Тип: `Object`. По умолчанию: `{}`.
+
+Задает имена или пути для подключения сторонних библиотек.
+
+> Принцип работы описан в разделе [Подключение сторонних библиотек](README.md#Подключение-сторонних-библиотек).
+
+#### exportName
+
+Тип: `String`. По умолчанию: `BEMTREE`.
+
+Название, по которому будет доступен BEMTREE-модуль. Способы использования зависят от наличия модульной системы и ее типа. Модуль может применяться в следующих случаях:
+
+* Исполнение шаблонов в `Node.js`.
+
+  ```js
+  var BEMTREE = require('bundle.bemtree.js').BEMTREE;
+
+  BEMTREE.apply({ block: 'page' }); // { block: 'page', content: [...] }
+  ```
+
+* Исполнение шаблонов в браузере без модульной системы.
+
+  ```js
+  BEMTREE.apply({ block: 'page' }); // { block: 'page', content: [...] }
+  ```
+
+* Исполнение шаблонов в браузере c [YModules](https://ru.bem.info/tools/bem/modules/).
+
+  ```js
+  modules.require(['BEMTREE'], function(BEMTREE) {
+      BEMTREE.apply({ block: 'button' }); // { block: 'page', content: [...] }
+  });
+  ```
+
+#### forceBaseTemplates
+
+Тип: `Boolean`. По умолчанию `false`.
+
+Включать ли ядро в сборку, если нет пользовательских шаблонов.
+
+По умолчанию, если пользовательских шаблонов нет, то и код ядра `bem-xjst` также не будет включен в сборку.
+
+--------------------------------------
+
+**Пример**
+
+```js
+var BemtreeTech = require('enb-bemxjst/techs/bemtree'),
+    FileProvideTech = require('enb/techs/file-provider'),
+    bemTechs = require('enb-bem-techs');
+
+ module.exports = function(config) {
+     config.node('bundle', function(node) {
+         // Получаем FileList
+         node.addTechs([
+             [FileProvideTech, { target: '?.bemdecl.js' }],
+             [bemTechs.levels, { levels: ['blocks'] }],
+             [bemTechs.deps],
+             [bemTechs.files]
+         ]);
+
+         // Создаем BEMTREE-файл
+         node.addTech(BemtreeTech);
+         node.addTarget('?.bemtree.js');
      });
  };
 ```
