@@ -1,3 +1,5 @@
+var path = require('path');
+
 /**
  * @class BemhtmlTech
  * @augments {BemxjstTech}
@@ -60,7 +62,7 @@ module.exports = require('./bem-xjst').buildFlow()
 
         return this._readFiles(filenames)
             .then(this._processSources, this)
-            .then(this._compileBEMXJST, this);
+            .then(this._compileBEMHTML, this);
     })
     .methods({
         /**
@@ -76,6 +78,19 @@ module.exports = require('./bem-xjst').buildFlow()
             return bundle.compile(code, {
                 exportName: this._exportName
             });
+        },
+        /**
+         * Compiles source code using BEMHTML processor.
+         * Wraps compiled code for usage with different modular systems.
+         *
+         * @param {{ path: String, contents: String }[]} sources — objects that contain file information.
+         * @returns {Promise}
+         * @private
+         */
+        _compileBEMHTML: function (sources) {
+            var compilerFilename = path.resolve(__dirname, '../lib/bemhtml-processor');
+
+            return this._compileBEMXJST(sources, compilerFilename);
         }
     })
     .createTech();

@@ -2,19 +2,19 @@ var fs = require('fs'),
     path = require('path'),
     mock = require('mock-fs'),
     MockNode = require('mock-enb/lib/mock-node'),
-    Tech = require('../../techs/bemhtml'),
+    Tech = require('../../techs/bemtree'),
     loadDirSync = require('mock-enb/utils/dir-utils').loadDirSync,
     FileList = require('enb/lib/file-list'),
     bundlePath = path.resolve('lib/bundle.js');
 
-describe('bemhtml', function () {
+describe('bemtree', function () {
     before(function () {
         var JobQueueStub = require('mock-enb/lib/job-queue-stub');
 
         // Использование mock-fs не позволяет подключить bemxjst-processor в рантайме
         // https://github.com/tschaub/mock-fs/issues/12
         // поэтому подключаем его перед инициализацией mock-fs
-        JobQueueStub.prototype.processor = require('../../lib/bemhtml-processor');
+        JobQueueStub.prototype.processor = require('../../lib/bemtree-processor');
     });
 
     afterEach(function () {
@@ -28,7 +28,7 @@ describe('bemhtml', function () {
             .spread(function (res) {
                 var bemjson = { block: 'block' };
 
-                res.BEMHTML.apply(bemjson).must.be('');
+                res.BEMTREE.apply(bemjson).must.eql(bemjson);
             });
     });
 
@@ -37,91 +37,65 @@ describe('bemhtml', function () {
 
         return build(templates, { forceBaseTemplates: true })
             .spread(function (res) {
-                var bemjson = { block: 'block' },
-                    html = '<div class="block"></div>';
+                var data = { block: 'block' },
+                    BEMTREE = res.BEMTREE;
 
-                res.BEMHTML.apply(bemjson).must.be(html);
+                /* jshint ignore:start */
+                BEMTREE.compile(function () {
+                    block('block').content()('yay');
+                });
+                /* jshint ignore:end */
+
+                BEMTREE.apply(data).must.eql({ block: 'block', content: 'yay' });
             });
     });
 
-    it('must use `bemhtml.js` suffix', function () {
+    it('must use `bemtree.js` suffix', function () {
         var blocks = {
-            'block.bemhtml.js': 'block("block").tag()("a")',
-            'block.bemhtml': 'block("block").tag()("span")'
+            'block.bemtree.js': 'block("block").content()("yay");',
+            'block.bemtree': 'block("block").content()("why");'
         };
 
         return build(blocks)
             .spread(function (res) {
-                var bemjson = { block: 'block' },
-                    html = '<a class="block"></a>';
+                var data = { block: 'block' },
+                    bemjson = { block: 'block', content: 'yay' };
 
-                res.BEMHTML.apply(bemjson).must.be(html);
+                res.BEMTREE.apply(data).must.eql(bemjson);
             });
     });
 
     describe('base templates', function () {
         it('must ignore templates in `i-bem`', function () {
             var blocks = {
-                'i-bem.bemhtml.js': 'block("block").tag()("a")'
+                'i-bem.bemtree.js': 'block("block").content()("why")'
             };
 
             return build(blocks)
                 .spread(function (res) {
-                    var bemjson = { block: 'block' },
-                        html = '<div class="block"></div>';
+                    var data = { block: 'block' };
 
-                    res.BEMHTML.apply(bemjson).must.be(html);
+                    res.BEMTREE.apply(data).must.eql(data);
                 });
         });
 
-        it('must ignore templates in `i-bem__html`', function () {
+        it('must ignore templates in `i-bemtree` file', function () {
             var blocks = {
-                'i-bem__html.bemhtml': 'block("block").tag()("a")'
+                'i-bem.bemtree': 'block("block").content()("why")'
             };
 
-            return build(blocks, { sourceSuffixes: ['bemhtml.js', 'bemhtml'] })
+            return build(blocks, { sourceSuffixes: ['bemtree.js', 'bemtree'] })
                 .spread(function (res) {
-                    var bemjson = { block: 'block' },
-                        html = '<div class="block"></div>';
+                    var data = { block: 'block' };
 
-                    res.BEMHTML.apply(bemjson).must.be(html);
-                });
-        });
-    });
-
-    describe('naming', function () {
-        it('must use origin naming', function () {
-            var blocks = {
-                'block.bemhtml.js': 'block("block").tag()("div")'
-            };
-
-            return build(blocks)
-                .spread(function (res) {
-                    var bemjson = { block: 'block', elem: 'elem', elemMods: { mod: true } },
-                        html = '<div class="block__elem block__elem_mod"></div>';
-
-                    res.BEMHTML.apply(bemjson).must.be(html);
-                });
-        });
-
-        it('must support custom naming', function () {
-            var blocks = {
-                'block.bemhtml.js': 'block("block").tag()("div")'
-            };
-
-            return build(blocks, { naming: { elem: '__', mod: '--' } })
-                .spread(function (res) {
-                    var bemjson = { block: 'block', elem: 'elem', elemMods: { mod: true } },
-                        html = '<div class="block__elem block__elem--mod"></div>';
-
-                    res.BEMHTML.apply(bemjson).must.be(html);
+                    res.BEMTREE.apply(data).must.eql(data);
                 });
         });
     });
 
     describe('compat', function () {
         it('must throw error if old syntax', function () {
-            var templates = ['block bla, tag: "a"'];
+            var templates = ['block bla, content: "yey"'];
 
             return build(templates)
                 .fail(function (err) {
@@ -131,7 +105,7 @@ describe('bemhtml', function () {
 
         it('must not support old syntax for files with `.js` extension', function () {
             var blocks = {
-                    'block.bemhtml.js': 'block bla, tag: "a"'
+                    'block.bemhtml.js': 'block bla, content: "yey"'
                 },
                 options = { compat: true };
 
@@ -144,7 +118,7 @@ describe('bemhtml', function () {
 
     describe('handle template errors', function () {
         it('must throw syntax error', function () {
-            var templates = ['block("bla")tag()("a")'];
+            var templates = ['block("bla")content()("yey")'];
 
             return build(templates)
                 .fail(function (error) {
@@ -153,7 +127,7 @@ describe('bemhtml', function () {
         });
 
         it('must throw predicate error', function () {
-            var templates = ['block("bla").tag("a")'];
+            var templates = ['block("bla").content("yey")'];
 
             return build(templates)
                 .fail(function (error) {
@@ -179,7 +153,7 @@ function build(templates, options) {
     if (Array.isArray(templates)) {
         if (templates.length) {
             templates.forEach(function (item, i) {
-                scheme.blocks['block-' + i + '.bemhtml.js'] = item;
+                scheme.blocks['block-' + i + '.bemtree.js'] = item;
             });
         }
     } else {
@@ -188,7 +162,7 @@ function build(templates, options) {
 
     if (templates.length) {
         templates.forEach(function (item, i) {
-            scheme.blocks['block-' + i + '.bemhtml.js'] = item;
+            scheme.blocks['block-' + i + '.bemtree.js'] = item;
         });
     }
 
@@ -201,7 +175,7 @@ function build(templates, options) {
 
     return bundle.runTechAndRequire(Tech, options)
         .spread(function (res) {
-            var filename = bundle.resolvePath(bundle.unmaskTargetName(options.target || '?.bemhtml.js')),
+            var filename = bundle.resolvePath(bundle.unmaskTargetName(options.target || '?.bemtree.js')),
                 str = fs.readFileSync(filename, 'utf-8');
 
             return [res, str];
