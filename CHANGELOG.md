@@ -1,6 +1,32 @@
 История изменений
 =================
 
+5.0.0
+-----
+
+### bem-xjst
+
+Компилятор шаблонов [bem-xjst](https://github.com/bem/bem-xjst) обновлен до версии `5.0.0`.
+
+В этой версии появилась недостающая функциональность — поддержка [BEMTREE](https://ru.bem.info/technology/bemtree/current).
+
+**Важно:** пакет `enb-bemxjst` перестаёт поддерживать версии `2.x` и `4.x`.
+
+О всех изменениях `bem-xjst` читайте в [примечании к релизу](https://github.com/bem/bem-xjst/releases/tag/v5.0.0).
+
+### Технологии
+
+* Добавлена технология [bemtree](api.ru.md#bemtree) ([#127]).
+
+### Остальное
+
+* [ __*major*__ ] Базовые шаблоны (блок `i-bem.bemtree`) из библиотеки `bem-core@2.x` будут игнорироваться. Теперь не обязательно использовать библиотеку `bem-core` для сборки BEMTREE-шаблонов. Базовые шаблоны встроены в компилятор `bem-xjst`, начиная с версии `5.x`.
+
+### Зависимости
+
+* Модуль `bem-xjst@4.3.5` обновлен до версии `5.0.0`.
+* Модуль `lodash@4.3.0` обновлен до версии `4.5.1`.
+
 4.1.1
 -----
 
@@ -286,6 +312,7 @@
 
 * Добавлена технология `bemhtml`.
 
+[#127]: https://github.com/enb-bem/enb-bemxjst/pull/127
 [#119]: https://github.com/enb-bem/enb-bemxjst/pull/119
 [#115]: https://github.com/enb-bem/enb-bemxjst/pull/115
 [#110]: https://github.com/enb-bem/enb-bemxjst/issues/110
