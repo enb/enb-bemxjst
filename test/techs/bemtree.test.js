@@ -66,19 +66,6 @@ describe('bemtree', function () {
     });
 
     describe('base templates', function () {
-        it('must ignore templates in `i-bem`', function () {
-            var blocks = {
-                'i-bem.bemtree.js': 'block("block").content()("why")'
-            };
-
-            return build(blocks)
-                .spread(function (res) {
-                    var data = { block: 'block' };
-
-                    res.BEMTREE.apply(data).must.eql(data);
-                });
-        });
-
         it('must ignore templates in `i-bemtree` file', function () {
             var blocks = {
                 'i-bem.bemtree': 'block("block").content()("why")'
