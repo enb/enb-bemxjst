@@ -3,16 +3,17 @@ enb-bemxjst
 
 [![NPM version](https://img.shields.io/npm/v/enb-bemxjst.svg?style=flat)](https://www.npmjs.org/package/enb-bemxjst) [![Build Status](https://img.shields.io/travis/enb-bem/enb-bemxjst/master.svg?style=flat&label=tests)](https://travis-ci.org/enb-bem/enb-bemxjst) [![Build status](https://img.shields.io/appveyor/ci/blond/enb-bemxjst.svg?style=flat&label=windows)](https://ci.appveyor.com/project/blond/enb-bemxjst) [![Coverage Status](https://img.shields.io/coveralls/enb-bem/enb-bemxjst.svg?style=flat)](https://coveralls.io/r/enb-bem/enb-bemxjst?branch=master) [![Dependency Status](https://img.shields.io/david/enb-bem/enb-bemxjst.svg?style=flat)](https://david-dm.org/enb-bem/enb-bemxjst)
 
-Пакет предоставляет набор [ENB](https://ru.bem.info/tools/bem/enb-bem/)-технологий для сборки [BEMHTML](https://ru.bem.info/technology/bemhtml/current/reference/)-шаблонов в проектах, построенных по [методологии БЭМ](https://ru.bem.info/method/).
+Пакет предоставляет набор [ENB](https://ru.bem.info/tools/bem/enb-bem/)-технологий для сборки [BEMTREE](https://ru.bem.info/technology/bemtree/current/bemtree/)- и [BEMHTML](https://ru.bem.info/technology/bemhtml/current/reference/)-шаблонов в проектах, построенных по [методологии БЭМ](https://ru.bem.info/method/).
 
 **Технологии пакета `enb-bemxjst`:**
 
 * [bemhtml](api.ru.md#bemhtml)
+* [bemtree](api.ru.md#bemtree)
 * [bemjson-to-html](api.ru.md#bemjson-to-html)
 
 Принципы работы технологий и их API описаны в документе [API технологий](api.ru.md).
 
-**Совместимость:** технологии пакета `enb-bemxjst` используют [компилятор BEM-XJST](https://ru.bem.info/tools/templating-engines/bemxjst/) версии `4.2.3`.
+**Совместимость:** технологии пакета `enb-bemxjst` используют [компилятор BEM-XJST](https://ru.bem.info/tools/templating-engines/bemxjst/) версии `5.0.0`.
 
 Установка
 ---------
@@ -43,10 +44,11 @@ $ npm install --save-dev enb-bemxjst
 Быстрый старт
 -------------
 
-Подключите технологию [bemhtml](api.ru.md#bemhtml).
+Подключите необходимые технологии: [bemtree](api.ru.md#bemtree), [bemhtml](api.ru.md#bemhtml).
 
 ```js
-var BemhtmlTech = require('enb-bemxjst/techs/bemhtml'),
+var BemtreeTech = require('enb-bemxjst/techs/bemtree'),
+    BemhtmlTech = require('enb-bemxjst/techs/bemhtml'),
     FileProvideTech = require('enb/techs/file-provider'),
     bemTechs = require('enb-bem-techs');
 
@@ -55,10 +57,14 @@ var BemhtmlTech = require('enb-bemxjst/techs/bemhtml'),
          // Получаем FileList
          node.addTechs([
              [FileProvideTech, { target: '?.bemdecl.js' }],
-             [bemTechs.levels, { levels: ['blocks'] }],
+             [bemTechs.levels, levels: ['blocks']],
              bemTechs.deps,
              bemTechs.files
          ]);
+
+         // Создаем BEMTREE-файл
+         node.addTech(BemtreeTech);
+         node.addTarget('?.bemtree.js');
 
          // Создаем BEMHTML-файл
          node.addTech(BemhtmlTech);
@@ -102,11 +108,14 @@ module.exports = function(config) {
 Работа с технологиями
 ---------------------
 
-По БЭМ-методологии шаблоны к каждому блоку хранятся в отдельных файлах с расширением `.bemhtml.js` в директориях блоков. Чтобы использовать шаблоны, необходимо собрать их исходные файлы.
+По БЭМ-методологии шаблоны к каждому блоку хранятся в отдельных файлах с расширением `.bemtree.js` и `.bemhtml.js` в директориях блоков. Чтобы использовать шаблоны, необходимо собрать их исходные файлы.
 
-Отдельные файлы с шаблонами собираются в один общий файл (`?.bemhtml.js`) с помощью технологии [bemhtml](api.ru.md#bemhtml).
+Отдельные файлы с шаблонами (`.bemtree.js` или `.bemhtml.js`) собираются в один общий файл (`?.bemtree.js` или `?.bemhtml.js`) с помощью технологий:
 
-Результат — скомпилированный файл `?.bemhtml.js` — может применяться по-разному в зависимости от наличия модульной системы и ее типа в следующих случаях:
+* [bemtree](api.ru.md#bemtree)
+* [bemhtml](api.ru.md#bemhtml)
+
+Результат — скомпилированный файл `?.bemhtml.js` или `?.bemtree.js` — может применяться по-разному в зависимости от наличия модульной системы и ее типа в следующих случаях:
 
 * [в Node.js](#Исполнение-шаблонов-в-nodejs)
 * [в браузере](#Исполнение-шаблонов-в-браузере)
@@ -117,9 +126,11 @@ module.exports = function(config) {
 Скомпилированный файл подключается как модуль в формате [CommonJS](http://www.commonjs.org/).
 
 ```js
-var BEMHTML = require('bundle.bemhtml.js').BEMHTML; // Путь до скомпилированного BEMHTML-файла
+var BEMTREE = require('bundle.bemtree.js').BEMTREE, // Путь до скомпилированного BEMTREE-файла
+    BEMHTML = require('bundle.bemhtml.js').BEMHTML; // Путь до скомпилированного BEMHTML-файла
 
-BEMHTML.apply(bemjson); // <html>...</html>
+var bemjson = BEMTREE.apply({ block: 'page', data: { /* ... */ } }),
+    html = BEMHTML.apply(bemjson); // <html>...</html>
 ```
 
 ### Исполнение шаблонов в браузере
@@ -127,6 +138,7 @@ BEMHTML.apply(bemjson); // <html>...</html>
 Скомпилированный файл подключается на страницу как JavaScript-файл.
 
 ```html
+<script src="bundle.bemtree.js"></script>
 <script src="bundle.bemhtml.js"></script>
 ```
 
@@ -134,18 +146,20 @@ BEMHTML.apply(bemjson); // <html>...</html>
 
 * **Без модульной системы**
 
-  Шаблоны доступны из глобальной переменной `BEMHTML`.
+  Шаблоны доступны из глобальной переменной `BEMTREE` или `BEMHTML`.
 
   ```js
-  BEMHTML.apply(bemjson); // <html>...</html>
+  var bemjson = BEMTREE.apply({ block: 'page', data: { /* ... */ } }),
+      html = BEMHTML.apply(bemjson); // <html>...</html>
   ```
 * **С модульной системой YModules**
 
   Шаблоны доступны из модульной системы ([YModules](https://ru.bem.info/tools/bem/modules/)):
 
   ```js
-  modules.require(['BEMHTML'], function(BEMHTML) {
-      BEMHTML.apply(bemjson); // <html>...</html>
+  modules.require(['BEMTREE', 'BEMHTML'], function(BEMTREE, BEMHTML) {
+      var bemjson = BEMTREE.apply({ block: 'page', data: { /* ... */ } }),
+          html = BEMHTML.apply(bemjson); // <html>...</html>
   });
   ```
 
@@ -163,7 +177,7 @@ HTML – результат применения скомпилированно�
 
 ### Подключение сторонних библиотек
 
-Технология [bemhtml](api.ru.md#bemhtml) поддерживают возможность подключения сторонних библиотек как глобально, так и для разных модульных систем с помощью опции [requires](api.ru.md#requires).
+Технологии [bemtree](api.ru.md#bemtree) и [bemhtml](api.ru.md#bemhtml) поддерживают возможность подключения сторонних библиотек как глобально, так и для разных модульных систем с помощью опции [requires](api.ru.md#requires).
 
 Для подключения укажите название библиотеки и в зависимости от используемой модульной системы:
 
@@ -271,6 +285,7 @@ block('button').elem('tooltip').content()(function () {
 * [Быстрый старт по BEMHTML](https://ru.bem.info/technology/bemhtml/current/intro/)
 * [Описание шаблонизатора и его преимуществ](https://ru.bem.info/technology/bemhtml/current/rationale/)
 * [Справочное руководство по шаблонизатору BEMHTML](https://ru.bem.info/technology/bemhtml/current/reference/)
+* [Справочное руководство по шаблонизатору BEMTREE](https://ru.bem.info/technology/bemtree/current)
 * [Справочное руководство по BEMJSON](https://ru.bem.info/technology/bemjson/current/bemjson/)
 * [JS-синтаксис](https://ru.bem.info/technology/bemhtml/current/bemhtml-js-syntax/)
 
