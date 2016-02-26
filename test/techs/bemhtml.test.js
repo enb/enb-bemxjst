@@ -88,7 +88,7 @@ describe('bemhtml', function () {
 
             return build(blocks)
                 .spread(function (res) {
-                    var bemjson = { block: 'block', elem: 'elem', mods: { mod: true } },
+                    var bemjson = { block: 'block', elem: 'elem', elemMods: { mod: true } },
                         html = '<div class="block__elem block__elem_mod"></div>';
 
                     res.BEMHTML.apply(bemjson).must.be(html);
@@ -102,7 +102,7 @@ describe('bemhtml', function () {
 
             return build(blocks, { naming: { elem: '__', mod: '--' } })
                 .spread(function (res) {
-                    var bemjson = { block: 'block', elem: 'elem', mods: { mod: true } },
+                    var bemjson = { block: 'block', elem: 'elem', elemMods: { mod: true } },
                         html = '<div class="block__elem block__elem--mod"></div>';
 
                     res.BEMHTML.apply(bemjson).must.be(html);
