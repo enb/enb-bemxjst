@@ -3,7 +3,7 @@ var EOL = require('os').EOL,
     enb = require('enb'),
     vfs = enb.asyncFs || require('enb/lib/fs/async-fs'),
     buildFlow = enb.buildFlow || require('enb/lib/build-flow'),
-    I_BEM_REG_EX = /^i-bem(__html)?\.bemhtml(\.js)?$/;
+    I_BEM_REG_EX = /^i-bem(__html)?\.bem(html|tree)(\.js)?$/;
 
 /**
  * @class BemxjstTech
