@@ -1,7 +1,7 @@
 var mock = require('mock-fs'),
     MockNode = require('mock-enb/lib/mock-node'),
     Tech = require('../../techs/bemjson-to-html'),
-    writeFile = require('../lib/write-file');
+    writeFile = require('../utils').writeFile;
 
 describe('bemjson-to-html', function () {
     var bundle;
