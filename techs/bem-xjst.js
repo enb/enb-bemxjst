@@ -1,5 +1,4 @@
 var EOL = require('os').EOL,
-    path = require('path'),
     vow = require('vow'),
     enb = require('enb'),
     vfs = enb.asyncFs || require('enb/lib/fs/async-fs'),
@@ -113,12 +112,12 @@ module.exports = buildFlow.create()
          * Wraps compiled code for usage with different modular systems.
          *
          * @param {{ path: String, contents: String }[]} sources — objects that contain file information.
+         * @param {String} compilerFilename — path to BEMXJST processor.
          * @returns {Promise}
          * @private
          */
-        _compileBEMXJST: function (sources) {
+        _compileBEMXJST: function (sources, compilerFilename) {
             var queue = this.node.getSharedResources().jobQueue,
-                compilerFilename = path.resolve(__dirname, '../lib/bemhtml-processor'),
                 compilerOptions = {
                     wrap: false,
                     naming: this._naming
