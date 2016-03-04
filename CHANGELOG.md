@@ -1,6 +1,12 @@
 История изменений
 =================
 
+4.2.0
+-----
+
+* Для `bemjson-to-html` технологии добавлен метод `render` ([#123]).
+* Исправлено получение `global` объекта в `CommonJS`.
+
 4.1.1
 -----
 
@@ -286,6 +292,7 @@
 
 * Добавлена технология `bemhtml`.
 
+[#123]: https://github.com/enb-bem/enb-bemxjst/pull/123
 [#119]: https://github.com/enb-bem/enb-bemxjst/pull/119
 [#115]: https://github.com/enb-bem/enb-bemxjst/pull/115
 [#110]: https://github.com/enb-bem/enb-bemxjst/issues/110
