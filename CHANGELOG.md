@@ -1,6 +1,11 @@
 История изменений
 =================
 
+2.2.0
+-----
+
+* Для `bemjson-to-html` технологии добавлен метод `render` ([#121]).
+
 2.1.1
 -----
 
@@ -186,6 +191,7 @@
 
 * Добавлена технология `bemhtml`.
 
+[#121]: https://github.com/enb-bem/enb-bemxjst/pull/121
 [#110]: https://github.com/enb-bem/enb-bemxjst/issues/110
 [#106]: https://github.com/enb-bem/enb-bemxjst/pull/106
 [#100]: https://github.com/enb-bem/enb-bemxjst/issues/100
