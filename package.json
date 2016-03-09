@@ -2,7 +2,7 @@
   "author": "Andrew Abramov <andrewblond@yandex.com>",
   "description": "bem-xjst support for ENB",
   "name": "enb-bemxjst",
-  "version": "5.0.1",
+  "version": "6.0.0",
   "repository": "git://github.com/enb-bem/enb-bemxjst",
   "homepage": "https://github.com/enb-bem/enb-bemxjst",
   "bugs": "https://github.com/enb-bem/enb-bemxjst/issues",
