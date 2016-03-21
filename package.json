@@ -3,13 +3,13 @@
   "description": "bem-xjst support for ENB",
   "name": "enb-bemxjst",
   "version": "6.0.0",
-  "repository": "git://github.com/enb-bem/enb-bemxjst",
-  "homepage": "https://github.com/enb-bem/enb-bemxjst",
-  "bugs": "https://github.com/enb-bem/enb-bemxjst/issues",
+  "repository": "git://github.com/enb/enb-bemxjst",
+  "homepage": "https://github.com/enb/enb-bemxjst",
+  "bugs": "https://github.com/enb/enb-bemxjst/issues",
   "licenses": [
     {
       "type": "MPL-2.0",
-      "url": "https://github.com/enb-bem/enb-bemxjst/blob/master/LICENSE.txt"
+      "url": "https://github.com/enb/enb-bemxjst/blob/master/LICENSE.txt"
     }
   ],
   "contributors": [

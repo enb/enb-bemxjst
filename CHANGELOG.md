@@ -131,13 +131,13 @@
 
 ### Опции
 
-* Для технологии [bemhtml](https://github.com/enb-bem/enb-bemxjst/blob/4.x/api.ru.md#bemhtml) добавлена опция [naming](https://github.com/enb-bem/enb-bemxjst/blob/4.x/api.ru.md#naming).
+* Для технологии [bemhtml](https://github.com/enb/enb-bemxjst/blob/4.x/api.ru.md#bemhtml) добавлена опция [naming](https://github.com/enb/enb-bemxjst/blob/4.x/api.ru.md#naming).
 * [ __*major*__ ] Удалена опция `compat`. Модуль `bemhtml-compat` не совместим с `bem-xjst@4.x`.
 * [ __*major*__ ] Удалена опция `devMode`. В `bem-xjst`, начиная с версии 2.x, отсутствуют разные режимы компиляции шаблонов.
 
 ### Остальное
 
-* [ __*major*__ ] Удалена поддержка файлов с расширением `.bemhtml`. По умолчанию шаблоны должны располагаться в файлах с расширением `.bemhtml.js`. Используйте опцию [sourceSuffixes](https://github.com/enb-bem/enb-bemxjst/blob/4.x/api.ru.md#sourcesuffixes) для настройки.
+* [ __*major*__ ] Удалена поддержка файлов с расширением `.bemhtml`. По умолчанию шаблоны должны располагаться в файлах с расширением `.bemhtml.js`. Используйте опцию [sourceSuffixes](https://github.com/enb/enb-bemxjst/blob/4.x/api.ru.md#sourcesuffixes) для настройки.
 * [ __*major*__ ] Базовые шаблоны (блок `i-bem.bemhtml`) из библиотеки `bem-core@2.x` будут игнорироваться. Теперь не обязательно использовать библиотеку `bem-core` для сборки BEMHTML-шаблонов. Базовые шаблоны встроены в компилятор `bem-xjst`, начиная с версии `2.x`.
 
 ### Зависимости
@@ -330,25 +330,25 @@
 
 * Добавлена технология `bemhtml`.
 
-[#127]: https://github.com/enb-bem/enb-bemxjst/pull/127
-[#119]: https://github.com/enb-bem/enb-bemxjst/pull/119
-[#115]: https://github.com/enb-bem/enb-bemxjst/pull/115
-[#110]: https://github.com/enb-bem/enb-bemxjst/issues/110
-[#106]: https://github.com/enb-bem/enb-bemxjst/pull/106
-[#100]: https://github.com/enb-bem/enb-bemxjst/issues/100
-[#95]: https://github.com/enb-bem/enb-bemxjst/issues/95
-[#93]: https://github.com/enb-bem/enb-bemxjst/issues/93
-[#90]: https://github.com/enb-bem/enb-bemxjst/issues/90
-[#88]: https://github.com/enb-bem/enb-bemxjst/issues/88
-[#80]: https://github.com/enb-bem/enb-bemxjst/issues/80
-[#61]: https://github.com/enb-bem/enb-bemxjst/issues/61
-[#60]: https://github.com/enb-bem/enb-bemxjst/issues/60
-[#58]: https://github.com/enb-bem/enb-bemxjst/issues/58
-[#51]: https://github.com/enb-bem/enb-bemxjst/issues/51
-[#50]: https://github.com/enb-bem/enb-bemxjst/issues/50
-[#47]: https://github.com/enb-bem/enb-bemxjst/issues/47
-[#42]: https://github.com/enb-bem/enb-bemxjst/issues/42
-[#41]: https://github.com/enb-bem/enb-bemxjst/issues/41
-[#33]: https://github.com/enb-bem/enb-bemxjst/issues/33
-[#37]: https://github.com/enb-bem/enb-bemxjst/issues/37
-[#25]: https://github.com/enb-bem/enb-bemxjst/issues/25
+[#127]: https://github.com/enb/enb-bemxjst/pull/127
+[#119]: https://github.com/enb/enb-bemxjst/pull/119
+[#115]: https://github.com/enb/enb-bemxjst/pull/115
+[#110]: https://github.com/enb/enb-bemxjst/issues/110
+[#106]: https://github.com/enb/enb-bemxjst/pull/106
+[#100]: https://github.com/enb/enb-bemxjst/issues/100
+[#95]: https://github.com/enb/enb-bemxjst/issues/95
+[#93]: https://github.com/enb/enb-bemxjst/issues/93
+[#90]: https://github.com/enb/enb-bemxjst/issues/90
+[#88]: https://github.com/enb/enb-bemxjst/issues/88
+[#80]: https://github.com/enb/enb-bemxjst/issues/80
+[#61]: https://github.com/enb/enb-bemxjst/issues/61
+[#60]: https://github.com/enb/enb-bemxjst/issues/60
+[#58]: https://github.com/enb/enb-bemxjst/issues/58
+[#51]: https://github.com/enb/enb-bemxjst/issues/51
+[#50]: https://github.com/enb/enb-bemxjst/issues/50
+[#47]: https://github.com/enb/enb-bemxjst/issues/47
+[#42]: https://github.com/enb/enb-bemxjst/issues/42
+[#41]: https://github.com/enb/enb-bemxjst/issues/41
+[#33]: https://github.com/enb/enb-bemxjst/issues/33
+[#37]: https://github.com/enb/enb-bemxjst/issues/37
+[#25]: https://github.com/enb/enb-bemxjst/issues/25

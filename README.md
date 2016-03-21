@@ -1,9 +1,9 @@
 enb-bemxjst
 ===========
 
-[![NPM version](https://img.shields.io/npm/v/enb-bemxjst.svg?style=flat)](https://www.npmjs.org/package/enb-bemxjst) [![Build Status](https://img.shields.io/travis/enb-bem/enb-bemxjst/master.svg?style=flat&label=tests)](https://travis-ci.org/enb-bem/enb-bemxjst) [![Build status](https://img.shields.io/appveyor/ci/blond/enb-bemxjst.svg?style=flat&label=windows)](https://ci.appveyor.com/project/blond/enb-bemxjst) [![Coverage Status](https://img.shields.io/coveralls/enb-bem/enb-bemxjst.svg?style=flat)](https://coveralls.io/r/enb-bem/enb-bemxjst?branch=master) [![Dependency Status](https://img.shields.io/david/enb-bem/enb-bemxjst.svg?style=flat)](https://david-dm.org/enb-bem/enb-bemxjst)
+[![NPM version](https://img.shields.io/npm/v/enb-bemxjst.svg?style=flat)](https://www.npmjs.org/package/enb-bemxjst) [![Build Status](https://img.shields.io/travis/enb/enb-bemxjst/master.svg?style=flat&label=tests)](https://travis-ci.org/enb/enb-bemxjst) [![Build status](https://img.shields.io/appveyor/ci/blond/enb-bemxjst.svg?style=flat&label=windows)](https://ci.appveyor.com/project/blond/enb-bemxjst) [![Coverage Status](https://img.shields.io/coveralls/enb/enb-bemxjst.svg?style=flat)](https://coveralls.io/r/enb/enb-bemxjst?branch=master) [![Dependency Status](https://img.shields.io/david/enb/enb-bemxjst.svg?style=flat)](https://david-dm.org/enb/enb-bemxjst)
 
-Пакет предоставляет набор [ENB](https://ru.bem.info/tools/bem/enb-bem/)-технологий для сборки [BEMTREE](https://ru.bem.info/technology/bemtree/current/bemtree/)- и [BEMHTML](https://ru.bem.info/technology/bemhtml/current/reference/)-шаблонов в проектах, построенных по [методологии БЭМ](https://ru.bem.info/method/).
+Пакет предоставляет набор [ENB](https://ru.bem.info/tools/bem/enb/)-технологий для сборки [BEMTREE](https://ru.bem.info/technology/bemtree/current/bemtree/)- и [BEMHTML](https://ru.bem.info/technology/bemhtml/current/reference/)-шаблонов в проектах, построенных по [методологии БЭМ](https://ru.bem.info/method/).
 
 **Технологии пакета `enb-bemxjst`:**
 
