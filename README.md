@@ -13,7 +13,7 @@ enb-bemxjst
 
 Принципы работы технологий и их API описаны в документе [API технологий](api.ru.md).
 
-**Совместимость:** технологии пакета `enb-bemxjst` используют [компилятор BEM-XJST](https://ru.bem.info/tools/templating-engines/bemxjst/) версии `5.0.0`.
+**Совместимость:** технологии пакета `enb-bemxjst` используют [компилятор BEM-XJST](https://ru.bem.info/tools/templating-engines/bemxjst/) версии `6.2.0`.
 
 Установка
 ---------
