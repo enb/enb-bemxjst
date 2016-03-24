@@ -1,6 +1,19 @@
 История изменений
 =================
 
+6.1.0
+-----
+
+### bem-xjst
+
+Модуль `bem-xjst@6.0.0` обновлен до версии `6.1.1`.
+
+О всех изменениях `bem-xjst` читайте в примечаниях к релизам:
+
+* [v6.0.1](https://github.com/bem/bem-xjst/releases/tag/v6.0.1)
+* [v6.1.0](https://github.com/bem/bem-xjst/releases/tag/v6.1.0)
+* [v6.1.1](https://github.com/bem/bem-xjst/releases/tag/v6.1.1)
+
 6.0.0
 -----
 
