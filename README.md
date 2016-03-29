@@ -88,7 +88,7 @@ module.exports = function(config) {
 
         // Получаем FileList
         node.addTechs([
-            [bemTechs.levels, levels: ['blocks']],
+            [bemTechs.levels, { levels: ['blocks'] }],
             [bemTechs.bemjsonToBemdecl],
             [bemTechs.deps],
             [bemTechs.files]
