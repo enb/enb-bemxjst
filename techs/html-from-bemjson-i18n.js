@@ -21,12 +21,14 @@
  */
 var vm = require('vm'),
     vow = require('vow'),
-    vfs = require('enb/lib/fs/async-fs'),
-    requireOrEval = require('enb/lib/fs/require-or-eval'),
-    asyncRequire = require('enb/lib/fs/async-require'),
-    dropRequireCache = require('enb/lib/fs/drop-require-cache');
+    enb = require('enb'),
+    vfs = enb.asyncFs || require('enb/lib/fs/async-fs'),
+    buildFlow = enb.buildFlow || require('enb/lib/build-flow'),
+    requireOrEval = require('enb-require-or-eval'),
+    asyncRequire = require('enb-async-require'),
+    clearRequire = require('clear-require');
 
-module.exports = require('enb/lib/build-flow').create()
+module.exports = buildFlow.create()
     .name('html-from-bemjson-i18n')
     .target('target', '?.{lang}.html')
     .useSourceFilename('bemhtmlFile', '?.bemhtml.js')
@@ -53,8 +55,8 @@ module.exports = require('enb/lib/build-flow').create()
         cache.cacheFileInfo('html-file', this.node.resolvePath(this._target));
     })
     .builder(function (bemhtmlFilename, bemjsonFilename, allLangFilename, langFilename) {
-        dropRequireCache(require, bemhtmlFilename);
-        dropRequireCache(require, bemjsonFilename);
+        clearRequire(bemhtmlFilename);
+        clearRequire(bemjsonFilename);
 
         return vow.all([
             asyncRequire(bemhtmlFilename),

@@ -1,5 +1,5 @@
 var mockFs = require('mock-fs'),
-    TestNode = require('enb/lib/test/mocks/test-node'),
+    MockNode = require('mock-enb/lib/mock-node'),
     Tech = require('../../techs/html-from-bemjson-i18n'),
     fixtures = require('../lib/fixtures'),
     references = fixtures.references(['page.ru.html']);
@@ -15,7 +15,7 @@ describe('html-from-bemjson-i18n', function () {
             ])
         });
 
-        node = new TestNode('bundle');
+        node = new MockNode('bundle');
     });
 
     afterEach(function () {
