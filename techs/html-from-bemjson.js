@@ -16,11 +16,13 @@
  * nodeConfig.addTech(require('enb-bemxjst/techs/html-from-bemjson'));
  * ```
  */
-var requireOrEval = require('enb/lib/fs/require-or-eval'),
-    asyncRequire = require('enb/lib/fs/async-require'),
-    dropRequireCache = require('enb/lib/fs/drop-require-cache');
+var enb = require('enb'),
+    buildFlow = enb.buildFlow || require('enb/lib/build-flow'),
+    requireOrEval = require('enb-require-or-eval'),
+    asyncRequire = require('enb-async-require'),
+    clearRequire = require('clear-require');
 
-module.exports = require('enb/lib/build-flow').create()
+module.exports = buildFlow.create()
     .name('html-from-bemjson')
     .target('target', '?.html')
     .useSourceFilename('bemhtmlFile', '?.bemhtml.js')
@@ -29,11 +31,11 @@ module.exports = require('enb/lib/build-flow').create()
     .optionAlias('bemjsonFile', 'bemjsonTarget')
     .optionAlias('target', 'destTarget')
     .builder(function (bemhtmlFilename, bemjsonFilename) {
-        dropRequireCache(require, bemjsonFilename);
+        clearRequire(bemjsonFilename);
 
         return requireOrEval(bemjsonFilename)
             .then(function (json) {
-                dropRequireCache(require, bemhtmlFilename);
+                clearRequire(bemhtmlFilename);
 
                 return asyncRequire(bemhtmlFilename)
                     .then(function (bemhtml) {

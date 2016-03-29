@@ -1,8 +1,9 @@
 var mockRequire = require('../lib/mock-require'),
     mockFs = require('mock-fs'),
     vow = require('vow'),
-    TestNode = require('enb/lib/test/mocks/test-node'),
+    MockNode = require('mock-enb/lib/mock-node'),
     FileList = require('enb/lib/file-list'),
+    loadDirSync = require('mock-enb/utils/dir-utils').loadDirSync,
     Tech = require('../../techs/bemtree'),
     fixtures = require('../lib/fixtures'),
     references = fixtures.references(['data.json', 'page.json']);
@@ -19,8 +20,8 @@ describe('bemtree', function () {
             bundle: {}
         });
 
-        node = new TestNode('bundle');
-        fileList.loadFromDirSync('blocks');
+        node = new MockNode('bundle');
+        fileList.addFiles(loadDirSync('blocks'));
         node.provideTechData('?.files', fileList);
     });
 
@@ -53,8 +54,8 @@ describe('bemtree', function () {
 
     it('must build different code by mode', function (done) {
         vow.all([
-            node.runTechAndGetContent(Tech, { devMode: true }),
-            node.runTechAndGetContent(Tech, { devMode: false })
+            node.runTechAndGetContent(Tech, { target: 'dev.bemtree.js', devMode: true }),
+            node.runTechAndGetContent(Tech, { target: 'prod.bemtree.js', devMode: false })
         ]).spread(function (dev, prod) {
             var devSource = dev[0],
                 prodSource = prod[0];

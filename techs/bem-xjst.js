@@ -1,5 +1,7 @@
 var vow = require('vow'),
-    fs = require('enb/lib/fs/async-fs'),
+    enb = require('enb'),
+    fs = enb.asyncFs || require('enb/lib/fs/async-fs'),
+    buildFlow = enb.buildFlow || require('enb/lib/build-flow'),
     bemxjst = require('bem-xjst'),
     bemcompat = require('bemhtml-compat'),
     BemxjstProcessor = require('sibling').declare({
@@ -9,7 +11,7 @@ var vow = require('vow'),
     }),
     XJST_SUFFIX = 'xjst';
 
-module.exports = require('enb/lib/build-flow').create()
+module.exports = buildFlow.create()
     .name('bem-xjst')
     .target('target', '?.bem-xjst.js')
     .methods({
