@@ -57,7 +57,7 @@ var BemtreeTech = require('enb-bemxjst/techs/bemtree'),
          // Получаем FileList
          node.addTechs([
              [FileProvideTech, { target: '?.bemdecl.js' }],
-             [bemTechs.levels, levels: ['blocks']],
+             [bemTechs.levels, { levels: ['blocks'] }],
              bemTechs.deps,
              bemTechs.files
          ]);
@@ -88,7 +88,7 @@ module.exports = function(config) {
 
         // Получаем FileList
         node.addTechs([
-            [bemTechs.levels, levels: ['blocks']],
+            [bemTechs.levels, { levels: ['blocks'] }],
             [bemTechs.bemjsonToBemdecl],
             [bemTechs.deps],
             [bemTechs.files]
