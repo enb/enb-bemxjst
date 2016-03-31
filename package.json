@@ -34,7 +34,7 @@
     "clear-require": "1.0.1",
     "enb-async-require": "1.0.1",
     "enb-require-or-eval": "1.0.2",
-    "lodash": "4.6.1",
+    "lodash": "4.7.0",
     "vow": "0.4.12",
     "vow-node": "0.3.0"
   },
