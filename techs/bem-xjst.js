@@ -16,10 +16,13 @@ var EOL = require('os').EOL,
  *
  * @param {Object}      [options]                           Options
  * @param {String}      [options.target='?.bem-xjst.js']    Path to a target with compiled file.
+ * @param {Boolean}     [options.strictMode=false]          Enable strict mode.
+ *                                                          Adds "'use strict';" string to start of file
  */
 module.exports = buildFlow.create()
     .name('bem-xjst')
     .target('target', '?.bem-xjst.js')
+    .defineOption('strictMode')
     .methods({
         /**
          * Returns filenames to compile.
@@ -136,10 +139,12 @@ module.exports = buildFlow.create()
                     '    };',
                     '});'
                 ].join(EOL),
-                bundle = require('../lib/bundle');
+                bundle = require('../lib/bundle'),
+                result;
 
             // Compiles source code using BEMXJST processor.
-            return queue.push(compilerFilename, codeToCompile, compilerOptions)
+            result = queue
+                .push(compilerFilename, codeToCompile, compilerOptions)
                 .then(function (compiledCode) {
                     // Wraps compiled code for usage with different modular systems.
                     return bundle.compile(compiledCode, {
@@ -148,6 +153,18 @@ module.exports = buildFlow.create()
                         requires: this._requires
                     });
                 }, this);
+
+            if (this._strictMode) {
+                result = result.then(function (result) {
+                    return [
+                        "'use strict';",
+                        '',
+                        result
+                    ].join('\n');
+                });
+            }
+
+            return result;
         },
         /**
          * Determines whether the file is the basic templates.
