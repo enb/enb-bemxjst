@@ -119,6 +119,50 @@ describe('bemhtml', function () {
         });
     });
 
+    describe('bemxjstOptions', function () {
+        it('must not add i-bem class by default', function () {
+            var blocks = {
+                'block.bemhtml.js': 'block("block").tag()("div")'
+            };
+
+            return build(blocks)
+                .spread(function (res) {
+                    var bemjson = { block: 'block', elem: 'elem', js: true },
+                        html = '<div class="block__elem" data-bem=\'{"block__elem":{}}\'></div>';
+
+                    res.BEMHTML.apply(bemjson).must.be(html);
+                });
+        });
+
+        it('must add i-bem class with elemJsInstances option', function () {
+            var blocks = {
+                'block.bemhtml.js': 'block("block").tag()("div")'
+            };
+
+            return build(blocks, { bemxjstOptions: { elemJsInstances: true } })
+                .spread(function (res) {
+                    var bemjson = { block: 'block', elem: 'elem', js: true },
+                        html = '<div class="block__elem i-bem" data-bem=\'{"block__elem":{}}\'></div>';
+
+                    res.BEMHTML.apply(bemjson).must.be(html);
+                });
+        });
+
+        it('must support custom naming', function () {
+            var blocks = {
+                'block.bemhtml.js': 'block("block").tag()("div")'
+            };
+
+            return build(blocks, { bemxjstOptions: { naming: { elem: '__', mod: '--' } } })
+                .spread(function (res) {
+                    var bemjson = { block: 'block', elem: 'elem', elemMods: { mod: true } },
+                        html = '<div class="block__elem block__elem--mod"></div>';
+
+                    res.BEMHTML.apply(bemjson).must.be(html);
+                });
+        });
+    });
+
     describe('compat', function () {
         it('must throw error if old syntax', function () {
             var templates = ['block bla, tag: "a"'];
