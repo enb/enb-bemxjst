@@ -26,7 +26,7 @@ bemhtml
 * [requires](#requires)
 * [exportName](#exportname)
 * [forceBaseTemplates](#forceBaseTemplates)
-* [bemxjstOptions](#bemxjstOptions)
+* [engineOptions](#engineoptions)
 * [naming](#naming)
 
 ### target
@@ -91,15 +91,15 @@ bemhtml
 
 По умолчанию, если пользовательских шаблонов нет, то и код ядра `bem-xjst` также не будет включен в сборку.
 
-#### bemxjstOptions
+#### engineOptions
 
 Тип: `Object`. По умолчанию `{}`.
 
-Проксирует [опции](https://github.com/bem/bem-xjst/blob/master/docs/ru/3-api.md#Настройки) в `bem-xjst`.
+Передает [настройки](https://github.com/bem/bem-xjst/blob/master/docs/ru/3-api.md#Настройки) BEMHTML-движка для `bem-xjst`.
 
 #### naming
 
-Устарело! Используйте `bemxjstOptions.naming`.
+Устарело! Используйте `engineOptions.naming`.
 
 Тип: `Object`. По умолчанию: `{ elem: '__', mod: '_' }`.
 
