@@ -40,4 +40,4 @@ var ${ exportName };
         ${ exportName } = buildBemXjst(${ globalDependencies });
         global['${ exportName }'] = ${ exportName };
     }
-})(typeof window !== "undefined" ? window : global);
+})(typeof window !== "undefined" ? window : global || this);
