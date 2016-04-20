@@ -1,6 +1,34 @@
 История изменений
 =================
 
+6.4.0
+-----
+
+### bem-xjst
+
+Модуль `bem-xjst@6.3.1` обновлен до версии `6.4.0`.
+
+Для BEMHTML-компилятора была добавлена опция `escapeContent`, в ENB-технологию её можно передать с помощью опции [engineOptions](api.ru.md#engineoptions):
+
+```js
+var BemhtmlTech = require('enb-bemxjst/techs/bemhtml');
+
+module.exports = function(config) {
+    config.node('bundle', function(node) {
+         node.addTech(BemhtmlTech, {
+             engineOptions: { escapeContent: true }
+         });
+         node.addTarget('?.bemhtml.js');
+    });
+};
+```
+
+О всех изменениях `bem-xjst` читайте в [примечании к релизу](https://github.com/bem/bem-xjst/releases/tag/v6.4.0).
+
+### Исправления ошибок
+
+* Исправлена работа с глобальным объектом в среде исполнения `V8` (например, `Perl:V8`) [#167].
+
 6.3.1
 -----
 
@@ -387,6 +415,7 @@
 
 * Добавлена технология `bemhtml`.
 
+[#167]: https://github.com/enb/enb-bemxjst/pull/167
 [#127]: https://github.com/enb/enb-bemxjst/pull/127
 [#119]: https://github.com/enb/enb-bemxjst/pull/119
 [#115]: https://github.com/enb/enb-bemxjst/pull/115
