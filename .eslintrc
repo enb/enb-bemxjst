@@ -1,0 +1,9 @@
+env:
+  es6: true
+  node: true
+  browser: true
+  commonjs: true
+  amd: true
+  mocha: true
+
+extends: pedant

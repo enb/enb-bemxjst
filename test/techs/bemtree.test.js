@@ -40,11 +40,11 @@ describe('bemtree', function () {
                 var data = { block: 'block' },
                     BEMTREE = res.BEMTREE;
 
-                /* jshint ignore:start */
+                /* eslint-disable */
                 BEMTREE.compile(function () {
                     block('block').content()('yay');
                 });
-                /* jshint ignore:end */
+                /*eslint-enable */
 
                 BEMTREE.apply(data).must.eql({ block: 'block', content: 'yay' });
             });

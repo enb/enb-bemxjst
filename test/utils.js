@@ -32,7 +32,7 @@ function compileBundle(libsCode, options) {
  * Evals code in simulated runtime.
  *
  * @param {Stirng}  code          The code to eval.
- * @param {Object}  opts
+ * @param {Object}  opts          The options.
  * @param {Stirng}  opts.runtime  The runtime name. Possible options: node, browser.
  * @param {Boolean} opts.ym       Include YModules to runtime.
  * @returns {Object}
@@ -65,7 +65,7 @@ function run(code, opts) {
 /**
  * Returns libs from executed code.
  *
- * @param {Object} sandbox
+ * @param {Object} sandbox - object with context
  * @returns {Promise<Object>}
  */
 function getLibs(sandbox) {

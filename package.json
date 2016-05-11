@@ -42,9 +42,10 @@
     "chai": "^3.5.0",
     "chai-as-promised": "^5.3.0",
     "enb": ">= 0.16.0 < 2.0.0",
+    "eslint": "^2.9.0",
+    "eslint-config-pedant": "^0.4.0",
     "istanbul": "^0.4.3",
     "jscs": "^3.0.3",
-    "jshint": "^2.9.2",
     "mocha": "^2.4.5",
     "mock-enb": "^0.3.2",
     "mock-fs": "^3.9.0",
@@ -52,9 +53,8 @@
     "ym": "^0.1.2"
   },
   "scripts": {
-    "test": "npm run lint && npm run unit",
-    "unit": "mocha -R spec",
-    "lint": "jshint . && jscs -c .jscs.js .",
+    "pretest": "eslint . && jscs -c .jscs.js .",
+    "test": "mocha -R spec",
     "cover": "istanbul cover _mocha",
     "coveralls": "npm i coveralls && npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   }

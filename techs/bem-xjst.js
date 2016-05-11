@@ -70,7 +70,7 @@ module.exports = buildFlow.create()
          *
          * Each file will be in a form of an object `{ path: String, contents: String }`.
          *
-         * @param {String[]} filenames
+         * @param {String[]} filenames - paths to files
          * @returns {Promise}
          * @private
          */
@@ -152,6 +152,9 @@ module.exports = buildFlow.create()
         },
         /**
          * Determines whether the file is the basic templates.
+         *
+         * @param {String} basename - name of file
+         * @returns {Boolean}
          */
         _hasBaseTemplate: function (basename) {
             return I_BEM_REG_EX.test(basename);
