@@ -39,17 +39,17 @@
     "vow-node": "0.3.0"
   },
   "devDependencies": {
-    "chai": "3.5.0",
-    "chai-as-promised": "5.3.0",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
     "enb": ">= 0.16.0 < 2.0.0",
-    "istanbul": "0.4.3",
-    "jscs": "3.0.3",
-    "jshint": "2.9.2",
-    "mocha": "2.4.5",
-    "mock-enb": "0.3.2",
-    "mock-fs": "3.9.0",
-    "must": "0.13.1",
-    "ym": "0.1.2"
+    "istanbul": "^0.4.3",
+    "jscs": "^3.0.3",
+    "jshint": "^2.9.2",
+    "mocha": "^2.4.5",
+    "mock-enb": "^0.3.2",
+    "mock-fs": "^3.9.0",
+    "must": "^0.13.1",
+    "ym": "^0.1.2"
   },
   "scripts": {
     "test": "npm run lint && npm run unit",
