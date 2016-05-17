@@ -12,14 +12,20 @@ var EOL = require('os').EOL,
  *
  * Compiles BEMXJST template files with BEMXJST translator and merges them into a single template bundle.<br/><br/>
  *
- * Important: Normally you don't need to use this tech directly.
+ * Important: Usually you don't need to use this tech directly.
  *
  * @param {Object}      [options]                           Options
  * @param {String}      [options.target='?.bem-xjst.js']    Path to a target with compiled file.
+ * @param {Object}      [options.exports={globals: true, commonJS: true, ym: true}] Export settings.
  */
 module.exports = buildFlow.create()
     .name('bem-xjst')
     .target('target', '?.bem-xjst.js')
+    .defineOption('exports', {
+        globals: true,
+        commonJS: true,
+        ym: true
+    })
     .methods({
         /**
          * Returns filenames to compile.
@@ -146,7 +152,8 @@ module.exports = buildFlow.create()
                     return bundle.compile(compiledCode, {
                         dirname: this.node.getDir(),
                         exportName: this._exportName,
-                        requires: this._requires
+                        requires: this._requires,
+                        exports: this._exports
                     });
                 }, this);
         },

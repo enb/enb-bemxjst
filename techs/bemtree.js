@@ -17,6 +17,7 @@ var path = require('path');
  * @param {Object}   [options.requires]                 Names of dependencies which should be available from
  *                                                      code of templates.
  * @param {Boolean}  [options.forceBaseTemplates=false] Include base templates if no user templates present
+ * @param {Object}   [options.exports={globals: true, commonJS: true, ym: true}] Export settings.
  *
  * @example
  * var BemtreeTech = require('enb-bemxjst/techs/bemtree'),

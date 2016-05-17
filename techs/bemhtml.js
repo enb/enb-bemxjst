@@ -24,6 +24,7 @@ var path = require('path');
  *                                                         Default as `__`.
  *                                                       * String `mod` — separates names and values of modifiers
  *                                                         from blocks and elements. Default as `_`.
+ * @param {Object}    [options.exports={globals: true, commonJS: true, ym: true}] Export settings.
  *
  * @example
  * var BemhtmlTech = require('enb-bemxjst/techs/bemhtml'),
