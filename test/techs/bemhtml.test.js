@@ -1,6 +1,7 @@
 var fs = require('fs'),
     path = require('path'),
     mock = require('mock-fs'),
+    safeEval = require('node-eval'),
     MockNode = require('mock-enb/lib/mock-node'),
     Tech = require('../../techs/bemhtml'),
     loadDirSync = require('mock-enb/utils/dir-utils').loadDirSync,
@@ -205,6 +206,74 @@ describe('bemhtml', function () {
                 });
         });
     });
+
+    describe('with option `exports`', function () {
+        it('must export ym only', function () {
+            var modules = {};
+            return build(['block("a").tag()("a")'], {
+                    exports: { ym: true },
+                    context: {
+                        module: undefined,
+                        modules: {
+                            define: function (name, _, p) {
+                                p(function (res) { modules[name] = res; });
+                            }
+                        }
+                    }
+                })
+                .spread(function () {
+                    modules.BEMHTML.apply({ block: 'a' })
+                        .must.eql('<a class="a"></a>');
+                });
+        });
+
+        it('must export commonjs only', function () {
+            var m = { exports: {} };
+            return build(['block("a").tag()("a")'], {
+                    exports: { commonJS: true },
+                    context: { module: m }
+                })
+                .spread(function () {
+                    m.exports.BEMHTML.apply({ block: 'a' })
+                        .must.eql('<a class="a"></a>');
+                });
+        });
+
+        it('must export global only', function () {
+            var window = {};
+            return build(['block("a").tag()("a")'], {
+                    exports: { globals: true },
+                    context: { module: undefined, window: window }
+                })
+                .spread(function () {
+                    window.BEMHTML.apply({ block: 'a' })
+                        .must.eql('<a class="a"></a>');
+                });
+        });
+
+        it('must export as ym and global', function () {
+            var modules = {}, window = {};
+            return build(['block("a").tag()("a")'], {
+                    exports: { globals: 'force', ym: true },
+                    context: {
+                        module: undefined,
+                        window: window,
+                        modules: {
+                            define: function (name, _, p) {
+                                p(function (res) { modules[name] = res; });
+                            }
+                        }
+                    }
+                })
+                .spread(function () {
+                    modules.BEMHTML.apply({ block: 'a' })
+                        .must.eql('<a class="a"></a>', 'modules failed');
+                    window.BEMHTML.apply({ block: 'a' })
+                        .must.eql('<a class="a"></a>', 'global failed');
+                });
+        });
+        // return build(templates, { exports: {globals: true, commonJS: true, ym: true} })
+    });
 });
 
 function build(templates, options) {
@@ -215,6 +284,7 @@ function build(templates, options) {
             blocks: {},
             bundle: {}
         },
+        noEval = typeof options.context === 'object',
         bundle, fileList;
 
     // hack for mock-fs
@@ -230,12 +300,6 @@ function build(templates, options) {
         scheme.blocks = templates;
     }
 
-    if (templates.length) {
-        templates.forEach(function (item, i) {
-            scheme.blocks['block-' + i + '.bemhtml.js'] = item;
-        });
-    }
-
     mock(scheme);
 
     bundle = new MockNode('bundle');
@@ -243,10 +307,14 @@ function build(templates, options) {
     fileList.addFiles(loadDirSync('blocks'));
     bundle.provideTechData('?.files', fileList);
 
-    return bundle.runTechAndRequire(Tech, options)
+    return bundle[noEval ? 'runTech' : 'runTechAndRequire'](Tech, options)
         .spread(function (res) {
             var filename = bundle.resolvePath(bundle.unmaskTargetName(options.target || '?.bemhtml.js')),
                 str = fs.readFileSync(filename, 'utf-8');
+
+            if (noEval) {
+                res = safeEval(str, filename, options.context);
+            }
 
             return [res, str];
         });
