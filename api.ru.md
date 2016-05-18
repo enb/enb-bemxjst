@@ -25,6 +25,7 @@ bemhtml
 * [sourceSuffixes](#sourcesuffixes)
 * [requires](#requires)
 * [exportName](#exportname)
+* [exports](#exports)
 * [forceBaseTemplates](#forceBaseTemplates)
 * [engineOptions](#engineoptions)
 * [naming](#naming)
@@ -82,6 +83,24 @@ bemhtml
       BEMHTML.apply({ block: 'button' }); // <button class="button">...</button>
   });
   ```
+
+#### exports
+
+Тип: `{globals: ?(Boolean|'force'), commonJS: ?Boolean, ym: ?Boolean}`.
+
+Указывает каким именно образом должен экспортироваться экземпляр BEMHTML.
+
+По умолчанию: `{ globals: true, commonJS: true, ym: true }`.
+
+Доступны следующие параметры:
+* `globals` указывает выгружать ли ссылку на экземпляр в глобальную область видимости, игнорируется, если указана одна из модульных систем, со значением `'force'` экспортируется безусловно;
+* `ym` — регистрировать ли экземпляр как модуль в YModules (при наличии переменной modules);
+* `commonJS` — записывать ли экземпляр в `modules.exports` (при его наличии).
+
+Примеры использования:
+- В случае переходного периода с глобального объекта к YModules можно передать `{globals: 'force', ym: true}` и шаблонизатор будет экспортирован для использования и из YModules, и из глобальной области видимости.
+- Передав `{ym: true}` или `{commonJS: true}` можно запретить экспорт в глобальную область видимости.
+- Передав `{ym: true, commonJS}` можно собрать бандл и для node.js, и для браузера с YModules, но без экспорта в глобальную область видимости.
 
 #### forceBaseTemplates
 
