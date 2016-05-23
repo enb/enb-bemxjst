@@ -1,6 +1,24 @@
 История изменений
 =================
 
+6.5.0
+-----
+
+### bem-xjst
+
+Модуль `bem-xjst@6.4.1` обновлен до версии `6.5.1`.
+
+О всех изменениях `bem-xjst` читайте в примечаниях к релизам:
+
+* [v6.4.2](https://github.com/bem/bem-xjst/releases/tag/v6.4.2)
+* [v6.4.3](https://github.com/bem/bem-xjst/releases/tag/v6.4.3)
+* [v6.5.0](https://github.com/bem/bem-xjst/releases/tag/v6.5.0)
+* [v6.5.1](https://github.com/bem/bem-xjst/releases/tag/v6.5.1)
+
+### Зависимости
+
+* Модуль `lodash@4.12.0` обновлен до версии `4.13.1`.
+
 6.4.1
 -----
 
