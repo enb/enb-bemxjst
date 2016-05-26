@@ -12,16 +12,15 @@ var ${ exportName };
     ${ commonJSModules }
 
     var defineAsGlobal = true;
-    var forceGlobals = ${ exports.globals === 'force' };
 
     // Provide with CommonJS
-    if (${ exports.commonJS === true } && typeof module === 'object' && typeof module.exports === 'object') {
+    if (${ exportsOption.commonJS === true } && typeof module === 'object' && typeof module.exports === 'object') {
         module.exports['${ exportName }'] = buildBemXjst(${ commonJSDependencies });
         defineAsGlobal = false;
     }
 
     // Provide to YModules
-    if (${ exports.ym === true } && typeof modules === 'object') {
+    if (${ exportsOption.ym === true } && typeof modules === 'object') {
         modules.define(
             '${ exportName }',
             [<%_.each(ymDependencyNames, function(name) {%>'${ name }',<%});%>],
@@ -36,7 +35,7 @@ var ${ exportName };
     }
 
     // Provide to global scope
-    if (${ exports.globals === true } && defineAsGlobal || forceGlobals) {
+    if (${ exportsOption.globals === true } && defineAsGlobal || ${ exportsOption.globals === 'force' }) {
         ${ exportName } = buildBemXjst(${ globalDependencies });
         global['${ exportName }'] = ${ exportName };
     }
