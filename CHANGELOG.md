@@ -1,6 +1,24 @@
 История изменений
 =================
 
+6.5.1
+-----
+
+### bem-xjst
+
+Модуль `bem-xjst@6.5.1` обновлен до версии `6.5.3`.
+
+О всех изменениях `bem-xjst` читайте в примечаниях к релизам:
+
+* [v6.5.2](https://github.com/bem/bem-xjst/releases/tag/v6.5.2)
+* [v6.5.3](https://github.com/bem/bem-xjst/releases/tag/v6.5.3)
+
+### Commits
+
+* [[`4f3cd46`](https://github.com/enb/enb-bemxjst/commit/4f3cd46)] - test(node): support Node.js 4 (@blond)
+* [[`84f972b`](https://github.com/enb/enb-bemxjst/commit/84f972b)] - chore(ci): run tests in Node.js 4 (@blond)
+* [[`fd8c411`](https://github.com/enb/enb-bemxjst/commit/fd8c411)] - chore(package): update bem-xjst to version 6.5.3 (@greenkeeperio-bot)
+
 6.5.0
 -----
 
