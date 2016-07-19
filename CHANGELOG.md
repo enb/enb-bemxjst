@@ -1,6 +1,21 @@
 История изменений
 =================
 
+6.5.2
+-----
+
+### bem-xjst
+
+Модуль `bem-xjst@6.5.3` обновлен до версии `6.5.4`.
+
+Обо всех изменениях `bem-xjst` читайте в примечаниях к релизам:
+
+* [v6.5.4](https://github.com/bem/bem-xjst/releases/tag/v6.5.4)
+
+### Commits
+
+* [[`bc7ac44`](https://github.com/enb/enb-bemxjst/commit/bc7ac44)] - chore(package): update bem-xjst to version 6.5.4 (@zxqfox)
+
 6.5.1
 -----
 
