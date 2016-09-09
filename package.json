@@ -29,7 +29,7 @@
     "enb": ">= 0.16.0 < 2.0.0"
   },
   "dependencies": {
-    "bem-xjst": "7.0.3",
+    "bem-xjst": "7.0.4",
     "browserify": "13.1.0",
     "clear-require": "1.0.1",
     "enb-async-require": "1.0.1",
