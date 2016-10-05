@@ -25,7 +25,7 @@ bemhtml
 * [sourceSuffixes](#sourcesuffixes)
 * [requires](#requires)
 * [exportName](#exportname)
-* [forceBaseTemplates](#forceBaseTemplates)
+* [forceBaseTemplates](#forcebasetemplates)
 * [engineOptions](#engineoptions)
 * [naming](#naming)
 
