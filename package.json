@@ -42,7 +42,7 @@
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
     "enb": ">= 0.16.0 < 2.0.0",
-    "eslint": "^3.0.0",
+    "eslint": "^3.9.1",
     "eslint-config-pedant": "^0.8.0",
     "istanbul": "^0.4.3",
     "jscs": "^3.0.3",
