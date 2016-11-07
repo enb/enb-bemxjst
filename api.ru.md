@@ -26,6 +26,7 @@ bemhtml
 * [exportName](#exportname)
 * [forceBaseTemplates](#forceBaseTemplates)
 * [naming](#naming)
+* [engineOptions](#engineOptions)
 
 ### target
 
@@ -89,7 +90,15 @@ bemhtml
 
 По умолчанию, если пользовательских шаблонов нет, то и код ядра `bem-xjst` также не будет включен в сборку.
 
+#### engineOptions
+
+Тип: `Object`. По умолчанию `{}`.
+
+Проксирует [опции](https://github.com/bem/bem-xjst/blob/master/docs/ru/3-api.md#Настройки) в `bem-xjst`.
+
 #### naming
+
+Устарело! Используйте `engineOptions.naming`.
 
 Тип: `Object`. По умолчанию: `{ elem: '__', mod: '_' }`.
 

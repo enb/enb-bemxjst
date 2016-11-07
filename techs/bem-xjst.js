@@ -119,10 +119,7 @@ module.exports = buildFlow.create()
         _compileBEMXJST: function (sources) {
             var queue = this.node.getSharedResources().jobQueue,
                 compilerFilename = path.resolve(__dirname, '../lib/bemxjst-processor'),
-                compilerOptions = {
-                    wrap: false,
-                    naming: this._naming
-                },
+                engineOptions = this._engineOptions || {},
                 // join source code
                 sourceCode = sources.map(function (source) {
                     return source.contents;
@@ -139,8 +136,14 @@ module.exports = buildFlow.create()
                 ].join(EOL),
                 bundle = require('../lib/bundle');
 
+            engineOptions.wrap = false;
+
+            if (this._naming && !engineOptions.naming) {
+                engineOptions.naming = this._naming;
+            }
+
             // Compiles source code using BEMXJST processor.
-            return queue.push(compilerFilename, codeToCompile, compilerOptions)
+            return queue.push(compilerFilename, codeToCompile, engineOptions)
                 .then(function (compiledCode) {
                     // Wraps compiled code for usage with different modular systems.
                     return bundle.compile(compiledCode, {
