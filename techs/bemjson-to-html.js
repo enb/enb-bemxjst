@@ -1,8 +1,6 @@
 var enb = require('enb'),
     buildFlow = enb.buildFlow || require('enb/lib/build-flow'),
-    requireOrEval = require('enb-require-or-eval'),
-    asyncRequire = require('enb-async-require'),
-    clearRequire = require('clear-require');
+    fileEval = require('file-eval');
 
 /**
  * @class BemjsonToHtmlTech
@@ -54,13 +52,10 @@ module.exports = buildFlow.create()
     .useSourceFilename('bemjsonFile', '?.bemjson.js')
     .builder(function (bemhtmlFilename, bemjsonFilename) {
         var _this = this;
-        clearRequire(bemjsonFilename);
 
-        return requireOrEval(bemjsonFilename)
+        return fileEval(bemjsonFilename)
             .then(function (json) {
-                clearRequire(bemhtmlFilename);
-
-                return asyncRequire(bemhtmlFilename)
+                return fileEval(bemhtmlFilename)
                     .then(function (bemhtml) {
                         return _this.render(bemhtml, json);
                     });
