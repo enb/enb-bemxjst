@@ -110,6 +110,59 @@ describe('bemhtml', function () {
         });
     });
 
+    describe('bemxjstOptions', function () {
+        it('must support custom naming', function () {
+            var blocks = {
+                'block.bemhtml.js': 'block("block").tag()("div")'
+            };
+
+            return build(blocks, { engineOptions: { naming: { elem: '__', mod: '--' } } })
+                .spread(function (res) {
+                    var bemjson = { block: 'block', elem: 'elem', elemMods: { mod: true } },
+                        html = '<div class="block__elem block__elem--mod"></div>';
+
+                    res.BEMHTML.apply(bemjson).must.be(html);
+                });
+        });
+
+        it('must throw if template error in dev mode', function () {
+            var blocks = {
+                'block.bemhtml.js': [
+                    'block("block").attrs()(function() {',
+                    '    var attrs = applyNext();',
+                    '    attrs.undef.foo = "bar";',
+                    '    return attrs;',
+                    '});'
+                ].join('\n')
+            };
+
+            return build(blocks)
+                .fail(function (error) {
+                    error.message.must.be.include('Cannot read property');
+                });
+        });
+
+        it('must skip template error in production mode', function () {
+            var blocks = {
+                'block.bemhtml.js': [
+                    'block("block").attrs()(function() {',
+                    '    var attrs = applyNext();',
+                    '    attrs.undef.foo = "bar";',
+                    '    return attrs;',
+                    '});'
+                ].join('\n')
+            };
+
+            return build(blocks, { engineOptions: { production: true } })
+                .spread(function (res) {
+                    var bemjson = { block: 'page', content: { block: 'block' } },
+                        html = '<div class="page"></div>';
+
+                    res.BEMHTML.apply(bemjson).must.be(html);
+                });
+        });
+    });
+
     describe('compat', function () {
         it('must throw error if old syntax', function () {
             var templates = ['block bla, tag: "a"'];

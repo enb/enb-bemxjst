@@ -15,7 +15,9 @@
  * @param {Object}    [options.requires]               Names of dependencies which should be available from
  *                                                     code of templates.
  * @param {Boolean}   [options.forceBaseTemplates=false] Include base templates if no user templates present
- * @param {Object}    [options.naming]                 Custom naming convention:
+ * @param {Object}    [options.engineOptions]          Proxies options to bem-xjst
+ * @param {Object}    [options.naming]                 Deprecated! Use `engineOptions.naming` instead.
+ *                                                     Custom naming convention:
  *                                                       * String `elem` — separates element's name from block.
  *                                                         Default as `__`.
  *                                                       * String `mod` — separates names and values of modifiers
@@ -47,6 +49,7 @@ module.exports = require('./bem-xjst').buildFlow()
     .target('target', '?.bemhtml.js')
     .defineOption('exportName', 'BEMHTML')
     .defineOption('naming')
+    .defineOption('engineOptions')
     .defineOption('requires', {})
     .defineOption('forceBaseTemplates', false)
     .useFileList(['bemhtml.js'])
