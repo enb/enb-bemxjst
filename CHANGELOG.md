@@ -1,6 +1,34 @@
 История изменений
 =================
 
+8.3.0
+-----
+
+### bem-xjst
+
+Модуль `bem-xjst` обновлен до версии `8.3.1`.
+
+О всех изменениях `bem-xjst` читайте в [примечании к релизу](https://github.com/bem/bem-xjst/releases/tag/v8.3.1).
+
+### Опции
+
+* Для технологии `bemtree` добавлена опция [engineOptions](api.ru.md#engineoptions-1) (@JiLiZART [#238]).
+
+[#238]: https://github.com/enb/enb-bemxjst/pull/238
+
+### Остальное
+
+* Для загрузки BEMJSON-файлов и файлов с шаблонами теперь используется модуль [file-eval](https://github.com/nodules/file-eval) (@blond [#235]).
+* Добавлена поддержка Node.js v6.
+
+[#235]: https://github.com/enb/enb-bemxjst/pull/235
+
+### Зависимости
+
+* Модуль `lodash@4.16.4` обновлен до версии `4.16.6` (@greenkeeperio-bot).
+* Модуль `vow@0.4.12` обновлен до версии `0.4.13` (@greenkeeperio-bot).
+* Модуль `browserify@13.1.0` обновлен до версии `13.1.1` (@greenkeeperio-bot).
+
 8.2.0
 -----
 
