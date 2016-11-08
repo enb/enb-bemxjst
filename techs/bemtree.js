@@ -16,6 +16,7 @@ var path = require('path');
  * @param {String}   [options.exportName='BEMTREE']     Name of BEMTREE template variable.
  * @param {Object}   [options.requires]                 Names of dependencies which should be available from
  *                                                      code of templates.
+ * @param {Object}   [options.engineOptions]            Proxies options to bem-xjst
  * @param {Boolean}  [options.forceBaseTemplates=false] Include base templates if no user templates present
  *
  * @example
@@ -43,6 +44,7 @@ module.exports = require('./bem-xjst').buildFlow()
     .name('bemtree')
     .target('target', '?.bemtree.js')
     .defineOption('exportName', 'BEMTREE')
+    .defineOption('engineOptions')
     .defineOption('requires', {})
     .defineOption('forceBaseTemplates', false)
     .useFileList(['bemtree.js'])
