@@ -93,6 +93,53 @@ describe('bemtree', function () {
         });
     });
 
+    describe('engineOptions', function () {
+        it('must throw if template error in dev mode', function () {
+            var blocks = {
+                'block.bemtree.js': [
+                    'block("block").attrs()(function() {',
+                    '    var attrs = applyNext();',
+                    '    attrs.undef.foo = "bar";',
+                    '    return attrs;',
+                    '});'
+                ].join('\n')
+            };
+
+            return build(blocks)
+                .fail(function (error) {
+                    error.message.must.be.include('Cannot read property');
+                });
+        });
+
+        it('must escape html tags by default', function () {
+            var blocks = {
+                'block.bemtree.js': 'block("block").tag()("div")'
+            };
+
+            return build(blocks)
+                .spread(function (res) {
+                    var data = { block: 'block', content: '<script>alert(1)</scritpt>' },
+                        bemjson = { block: 'block', content: '&lt;script&gt;alert(1)&lt;/scritpt&gt;' };
+
+                    res.BEMTREE.apply(data).must.eql(bemjson);
+                });
+        });
+
+        it('must support off escaping for html tags', function () {
+            var blocks = {
+                'block.bemtree.js': 'block("block").tag()("div")'
+            };
+
+            return build(blocks, { engineOptions: { escapeContent: false } })
+                .spread(function (res) {
+                    var data = { block: 'block', content: '<script>alert(1)</scritpt>' },
+                        bemjson = { block: 'block', content: '<script>alert(1)</scritpt>' };
+
+                    res.BEMTREE.apply(data).must.eql(bemjson);
+                });
+        });
+    });
+
     describe('compat', function () {
         it('must throw error if old syntax', function () {
             var templates = ['block bla, content: "yey"'];

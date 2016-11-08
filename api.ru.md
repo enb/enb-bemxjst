@@ -181,6 +181,7 @@ bemtree
 * [requires](#requires)
 * [exportName](#exportname)
 * [forceBaseTemplates](#forceBaseTemplates)
+* [engineOptions](#engineoptions)
 
 ### target
 
@@ -243,6 +244,12 @@ bemtree
 Включать ли ядро в сборку, если нет пользовательских шаблонов.
 
 По умолчанию, если пользовательских шаблонов нет, то и код ядра `bem-xjst` также не будет включен в сборку.
+
+#### engineOptions
+
+Тип: `Object`. По умолчанию `{}`.
+
+Передает [настройки](https://github.com/bem/bem-xjst/blob/master/docs/ru/3-api.md#Настройки) BEMTREE-движка для `bem-xjst`.
 
 --------------------------------------
 

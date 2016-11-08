@@ -198,6 +198,34 @@ describe('bemhtml', function () {
                     res.BEMHTML.apply(bemjson).must.be(html);
                 });
         });
+
+        it('must escape html tags by default', function () {
+            var blocks = {
+                'block.bemhtml.js': 'block("block").tag()("div")'
+            };
+
+            return build(blocks)
+                .spread(function (res) {
+                    var bemjson = { block: 'block', content: '<script>alert(1)</scritpt>' },
+                        html = '<div class="block">&lt;script&gt;alert(1)&lt;/scritpt&gt;</div>';
+
+                    res.BEMHTML.apply(bemjson).must.be(html);
+                });
+        });
+
+        it('must support off escaping for html tags', function () {
+            var blocks = {
+                'block.bemhtml.js': 'block("block").tag()("div")'
+            };
+
+            return build(blocks, { engineOptions: { escapeContent: false } })
+                .spread(function (res) {
+                    var bemjson = { block: 'block', content: '<script>alert(1)</scritpt>' },
+                        html = '<div class="block"><script>alert(1)</scritpt></div>';
+
+                    res.BEMHTML.apply(bemjson).must.be(html);
+                });
+        });
     });
 
     describe('compat', function () {
