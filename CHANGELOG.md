@@ -1,6 +1,17 @@
 История изменений
 =================
 
+7.5.0
+-----
+
+### bem-xjst
+
+Модуль `bem-xjst` обновлен до версии `7.5.0`.
+
+О всех изменениях `bem-xjst` читайте в примечаниях к релизам:
+
+* [v7.5.0](https://github.com/bem/bem-xjst/releases/tag/v7.5.0)
+
 7.4.1
 -----
 
@@ -10,7 +21,7 @@
 
 О всех изменениях `bem-xjst` читайте в примечаниях к релизам:
 
-* [v7.4.0](https://github.com/bem/bem-xjst/releases/tag/v7.4.1)
+* [v7.4.1](https://github.com/bem/bem-xjst/releases/tag/v7.4.1)
 
 
 7.4.0
