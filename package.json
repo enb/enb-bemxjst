@@ -32,7 +32,7 @@
     "bem-xjst": "8.3.1",
     "browserify": "13.1.1",
     "file-eval": "1.1.0",
-    "lodash": "4.16.6",
+    "lodash": "4.17.0",
     "vow": "0.4.13",
     "vow-node": "0.3.0"
   },
