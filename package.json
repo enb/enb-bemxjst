@@ -33,7 +33,7 @@
     "browserify": "13.1.1",
     "file-eval": "1.1.0",
     "lodash": "4.17.3",
-    "vow": "0.4.13",
+    "vow": "0.4.14",
     "vow-node": "0.3.0"
   },
   "devDependencies": {
