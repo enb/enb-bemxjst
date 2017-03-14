@@ -301,6 +301,9 @@ function build(templates, options) {
         });
     }
 
+    var bemhtmlPath = './node_modules/bem-xjst/lib/bemhtml/bundle.js'
+    scheme[bemhtmlPath] = require('fs').readFileSync(bemhtmlPath, 'utf8');
+
     mock(scheme);
 
     bundle = new MockNode('bundle');

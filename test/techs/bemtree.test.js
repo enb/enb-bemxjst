@@ -213,6 +213,9 @@ function build(templates, options) {
         });
     }
 
+    var bemtreePath = './node_modules/bem-xjst/lib/bemtree/bundle.js'
+    scheme[bemtreePath] = require('fs').readFileSync(bemtreePath, 'utf8');
+
     mock(scheme);
 
     bundle = new MockNode('bundle');
