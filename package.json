@@ -53,6 +53,7 @@
     "ym": "^0.1.2"
   },
   "scripts": {
+    "prepublish": "npm test",
     "pretest": "eslint . && jscs -c .jscs.js .",
     "test": "mocha -R spec",
     "cover": "istanbul cover _mocha",
