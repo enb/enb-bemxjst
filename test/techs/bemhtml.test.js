@@ -301,6 +301,7 @@ function build(templates, options) {
         });
     }
 
+    // mock for bemhtml.generate()
     var bemhtmlPath = './node_modules/bem-xjst/lib/bemhtml/bundle.js'
     scheme[bemhtmlPath] = require('fs').readFileSync(bemhtmlPath, 'utf8');
 
