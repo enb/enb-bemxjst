@@ -29,7 +29,7 @@
     "enb": ">= 0.16.0 < 2.0.0"
   },
   "dependencies": {
-    "bem-xjst": "SlNPacifist/bem-xjst#fix/restoreCall",
+    "bem-xjst": "4.4.2-rc",
     "browserify": "13.0.0",
     "clear-require": "1.0.1",
     "enb-async-require": "1.0.1",
