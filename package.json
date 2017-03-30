@@ -2,7 +2,7 @@
   "author": "Andrew Abramov <andrewblond@yandex.com>",
   "description": "bem-xjst support for ENB",
   "name": "enb-bemxjst",
-  "version": "7.7.4-beta-6",
+  "version": "7.7.4-beta-7",
   "repository": "git://github.com/enb/enb-bemxjst",
   "homepage": "https://github.com/enb/enb-bemxjst",
   "bugs": "https://github.com/enb/enb-bemxjst/issues",
@@ -29,7 +29,7 @@
     "enb": ">= 0.16.0 < 2.0.0"
   },
   "dependencies": {
-    "bem-xjst": "7.7.4-beta-6",
+    "bem-xjst": "7.7.4-beta-7",
     "browserify": "13.1.0",
     "clear-require": "1.0.1",
     "enb-async-require": "1.0.1",
