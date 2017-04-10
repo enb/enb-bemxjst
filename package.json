@@ -30,9 +30,9 @@
   },
   "dependencies": {
     "bem-xjst": "8.6.7",
-    "browserify": "13.1.1",
+    "browserify": "14.3.0",
     "file-eval": "1.2.0",
-    "lodash": "4.17.3",
+    "lodash": "4.17.4",
     "vow": "0.4.15",
     "vow-node": "0.3.0"
   },
