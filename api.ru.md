@@ -4,6 +4,7 @@ API технологий
 Пакет предоставляет следующие технологии:
 
 * [bemhtml](#bemhtml) — для сборки шаблонов;
+* [bemhtml-es2015](#bemhtml-es2015) — для сборки шаблонов с преобразованием ES2015 в ES5;
 * [bemtree](#bemtree) — для сборки шаблонов;
 * [bemjson-to-html](#bemjson-to-html) — для генерации HTML.
 
@@ -161,6 +162,11 @@ var BemhtmlTech = require('enb-bemxjst/techs/bemhtml'),
      });
  };
 ```
+
+bemhtml-es2015
+---------------
+
+API полностью аналогично технологии bemhtml.
 
 bemtree
 -------

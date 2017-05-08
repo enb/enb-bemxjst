@@ -29,6 +29,7 @@
     "enb": ">= 0.16.0 < 2.0.0"
   },
   "dependencies": {
+    "babel-core": "^6.24.1",
     "bem-xjst": "8.6.7",
     "browserify": "13.3.0",
     "file-eval": "1.2.0",
