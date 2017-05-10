@@ -1,4 +1,3 @@
-var path = require('path');
 var fs = require('fs');
 var EOL = require('os').EOL;
 var babel = require('babel-core');
