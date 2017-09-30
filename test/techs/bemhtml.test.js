@@ -5,7 +5,8 @@ var fs = require('fs'),
     Tech = require('../../techs/bemhtml'),
     loadDirSync = require('mock-enb/utils/dir-utils').loadDirSync,
     FileList = require('enb/lib/file-list'),
-    bundlePath = path.resolve('lib/bundle.js');
+    bundlePath = path.resolve('lib/bundle.js'),
+    sinon = require('sinon');
 
 describe('bemhtml', function () {
     before(function () {
@@ -120,6 +121,14 @@ describe('bemhtml', function () {
     });
 
     describe('engineOptions', function () {
+        beforeEach(function () {
+            sinon.stub(console, 'error');
+        });
+
+        afterEach(function () {
+            console.error.restore();
+        });
+
         it('must not add i-bem class by default', function () {
             var blocks = {
                 'block.bemhtml.js': 'block("block").tag()("div")'
