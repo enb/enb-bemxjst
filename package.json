@@ -29,7 +29,7 @@
     "enb": ">= 0.16.0 < 2.0.0"
   },
   "dependencies": {
-    "bem-xjst": "8.6.7",
+    "bem-xjst": "dustyo-O/bem-xjst#module-export-fix",
     "browserify": "13.3.0",
     "file-eval": "1.2.0",
     "lodash": "4.17.4",
