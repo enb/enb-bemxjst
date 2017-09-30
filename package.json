@@ -42,12 +42,12 @@
     "enb": ">= 0.16.0 < 2.0.0",
     "eslint": "^4.8.0",
     "eslint-config-pedant": "^0.10.0",
-    "istanbul": "^0.4.3",
     "jscs": "^3.0.3",
     "mocha": "^3.0.2",
     "mock-enb": "^0.3.6",
     "mock-fs": "^4.1.0",
     "must": "^0.13.1",
+    "nyc": "^11.2.1",
     "sinon": "^4.0.0",
     "ym": "^0.1.2"
   },
@@ -55,7 +55,7 @@
     "prepublish": "npm test",
     "pretest": "eslint . && jscs -c .jscs.js .",
     "test": "mocha -R spec",
-    "cover": "istanbul cover _mocha",
-    "coveralls": "npm i coveralls && npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
+    "cover": "nyc mocha",
+    "coveralls": "npm i coveralls && npm run cover && nyc report --reporter=text-lcov | coveralls"
   }
 }
