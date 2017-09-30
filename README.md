@@ -8,6 +8,7 @@ enb-bemxjst
 **Технологии пакета `enb-bemxjst`:**
 
 * [bemhtml](api.ru.md#bemhtml)
+* [bemhtml-es2015](api.ru.md#bemhtml-es2015)
 * [bemtree](api.ru.md#bemtree)
 * [bemjson-to-html](api.ru.md#bemjson-to-html)
 
