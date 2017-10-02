@@ -120,35 +120,17 @@ module.exports = buildFlow.create()
             var queue = this.node.getSharedResources().jobQueue,
                 engineOptions = this._engineOptions || {},
                 // join source code
-                sourceCode = sources.map(function (source) {
+                codeToCompile = sources.map(function (source) {
                     return source.contents;
-                }).join(EOL),
-                codeToCompile = [
-                    sourceCode,
-                    'oninit(function(exports, context) {',
-                    '    var BEMContext = exports.BEMContext || context.BEMContext;',
-                    '    // Provides third-party libraries from different modular systems',
-                    '    BEMContext.prototype.require = function(lib) {',
-                    '       return __bem_xjst_libs__[lib];',
-                    '    };',
-                    '});'
-                ].join(EOL),
-                bundle = require('../lib/bundle');
+                }).join(EOL);
 
             if (this._naming && !engineOptions.naming) {
                 engineOptions.naming = this._naming;
             }
 
-            // Compiles source code using BEMXJST processor.
-            return queue.push(compilerFilename, codeToCompile, engineOptions)
-                .then(function (compiledCode) {
-                    // Wraps compiled code for usage with different modular systems.
-                    return bundle.compile(compiledCode, {
-                        dirname: this.node.getDir(),
-                        exportName: this._exportName,
-                        requires: this._requires
-                    });
-                }, this);
+            engineOptions.exportName = engineOptions.exportName || this._exportName;
+
+            return queue.push(compilerFilename, codeToCompile, engineOptions);
         },
         /**
          * Determines whether the file is the basic templates.
