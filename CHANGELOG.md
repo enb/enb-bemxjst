@@ -1,6 +1,24 @@
 История изменений
 =================
 
+8.8.4
+-----
+
+Модуль `bem-xjst` обновлен до версии `8.8.4`.
+
+О всех изменениях `bem-xjst` читайте в [примечании к релизу](https://github.com/bem/bem-xjst/releases/tag/v8.8.4).
+
+Commits:
+* [[`3c2b4e4429`](https://github.com/Andrew Abramov <andrewblond@yandex.com>/enb-bemxjst/commit/3c2b4e4429)] - Mirgate to bem-xjst 8.8.4 (miripiruni)
+* [[`9f76d8a095`](https://github.com/Andrew Abramov <andrewblond@yandex.com>/enb-bemxjst/commit/9f76d8a095)] - Merge pull request #279 from enb/chore/dev-dependencies (Andrew Abramov)
+* [[`67a9ae0e0b`](https://github.com/Andrew Abramov <andrewblond@yandex.com>/enb-bemxjst/commit/67a9ae0e0b)] - chore(coverage): use nyc (Andrew Abramov)
+* [[`18174c8e12`](https://github.com/Andrew Abramov <andrewblond@yandex.com>/enb-bemxjst/commit/18174c8e12)] - chore(package): update dev dependencies (Андрей Абрамов)
+* [[`f69712c06c`](https://github.com/Andrew Abramov <andrewblond@yandex.com>/enb-bemxjst/commit/f69712c06c)] - Merge pull request #278 from enb/chore/node-js-8 (Andrew Abramov)
+* [[`8c9ae3caac`](https://github.com/Andrew Abramov <andrewblond@yandex.com>/enb-bemxjst/commit/8c9ae3caac)] - chore(ci): run tests in Node.js@8 (Андрей Абрамов)
+* [[`ccd4ead358`](https://github.com/Andrew Abramov <andrewblond@yandex.com>/enb-bemxjst/commit/ccd4ead358)] - Merge pull request #277 from enb/test/stub-console (Andrew Abramov)
+* [[`fc3752d980`](https://github.com/Andrew Abramov <andrewblond@yandex.com>/enb-bemxjst/commit/fc3752d980)] - test(bemhtml): stub console error (Андрей Абрамов)
+* [[`a647581a51`](https://github.com/Andrew Abramov <andrewblond@yandex.com>/enb-bemxjst/commit/a647581a51)] - Merge pull request #275 from enb/readme-fix (Slava Oliyanchuk)
+
 8.6.7
 -----
 
