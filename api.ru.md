@@ -47,7 +47,9 @@
 
 #### requires
 
-Тип: `Object`. По умолчанию: `{}`.
+Устарело! Используйте `engineOptions.requires`.
+
+Тип: `Object`. По умолчанию: `undefined`.
 
 Задает имена или пути для подключения сторонних библиотек.
 
@@ -198,7 +200,9 @@ var BemhtmlTech = require('enb-bemxjst/techs/bemhtml'),
 
 #### requires
 
-Тип: `Object`. По умолчанию: `{}`.
+Устарело! Используйте `engineOptions.requires`.
+
+Тип: `Object`. По умолчанию: `undefined`.
 
 Задает имена или пути для подключения сторонних библиотек.
 
