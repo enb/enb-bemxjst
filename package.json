@@ -34,7 +34,8 @@
     "file-eval": "1.2.0",
     "lodash": "4.17.4",
     "vow": "0.4.15",
-    "vow-node": "0.3.0"
+    "vow-node": "0.3.0",
+    "enb-source-map": "github:enb/enb-source-map#prev-source-maps-support"
   },
   "devDependencies": {
     "chai": "^4.1.2",
