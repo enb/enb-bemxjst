@@ -14,7 +14,8 @@ var path = require('path');
  * @param {String}   [options.filesTarget='?.files']    Path to a target with FileList.
  * @param {String[]} [options.sourceSuffixes]           Files with specified suffixes involved in the assembly.
  * @param {String}   [options.exportName='BEMTREE']     Name of BEMTREE template variable.
- * @param {Object}   [options.requires]                 Names of dependencies which should be available from
+ * @param {Object}   [options.requires]                 Deprecated! Use `engineOptions.requires` instead.
+ *                                                      Names of dependencies which should be available from
  *                                                      code of templates.
  * @param {Object}   [options.engineOptions]            Proxies options to bem-xjst
  * @param {Boolean}  [options.forceBaseTemplates=false] Include base templates if no user templates present
@@ -45,7 +46,7 @@ module.exports = require('./bem-xjst').buildFlow()
     .target('target', '?.bemtree.js')
     .defineOption('exportName', 'BEMTREE')
     .defineOption('engineOptions')
-    .defineOption('requires', {})
+    .defineOption('requires')
     .defineOption('forceBaseTemplates', false)
     .useFileList(['bemtree.js'])
     .builder(function (fileList) {
