@@ -112,7 +112,9 @@ module.exports = buildFlow.create()
 
             sources.forEach(function (source) {
                 file.writeLine('/* begin: ' + source.path + ' */');
+                needWrapIIFE && file.writeLine('(function(){');
                 file.writeFileContent(source.path, source.contents);
+                needWrapIIFE && file.writeLine('}());');
                 file.writeLine('/* end: ' + source.path + ' */');
             });
 
