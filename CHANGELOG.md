@@ -1,6 +1,17 @@
 История изменений
 =================
 
+8.9.0
+-----
+
+Поддержка предыдущих карт кода. Подробности [в документации](https://github.com/enb/enb-bemxjst#Использование-карт-кода).
+
+Поддержка [IIFE](https://github.com/enb/enb-bemxjst/commit/2beab5fb480c7381bc22c6b8d720993ce8d5e20b) (immediatiately invoked function expression support).
+
+Модуль `bem-xjst` обновлен до версии `8.8.5`.
+
+О всех изменениях `bem-xjst` читайте в [примечании к релизу](https://github.com/bem/bem-xjst/releases/tag/v8.8.5).
+
 8.8.4
 -----
 
