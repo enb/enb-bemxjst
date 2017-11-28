@@ -53,6 +53,8 @@ module.exports = require('./bem-xjst').buildFlow()
     .defineOption('naming')
     .defineOption('engineOptions')
     .defineOption('requires', {})
+    .defineOption('iife', false)
+    .defineOption('sourcemap', false)
     .defineOption('forceBaseTemplates', false)
     .useFileList(['bemhtml.js'])
     .builder(function (fileList) {

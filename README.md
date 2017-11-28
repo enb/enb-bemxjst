@@ -277,6 +277,48 @@ block('button').elem('tooltip').content()(function () {
 });
 ```
 
+### Использование карт кода
+
+Для того, чтобы включить на вашем проекте вывод ошибок в BEMHTML- и BEMTREE-
+шаблонах с использованием карт кода (ошибка будет указывать не на собранный
+файл, а на исходный файл с шаблоном) вам необходимо использовать enb-bemxjst
+версии 8.9.0 и выше.
+
+В конфигурационном файле `.enb/make` на вашем проекте у технологий
+bemhtml/bemtree должна быть включена опция `sourcemaps: true`. Настоятельно
+рекомендуем включать эту опцию только в окружении разработки, но не в
+продакшене.
+
+```
+'use strict';
+
+const techs = {
+    bemhtml: require('enb-bemxjst/techs/bemhtml'),
+    ...
+};
+
+module.exports = function(config) {
+    config.nodes('pages/all', function(nodeConfig) {
+        nodeConfig.addTechs([
+            // bemhtml
+            [techs.bemhtml, {
+                target: '?.bemhtml.js',
+                sourcemap: env === 'development',
+                engineOptions: {
+                    production: env === 'production',
+                    omitOptionalEndTags: true,
+                    unquotedAttrs: true,
+                    elemJsInstances: true
+                }
+            }]
+        ]);
+
+        nodeConfig.addTargets(['?.bemhtml.js']);
+    });
+});
+```
+
+
 Дополнительная документация
 ---------------------------
 

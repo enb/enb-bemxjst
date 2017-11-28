@@ -1,8 +1,8 @@
-var EOL = require('os').EOL,
-    vow = require('vow'),
+var vow = require('vow'),
     enb = require('enb'),
     vfs = enb.asyncFs || require('enb/lib/fs/async-fs'),
     buildFlow = enb.buildFlow || require('enb/lib/build-flow'),
+    File = require('enb-source-map/lib/file'),
     I_BEM_REG_EX = /^i-bem(__html)?\.bem(html|tree)(\.js)?$/;
 
 /**
@@ -93,19 +93,7 @@ module.exports = buildFlow.create()
          * @private
          */
         _processSources: function (sources) {
-            return sources.map(function (source) {
-                var filename = source.path,
-                    contents = source.contents;
-
-                return {
-                    path: filename,
-                    contents: [
-                        '/* begin: ' + filename + ' */',
-                        contents,
-                        '/* end: ' + filename + ' */'
-                    ].join(EOL)
-                };
-            }, this);
+            return sources;
         },
         /**
          * Compiles source code using BEMXJST processor.
@@ -119,10 +107,16 @@ module.exports = buildFlow.create()
         _compileBEMXJST: function (sources, compilerFilename) {
             var queue = this.node.getSharedResources().jobQueue,
                 engineOptions = this._engineOptions || {},
-                // join source code
-                codeToCompile = sources.map(function (source) {
-                    return source.contents;
-                }).join(EOL);
+                file = new File(this.node.resolvePath(this._target), { sourceMap: this._sourcemap }),
+                needWrapIIFE = this._iife;
+
+            sources.forEach(function (source) {
+                file.writeLine('/* begin: ' + source.path + ' */');
+                needWrapIIFE && file.writeLine('(function(){');
+                file.writeFileContent(source.path, source.contents);
+                needWrapIIFE && file.writeLine('}());');
+                file.writeLine('/* end: ' + source.path + ' */');
+            });
 
             if (this._naming && !engineOptions.naming) {
                 engineOptions.naming = this._naming;
@@ -130,7 +124,16 @@ module.exports = buildFlow.create()
 
             engineOptions.exportName = engineOptions.exportName || this._exportName;
 
-            return queue.push(compilerFilename, codeToCompile, engineOptions);
+            engineOptions.sourceMap = { from: this._target };
+
+            var prevSourceMap = file.getSourceMap();
+
+            if (prevSourceMap) {
+                prevSourceMap.file = this._target;
+                engineOptions.sourceMap.prev = prevSourceMap
+            }
+
+            return queue.push(compilerFilename, file.render(), engineOptions);
         },
         /**
          * Determines whether the file is the basic templates.
