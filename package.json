@@ -30,10 +30,10 @@
   },
   "dependencies": {
     "bem-xjst": "8.8.4",
-    "browserify": "13.3.0",
+    "browserify": "14.5.0",
     "file-eval": "1.2.0",
     "lodash": "4.17.4",
-    "vow": "0.4.15",
+    "vow": "0.4.17",
     "vow-node": "0.3.0"
   },
   "devDependencies": {
@@ -43,7 +43,7 @@
     "eslint": "^4.8.0",
     "eslint-config-pedant": "^0.10.0",
     "jscs": "^3.0.3",
-    "mocha": "^3.0.2",
+    "mocha": "^4.0.1",
     "mock-enb": "^0.3.6",
     "mock-fs": "^4.1.0",
     "must": "^0.13.1",
