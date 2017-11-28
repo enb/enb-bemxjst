@@ -38,6 +38,7 @@
     "enb-source-map": "1.12.0"
   },
   "devDependencies": {
+    "istanbul": "^0.4.4",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "enb": ">= 0.16.0 < 2.0.0",
@@ -48,15 +49,13 @@
     "mock-enb": "^0.3.6",
     "mock-fs": "^4.1.0",
     "must": "^0.13.1",
-    "nyc": "^11.2.1",
     "sinon": "^4.0.0",
     "ym": "^0.1.2"
   },
   "scripts": {
     "prepublish": "npm test",
     "pretest": "eslint . && jscs -c .jscs.js .",
-    "test": "mocha -R spec",
-    "cover": "nyc mocha",
+    "test": "./node_modules/.bin/istanbul cover -x '**/lib/assets/**' ./node_modules/mocha/bin/_mocha -- -u bdd -R spec test/*.test.js",
     "coveralls": "npm i coveralls && npm run cover && nyc report --reporter=text-lcov | coveralls"
   }
 }
