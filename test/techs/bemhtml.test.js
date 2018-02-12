@@ -27,27 +27,29 @@ describe('bemhtml', function () {
         mock.restore();
     });
 
-    it('must generate mock if there is no templates', function () {
-        var templates = [];
+    describe('option: forceBaseTemplates', function () {
+        it('must generate mock if there is no templates', function () {
+            var templates = [];
 
-        return build(templates)
-            .spread(function (res) {
-                var bemjson = { block: 'block' };
+            return build(templates)
+                .spread(function (res) {
+                    var bemjson = { block: 'block' };
 
-                res.BEMHTML.apply(bemjson).must.be('');
-            });
-    });
+                    res.BEMHTML.apply(bemjson).must.be('');
+                });
+        });
 
-    it('must keep base templates if there is no templates and forceBaseTemplates option is true', function () {
-        var templates = [];
+        it('must keep base templates if there is no templates and forceBaseTemplates option is true', function () {
+            var templates = [];
 
-        return build(templates, { forceBaseTemplates: true })
-            .spread(function (res) {
-                var bemjson = { block: 'block' },
-                    html = '<div class="block"></div>';
+            return build(templates, { forceBaseTemplates: true })
+                .spread(function (res) {
+                    var bemjson = { block: 'block' },
+                        html = '<div class="block"></div>';
 
-                res.BEMHTML.apply(bemjson).must.be(html);
-            });
+                    res.BEMHTML.apply(bemjson).must.be(html);
+                });
+        });
     });
 
     it('must use `bemhtml.js` suffix', function () {
@@ -65,7 +67,7 @@ describe('bemhtml', function () {
             });
     });
 
-    describe('base templates', function () {
+    describe('option: sourceSuffixes and base templates', function () {
         it('must ignore templates in `i-bem`', function () {
             var blocks = {
                 'i-bem.bemhtml.js': 'block("block").tag()("a")'
@@ -95,7 +97,7 @@ describe('bemhtml', function () {
         });
     });
 
-    describe('naming', function () {
+    describe('option: naming', function () {
         it('must use origin naming', function () {
             var blocks = {
                 'block.bemhtml.js': 'block("block").tag()("div")'
@@ -125,7 +127,7 @@ describe('bemhtml', function () {
         });
     });
 
-    describe('engineOptions', function () {
+    describe('option: engineOptions', function () {
         beforeEach(function () {
             sinon.stub(console, 'error');
         });
@@ -148,7 +150,7 @@ describe('bemhtml', function () {
                 });
         });
 
-        it('must add i-bem class with elemJsInstances option', function () {
+        it('should support engineOptions.elemJsInstances', function () {
             var blocks = {
                 'block.bemhtml.js': 'block("block").tag()("div")'
             };
@@ -162,7 +164,7 @@ describe('bemhtml', function () {
                 });
         });
 
-        it('must support custom naming', function () {
+        it('should support engineOptions.naming', function () {
             var blocks = {
                 'block.bemhtml.js': 'block("block").tag()("div")'
             };
@@ -176,24 +178,7 @@ describe('bemhtml', function () {
                 });
         });
 
-        it('must throw if template error in dev mode', function () {
-            var blocks = {
-                'block.bemhtml.js': [
-                    'block("block").attrs()(function() {',
-                    '    var attrs = applyNext();',
-                    '    attrs.undef.foo = "bar";',
-                    '    return attrs;',
-                    '});'
-                ].join('\n')
-            };
-
-            return build(blocks)
-                .fail(function (error) {
-                    error.message.must.be.include('Cannot read property');
-                });
-        });
-
-        it('must skip template error in production mode', function () {
+        it('should support engineOptions.production', function () {
             var blocks = {
                 'block.bemhtml.js': [
                     'block("block").attrs()(function() {',
@@ -227,7 +212,7 @@ describe('bemhtml', function () {
                 });
         });
 
-        it('must support off escaping for html tags', function () {
+        it('should support engineOptions.escapeContent', function () {
             var blocks = {
                 'block.bemhtml.js': 'block("block").tag()("div")'
             };
@@ -241,7 +226,7 @@ describe('bemhtml', function () {
                 });
         });
 
-        it('must support engineOptions.exportName fallback for backward compatibility', function () {
+        it('should support engineOptions.exportName fallback for backward compatibility', function () {
             var blocks = { 'b.bemhtml.js': 'block("b").tag()("span")' };
 
             return build(blocks, { engineOptions: { exportName: 'htmlMaker' } })
@@ -255,7 +240,7 @@ describe('bemhtml', function () {
                 });
         });
 
-        it('must support engineOptions.requires', function () {
+        it('should support engineOptions.requires', function () {
             var code = 'global.text = "Hello world!"',
                 options = {
                     engineOptions: { requires: { text: { globals: 'text' } } }
@@ -268,7 +253,7 @@ describe('bemhtml', function () {
         });
     });
 
-    describe('compat', function () {
+    describe('option: compat', function () {
         it('must throw error if old syntax', function () {
             var templates = ['block bla, tag: "a"'];
 
@@ -291,6 +276,26 @@ describe('bemhtml', function () {
         });
     });
 
+    describe('option: iife', function () {
+        it('should wrap templates into Immediately-Invoked Function Expression', function () {
+            var blocks = {
+                'one.bemhtml.js': 'var private = 42;',
+                'two.bemhtml.js': 'block("b").content()(function() { return private; });'
+            };
+
+            return build(blocks, { iife: true })
+                .spread(function (res) { res.BEMHTML.apply({ block: 'b' }); })
+                .fail(function (error) {
+                    error.message.must.be.include('Template error in mode content in block b\n' +
+                        '    private is not defined\n');
+                });
+        });
+    });
+
+    describe('option: sourcemap', function () {
+        // TODO
+    });
+
     describe('handle template errors', function () {
         it('must throw syntax error', function () {
             var templates = ['block("bla")tag()("a")'];
@@ -307,6 +312,23 @@ describe('bemhtml', function () {
             return build(templates)
                 .fail(function (error) {
                     error.message.must.be.include('Predicate should not have arguments');
+                });
+        });
+
+        it('must throw if template error in dev mode', function () {
+            var blocks = {
+                'block.bemhtml.js': [
+                    'block("block").attrs()(function() {',
+                    '    var attrs = applyNext();',
+                    '    attrs.undef.foo = "bar";',
+                    '    return attrs;',
+                    '});'
+                ].join('\n')
+            };
+
+            return build(blocks)
+                .fail(function (error) {
+                    error.message.must.be.include('Cannot read property');
                 });
         });
     });
