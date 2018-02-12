@@ -5,7 +5,12 @@ var fs = require('fs'),
     Tech = require('../../techs/bemtree'),
     loadDirSync = require('mock-enb/utils/dir-utils').loadDirSync,
     FileList = require('enb/lib/file-list'),
-    bundlePath = path.resolve('lib/bundle.js');
+    bundlePath = path.resolve('lib/bundle.js'),
+    assert = require('assert'),
+    utils = require('../utils'),
+    run = function (code) {
+        return utils.run(code, { runtime: 'node' });
+    };
 
 describe('bemtree', function () {
     before(function () {
@@ -137,6 +142,33 @@ describe('bemtree', function () {
 
                     res.BEMTREE.apply(data).must.eql(bemjson);
                 });
+        });
+
+        it('must support engineOptions.exportName fallback for backward compatibility', function () {
+            var blocks = { 'b.bemtree.js': 'block("b").content()("test")' };
+
+            return build(blocks, { engineOptions: { exportName: 'bemtreeMaker' } })
+                .spread(function (res) {
+                    assert(res.bemtreeMaker, 'No BEMTREE exported as bemtreeMaker');
+
+                    res
+                        .bemtreeMaker
+                        .apply({ block: 'b' })
+                        .content
+                        .must.be('test');
+                });
+        });
+
+        it('must support engineOptions.requires', function () {
+            var code = 'global.text = "Hello world!"',
+                options = {
+                    engineOptions: { requires: { text: { globals: 'text' } } }
+                };
+
+            return utils.compileBundle(code, options)
+                .then(run)
+                .then(utils.getLibs)
+                .should.become({ text: 'Hello world!' });
         });
     });
 

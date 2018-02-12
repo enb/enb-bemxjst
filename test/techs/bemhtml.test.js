@@ -1,12 +1,17 @@
 var fs = require('fs'),
     path = require('path'),
     mock = require('mock-fs'),
+    assert = require('assert'),
     MockNode = require('mock-enb/lib/mock-node'),
     Tech = require('../../techs/bemhtml'),
     loadDirSync = require('mock-enb/utils/dir-utils').loadDirSync,
     FileList = require('enb/lib/file-list'),
     bundlePath = path.resolve('lib/bundle.js'),
-    sinon = require('sinon');
+    sinon = require('sinon'),
+    utils = require('../utils'),
+    run = function (code) {
+        return utils.run(code, { runtime: 'node' });
+    };
 
 describe('bemhtml', function () {
     before(function () {
@@ -234,6 +239,32 @@ describe('bemhtml', function () {
 
                     res.BEMHTML.apply(bemjson).must.be(html);
                 });
+        });
+
+        it('must support engineOptions.exportName fallback for backward compatibility', function () {
+            var blocks = { 'b.bemhtml.js': 'block("b").tag()("span")' };
+
+            return build(blocks, { engineOptions: { exportName: 'htmlMaker' } })
+                .spread(function (res) {
+                    assert(res.htmlMaker, 'No BEMHTML exported as htmlMaker');
+
+                    res
+                        .htmlMaker
+                        .apply({ block: 'b' })
+                        .must.be('<span class="b"></span>');
+                });
+        });
+
+        it('must support engineOptions.requires', function () {
+            var code = 'global.text = "Hello world!"',
+                options = {
+                    engineOptions: { requires: { text: { globals: 'text' } } }
+                };
+
+            return utils.compileBundle(code, options)
+                .then(run)
+                .then(utils.getLibs)
+                .should.become({ text: 'Hello world!' });
         });
     });
 

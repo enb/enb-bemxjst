@@ -19,7 +19,7 @@ describe('bundle --node', function () {
         it('must get dependency from global scope', function () {
             var code = 'global.text = "Hello world!"',
                 options = {
-                    requires: {
+                    requires: { // fallback for backward compatibility, use engineOptions.requires
                         text: {
                             globals: 'text'
                         }
@@ -35,7 +35,7 @@ describe('bundle --node', function () {
         it('must get dependency from global scope using dot-delimited key', function () {
             var code = 'global.text = { text: "Hello world!" };',
                 options = {
-                    requires: {
+                    requires: { // fallback for backward compatibility, use engineOptions.requires
                         text: {
                             globals: 'text.text'
                         }
@@ -68,7 +68,7 @@ describe('bundle --node', function () {
 
         it('must require module from CommonJS', function () {
             var options = {
-                    requires: {
+                    requires: { // fallback for backward compatibility, use engineOptions.requires
                         fake: {
                             commonJS: 'fake'
                         }
@@ -87,7 +87,7 @@ describe('bundle --node', function () {
         it('must get dependency from CommonJS if it also is presented in global scope', function () {
             var code = 'global.fake = { getText: function () { return "globals"; } };',
                 options = {
-                    requires: {
+                    requires: { // fallback for backward compatibility, use engineOptions.requires
                         fake: {
                             globals: 'fake',
                             commonJS: 'fake'
