@@ -1,5 +1,4 @@
-API технологий
---------------
+# API технологий
 
 Пакет предоставляет следующие технологии:
 
@@ -7,12 +6,11 @@ API технологий
 * [bemtree](#bemtree) — для сборки шаблонов;
 * [bemjson-to-html](#bemjson-to-html) — для генерации HTML.
 
-bemhtml
--------
+## bemhtml
 
-Собирает `bemhtml.js`-файлы блоков в один файл — `?.bemhtml.js`-бандл, который используется для работы как в браузере, так и в `Node.js`. Не требует подключения исходных файлов шаблонов.
+Собирает `bemhtml.js`-файлы блоков в один файл — `?.bemhtml.js`-бандл, который используется для работы как в браузере, так и в Node.js. Не требует подключения исходных файлов шаблонов.
 
-Поддерживает [YModules](https://ru.bem.info/tools/bem/modules/) и частично [CommonJS](http://www.commonjs.org/), так как в `bemhtml.js`-файлах функция `require` не будет работать корректно.
+Поддерживает [YModules](https://github.com/ymaps/modules/blob/master/README.ru.md) и частично [CommonJS](http://www.commonjs.org), так как в `bemhtml.js`-файлах функция `require` не будет работать корректно.
 
 Если в исполняемой среде нет ни одной модульной системы, то модуль будет предоставлен в глобальную переменную `BEMHTML`.
 
@@ -39,7 +37,7 @@ bemhtml
 
 Тип: `String`. По умолчанию: `?.files`.
 
-Имя таргета, откуда будет доступен список исходных файлов для сборки. Список файлов предоставляет технология [files](https://github.com/enb/enb-bem-techs/blob/master/docs/api.ru.md#files) пакета [enb-bem-techs](https://github.com/enb/enb-bem-techs/blob/master/README.md).
+Имя таргета, откуда будет доступен список исходных файлов для сборки. Список файлов предоставляет технология [files](https://github.com/enb/enb-bem-techs/blob/master/docs/api/api.ru.md#files) пакета [enb-bem-techs](https://github.com/enb/enb-bem-techs/blob/master/README.md).
 
 #### sourceSuffixes
 
@@ -61,7 +59,7 @@ bemhtml
 
 Название, по которому будет доступен BEMHTML-модуль. Способы использования зависят от наличия модульной системы и ее типа. Модуль может применяться в следующих случаях:
 
-* Исполнение шаблонов в `Node.js`.
+* Исполнение шаблонов в Node.js.
 
   ```js
   var BEMHTML = require('bundle.bemhtml.js').BEMHTML;
@@ -75,7 +73,7 @@ bemhtml
   BEMHTML.apply({ block: 'button' }); // <button class="button">...</button>
   ```
 
-* Исполнение шаблонов в браузере c [YModules](https://ru.bem.info/tools/bem/modules/).
+* Исполнение шаблонов в браузере c [YModules](https://github.com/ymaps/modules/blob/master/README.ru.md).
 
   ```js
   modules.require(['BEMHTML'], function(BEMHTML) {
@@ -124,7 +122,7 @@ bemhtml
 <button class="button button_disabled">Неактивна</button>
 ```
 
-Чтобы использовать [стиль Гарри Робертса](https://github.com/bem/bem-naming/blob/master/README.ru.md#В-стиле-Гарри-Робертса) укажите `--` в качестве разделителя для модификатора.
+Чтобы использовать [стиль Two Dashes](https://github.com/bem-sdk-archive/bem-naming#two-dashes-style) укажите `--` в качестве разделителя для модификатора.
 
 ```js
 naming: { elem: '__', mod: '--' }
@@ -135,8 +133,6 @@ naming: { elem: '__', mod: '--' }
 ```html
 <button class="button button--disabled">Неактивна</button>
 ```
-
---------------------------------------
 
 **Пример**
 
@@ -162,12 +158,11 @@ var BemhtmlTech = require('enb-bemxjst/techs/bemhtml'),
  };
 ```
 
-bemtree
--------
+## bemtree
 
 Собирает `bemtree.js`-файлы блоков в один файл — `?.bemtree.js`-бандл, который используется для работы как в браузере, так и в `Node.js`. Не требует подключения исходных файлов шаблонов.
 
-Поддерживает [YModules](https://ru.bem.info/tools/bem/modules/) и частично [CommonJS](http://www.commonjs.org/), так как в `bemhtml.js`-файлах функция `require` не будет работать корректно.
+Поддерживает [YModules](https://github.com/ymaps/modules/blob/master/README.ru.md) и частично [CommonJS](http://www.commonjs.org/), так как в `bemhtml.js`-файлах функция `require` не будет работать корректно.
 
 Если в исполняемой среде нет ни одной модульной системы, то модуль будет предоставлен в глобальную переменную `BEMTREE`.
 
@@ -193,7 +188,7 @@ bemtree
 
 Тип: `String`. По умолчанию: `?.files`.
 
-Имя таргета, откуда будет доступен список исходных файлов для сборки. Список файлов предоставляет технология [files](https://github.com/enb/enb-bem-techs/blob/master/docs/api.ru.md#files) пакета [enb-bem-techs](https://github.com/enb/enb-bem-techs/blob/master/README.md).
+Имя таргета, откуда будет доступен список исходных файлов для сборки. Список файлов предоставляет технология [files](https://github.com/enb/enb-bem-techs/blob/master/docs/api/api.ru.md#files) пакета [enb-bem-techs](https://github.com/enb/enb-bem-techs/blob/master/README.ru.md).
 
 #### sourceSuffixes
 
@@ -215,7 +210,7 @@ bemtree
 
 Название, по которому будет доступен BEMTREE-модуль. Способы использования зависят от наличия модульной системы и ее типа. Модуль может применяться в следующих случаях:
 
-* Исполнение шаблонов в `Node.js`.
+* Исполнение шаблонов в Node.js.
 
   ```js
   var BEMTREE = require('bundle.bemtree.js').BEMTREE;
@@ -229,7 +224,7 @@ bemtree
   BEMTREE.apply({ block: 'page' }); // { block: 'page', content: [...] }
   ```
 
-* Исполнение шаблонов в браузере c [YModules](https://ru.bem.info/tools/bem/modules/).
+* Исполнение шаблонов в браузере c [YModules](https://github.com/ymaps/modules/blob/master/README.ru.md).
 
   ```js
   modules.require(['BEMTREE'], function(BEMTREE) {
@@ -250,8 +245,6 @@ bemtree
 Тип: `Object`. По умолчанию `{}`.
 
 Передает [настройки](https://github.com/bem/bem-xjst/blob/master/docs/ru/3-api.md#Настройки) BEMTREE-движка для `bem-xjst`.
-
---------------------------------------
 
 **Пример**
 
@@ -277,10 +270,9 @@ var BemtreeTech = require('enb-bemxjst/techs/bemtree'),
  };
 ```
 
-bemjson-to-html
----------------
+## bemjson-to-html
 
-Предназначен для сборки HTML-файла. Принимает на вход [BEMJSON](https://ru.bem.info/technology/bemjson/current/bemjson/) и скомпилированный `?.bemhtml.js`-файл (результат работы технологий [bemhtml](#bemhtml)), возвращает HTML (файл `?.html`).
+Предназначен для сборки HTML-файла. Принимает на вход [BEMJSON](https://ru.bem.info/platform/bemjson/) и скомпилированный `?.bemhtml.js`-файл (результат работы технологий [bemhtml](#bemhtml)), возвращает HTML (файл `?.html`).
 
 ### Опции
 
@@ -307,8 +299,6 @@ HTML-файл — результат применения скомпилиров
 Тип: `String`. По умолчанию: `?.bemjson.js`.
 
 Имя BEMJSON-файла, к которому применится скомпилированный шаблон `?.bemhtml.js` (результат работы технологии [bemhtml](#bemhtml)) для получения HTML.
-
----------------------------------
 
 **Пример**
 
