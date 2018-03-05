@@ -133,6 +133,10 @@ module.exports = buildFlow.create()
                     'engineOptions.requires',
                     ' It will be removed in v9.0.0.'
                 );
+
+                if (!engineOptions.requires) {
+                    engineOptions.requires = this._requires;
+                }
             }
 
             engineOptions.sourceMap = { from: this._target };
