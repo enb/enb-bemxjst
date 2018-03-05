@@ -1,6 +1,15 @@
 История изменений
 =================
 
+8.10.1
+-----
+
+Поддержка `options.requires` в качестве фолбека для `options.engineOptions.requires`.
+
+Модуль `bem-xjst` обновлен до версии `8.9.1`.
+
+О всех изменениях `bem-xjst` читайте в [примечании к релизу](https://github.com/bem/bem-xjst/releases/tag/v8.9.1).
+
 8.10.0
 -----
 
