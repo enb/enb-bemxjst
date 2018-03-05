@@ -12,7 +12,7 @@ describe('bundle --browser+ym', function () {
         it('must get dependency from global scope', function () {
             var code = 'window.text = "Hello world!"',
                 options = {
-                    requires: {
+                    requires: { // fallback for backward compatibility, use engineOptions.requires
                         text: {
                             globals: 'text'
                         }
@@ -28,7 +28,7 @@ describe('bundle --browser+ym', function () {
         it('must get dependency from global scope using dot-delimited key', function () {
             var code = 'window.text = { text: "Hello world!" };',
                 options = {
-                    requires: {
+                    requires: { // fallback for backward compatibility, use engineOptions.requires
                         text: {
                             globals: 'text.text'
                         }
@@ -44,7 +44,7 @@ describe('bundle --browser+ym', function () {
         it('must require dependency from ym', function () {
             var code = 'modules.define("text", [], function (provide) { provide("Hello world!"); })',
                 options = {
-                    requires: {
+                    requires: { // fallback for backward compatibility, use engineOptions.requires
                         text: {
                             ym: 'text'
                         }
@@ -77,7 +77,7 @@ describe('bundle --browser+ym', function () {
 
         it('must require module from CommonJS', function () {
             var options = {
-                    requires: {
+                    requires: { // fallback for backward compatibility, use engineOptions.requires
                         fake: {
                             commonJS: 'fake'
                         }
@@ -100,7 +100,7 @@ describe('bundle --browser+ym', function () {
                     '});'
                 ].join(EOL),
                 options = {
-                    requires: {
+                    requires: { // fallback for backward compatibility, use engineOptions.requires
                         fake: {
                             ym: 'text',
                             commonJS: 'fake'

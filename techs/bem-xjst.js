@@ -122,7 +122,18 @@ module.exports = buildFlow.create()
                 engineOptions.naming = this._naming;
             }
 
-            engineOptions.exportName = engineOptions.exportName || this._exportName;
+            engineOptions.exportName || (engineOptions.exportName = this._exportName);
+
+            if (this._requires) {
+                this.node.getLogger().logOptionIsDeprecated(
+                    this.node.unmaskTargetName(this._target),
+                    'enb-bemxjst',
+                    this.getName(),
+                    'requires',
+                    'engineOptions.requires',
+                    ' It will be removed in v9.0.0.'
+                );
+            }
 
             engineOptions.sourceMap = { from: this._target };
 
