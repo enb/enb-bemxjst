@@ -139,7 +139,9 @@ module.exports = buildFlow.create()
                 }
             }
 
-            engineOptions.sourceMap = { from: this._target };
+            if (this._sourcemap !== false) {
+                engineOptions.sourceMap = { from: this._target };
+            }
 
             var prevSourceMap = file.getSourceMap();
 
